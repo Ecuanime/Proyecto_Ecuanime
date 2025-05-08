@@ -1,0 +1,296 @@
+.scrollingMessageContainer {
+  white-space: nowrap;
+  overflow: hidden;
+  position: fixed; /* Changed from relative to fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ff6f61; /* Color rojo llamativo */
+  color: white; /* Texto blanco para contrastar */
+  padding: 4px 0; /* Reducido */
+  text-align: center;
+  font-size: 0.9rem; /* Reducido */
+  font-weight: bold;
+  z-index: 1001; /* Asegura que esté por encima del navbar */
+}
+
+.scrollingText {
+  display: inline-block;
+  /* Changed animation to create a seamless loop */
+  animation: scrollText 25s linear infinite; /* Reducido */
+  /* Double the width to ensure no gaps */
+  width: max-content;
+}
+
+/* Modified keyframes for seamless looping */
+@keyframes scrollText {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Move exactly the width of one copy of the text */
+    transform: translateX(-50%);
+  }
+}
+
+/* === HEADER === */
+.header {
+  position: fixed;
+  top: 25px; /* Adjusted to account for the fixed message bar */
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 8px 0; /* Reducido */
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.scrolled {
+  padding: 8px 0; /* Reducido */
+  background-color: rgba(0, 0, 0, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px; /* Reducido */
+  margin: 0 auto;
+  padding: 0 15px; /* Reducido */
+  flex-wrap: wrap;
+}
+.logo img {
+  height: 85px; /* Aumentado para que sea más grande */
+  width: auto;
+  transform: scaleX(1.2); /* Estirado horizontalmente */
+  margin-left: 70px; /* Alineado a la derecha */
+}
+
+
+/* === NAVIGATION === */
+.nav ul {
+  display: flex;
+  list-style: none;
+}
+
+.nav ul li {
+  margin: 0 12px; /* Reducido */
+}
+
+.nav ul li a {
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.8rem; /* Reducido */
+  letter-spacing: 0.4px; /* Reducido */
+  position: relative;
+}
+
+.nav ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px; /* Reducido */
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+.nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* === ACTIONS === */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Reducido */
+}
+
+.whatsappButton {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Reducido */
+  padding: 8px 16px; /* Reducido */
+  border-radius: 3px; /* Reducido */
+  font-weight: 500; /* Reducido */
+}
+
+/* === PROFILE === */
+.profileContainer {
+  position: relative;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px; /* Reducido */
+  height: 35px; /* Reducido */
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profileButton:hover {
+  background-color: #e03e00;
+}
+
+.profileMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px; /* Reducido */
+  background-color: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px; /* Reducido */
+  width: 200px; /* Reducido */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.profileInfo {
+  padding: 12px; /* Reducido */
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.profileInfo span {
+  font-weight: 500; /* Reducido */
+  font-size: 0.9rem; /* Reducido */
+  margin-bottom: 2px; /* Reducido */
+}
+
+.profileInfo small {
+  color: #ccc;
+  font-size: 0.7rem; /* Reducido */
+}
+
+.profileMenuDivider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.profileMenuItem {
+  display: block;
+  padding: 10px 12px; /* Reducido */
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  text-align: left;
+  width: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.8rem; /* Reducido */
+}
+
+.profileMenuItem:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--accent-color);
+}
+
+/* === MOBILE MENU TOGGLE === */
+.mobileMenuToggle {
+  display: none;
+  font-size: 1.6rem; /* Reducido */
+  cursor: pointer;
+  color: white;
+}
+
+/* === RESPONSIVE STYLES === */
+
+@media (max-width: 992px) {
+  .mobileMenuToggle {
+    display: block;
+  }
+
+  .nav {
+    position: fixed;
+    top: 105px; /* Adjusted to account for the fixed message bar */
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 105px);
+    background-color: rgba(0, 0, 0, 0.95);
+    transition: left 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .nav.active {
+    left: 0;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav ul li {
+    margin: 15px 0; /* Reducido */
+  }
+
+  .nav ul li a {
+    font-size: 1.1rem; /* Reducido */
+  }
+
+  .headerActions {
+    margin-top: 15px; /* Reducido */
+    justify-content: center;
+  }
+
+  .whatsappButton {
+    padding: 8px 14px; /* Reducido */
+    font-size: 0.85rem; /* Reducido */
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 8px; /* Reducido */
+  }
+
+  .logo img {
+    height: 45px; /* Reducido */
+  }
+
+  .headerActions {
+    gap: 8px; /* Reducido */
+  }
+
+  .whatsappButton {
+    font-size: 0.75rem; /* Reducido */
+  }
+}
+
+@media (max-width: 576px) {
+  .logo img {
+    height: 40px; /* Reducido */
+  }
+
+  .whatsappButton {
+    display: none;
+  }
+
+  .nav.active .whatsappButton {
+    display: flex;
+    margin-top: 20px; /* Reducido */
+    font-size: 0.9rem; /* Reducido */
+  }
+
+  .profileButton {
+    width: 32px; /* Reducido */
+    height: 32px; /* Reducido */
+  }
+}

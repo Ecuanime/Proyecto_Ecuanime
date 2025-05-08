@@ -1,0 +1,406 @@
+.products {
+  background-color: #111;
+  position: relative;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 30px; /* Reducido */
+  font-size: 1.1rem; /* Reducido */
+  color: #ccc;
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px; /* Reducido */
+  margin-bottom: 30px; /* Reducido */
+}
+
+.categoryButton {
+  padding: 8px 15px; /* Reducido */
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 25px; /* Reducido */
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.8rem; /* Reducido */
+}
+
+.categoryButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.categoryButton.active {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px; /* Reducido */
+}
+
+.productCard {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px; /* Reducido */
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.productCard:hover {
+  transform: translateY(-8px); /* Reducido */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Reducido */
+}
+
+.productImage {
+  height: 220px; /* Reducido */
+  overflow: hidden;
+}
+
+.productImage img {
+  width: 100%;
+  height: 220px; /* Reducido */
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.productCard:hover .productImage img {
+  transform: scale(1.08); /* Reducido */
+}
+
+.productInfo {
+  padding: 15px; /* Reducido */
+}
+
+.productInfo h3 {
+  font-size: 1.1rem; /* Reducido */
+  margin-bottom: 12px; /* Reducido */
+  font-weight: 600;
+}
+
+.productPrice {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px; /* Reducido */
+}
+
+.productPrice span {
+  font-size: 1.2rem; /* Reducido */
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.productPrice small {
+  font-size: 0.7rem; /* Reducido */
+  color: #ccc;
+  margin-top: 2px; /* Reducido */
+}
+
+/* Estilos para las tallas */
+.tallasContainer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px; /* Reducido */
+  flex-wrap: wrap;
+  margin-bottom: 12px; /* Reducido */
+}
+
+.contactButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* Reducido */
+  width: 100%;
+  padding: 8px 0; /* Reducido */
+  background-color: transparent;
+  border: 1px solid var(--accent-color);
+  border-radius: 4px; /* Reducido */
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 0.8rem; /* Reducido */
+  margin-bottom: 8px; /* Reducido */
+}
+
+.contactButton:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.detailsButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 0; /* Reducido */
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 4px; /* Reducido */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 0.8rem; /* Reducido */
+}
+
+.detailsButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0; /* Reducido */
+}
+
+.spinner {
+  width: 35px; /* Reducido */
+  height: 35px; /* Reducido */
+  border: 2px solid rgba(255, 255, 255, 0.1); /* Reducido */
+  border-radius: 50%;
+  border-top-color: var(--accent-color);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 12px; /* Reducido */
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.noProducts {
+  text-align: center;
+  padding: 40px 0; /* Reducido */
+}
+
+.noProductsIcon {
+  font-size: 2.5rem; /* Reducido */
+  color: #666;
+  margin-bottom: 12px; /* Reducido */
+}
+
+.noProducts p {
+  color: #ccc;
+  font-size: 1.1rem; /* Reducido */
+}
+
+/* Estilos para el modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 15px; /* Reducido */
+}
+
+.modalContent {
+  background-color: #222;
+  border-radius: 8px; /* Reducido */
+  width: 90%;
+  max-width: 900px; /* Reducido */
+  height: 550px; /* Reducido */
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px; /* Reducido */
+  right: 12px; /* Reducido */
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px; /* Reducido */
+  cursor: pointer;
+  z-index: 10;
+}
+
+.modalImageContainer {
+  width: 50%;
+  height: 550px; /* Reducido */
+}
+
+.modalImageContainer img {
+  width: 100%;
+  height: 550px; /* Reducido */
+  object-fit: cover;
+  border-top-left-radius: 8px; /* Reducido */
+  border-bottom-left-radius: 8px; /* Reducido */
+}
+
+.modalInfo {
+  width: 50%;
+  padding: 25px; /* Reducido */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.modalInfo h2 {
+  font-size: 1.8rem; /* Reducido */
+  margin-bottom: 12px; /* Reducido */
+  color: #fff;
+}
+
+.modalPrice {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px; /* Reducido */
+}
+
+.modalPrice span {
+  font-size: 1.6rem; /* Reducido */
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.modalPrice small {
+  font-size: 0.9rem; /* Reducido */
+  color: #ccc;
+  margin-top: 2px; /* Reducido */
+}
+
+.modalDescription {
+  margin-bottom: 15px; /* Reducido */
+}
+
+.modalDescription h3 {
+  font-size: 1.3rem; /* Reducido */
+  margin-bottom: 8px; /* Reducido */
+  color: #ddd;
+}
+
+.modalDescription p {
+  color: #aaa;
+  line-height: 1.5; /* Reducido */
+  max-height: 220px; /* Reducido */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 8; /* Reducido */
+  -webkit-box-orient: vertical;
+}
+
+.modalSizes {
+  margin-bottom: 15px; /* Reducido */
+}
+
+.modalSizes h3 {
+  font-size: 1.2rem; /* Reducido */
+  margin-bottom: 8px; /* Reducido */
+  color: #ddd;
+}
+
+.modalSizesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 8px; /* Reducido */
+  flex-wrap: wrap;
+}
+
+.modalSizesList li {
+  padding: 6px 10px; /* Reducido */
+  border: 1px solid #555;
+  border-radius: 4px; /* Reducido */
+  color: #eee;
+  font-size: 0.8rem; /* Reducido */
+  white-space: nowrap;
+}
+
+.modalContactButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* Reducido */
+  width: 100%;
+  padding: 10px 0; /* Reducido */
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 4px; /* Reducido */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1.1rem; /* Reducido */
+  margin-top: auto;
+}
+
+.modalContactButton:hover {
+  background-color: #d35400;
+}
+
+@media (max-width: 1200px) {
+  .productsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    flex-direction: column;
+    height: auto;
+    max-height: 90vh;
+  }
+
+  .modalImageContainer {
+    width: 100%;
+    height: 320px; /* Reducido */
+  }
+
+  .modalImageContainer img {
+    height: 320px; /* Reducido */
+    border-radius: 8px 8px 0 0; /* Reducido */
+  }
+
+  .modalInfo {
+    width: 100%;
+    padding: 15px; /* Reducido */
+    height: auto;
+  }
+
+  .modalDescription p {
+    max-height: 180px; /* Reducido */
+    -webkit-line-clamp: 6; /* Reducido */
+  }
+}
+
+@media (max-width: 576px) {
+  .productsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .categories {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .categoryButton {
+    width: 100%;
+    max-width: 280px; /* Reducido */
+  }
+
+  .modalSizesList {
+    flex-direction: row;
+  }
+}

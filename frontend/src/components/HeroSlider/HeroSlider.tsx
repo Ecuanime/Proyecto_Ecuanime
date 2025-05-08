@@ -35,6 +35,7 @@ const HeroSlider = () => {
   const [isMobile, setIsMobile] = useState(false)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
+  const [useJsAnimation, setUseJsAnimation] = useState(false)
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null)
   const slideRef = useRef<HTMLDivElement>(null)
 
@@ -51,7 +52,7 @@ const HeroSlider = () => {
 
   // Función para cambiar de slide
   const goToSlide = (index: number) => {
-    if (isAnimating) return
+    if (isAnimating || !useJsAnimation) return
     setIsAnimating(true)
     setCurrentSlide(index)
     setTimeout(() => setIsAnimating(false), 300) // Duración de la animación
@@ -59,18 +60,22 @@ const HeroSlider = () => {
 
   // Función para ir al slide anterior
   const prevSlide = () => {
+    if (!useJsAnimation) return
     const newIndex = currentSlide === 0 ? slides.length - 1 : currentSlide - 1
     goToSlide(newIndex)
   }
 
   // Función para ir al slide siguiente
   const nextSlide = () => {
+    if (!useJsAnimation) return
     const newIndex = currentSlide === slides.length - 1 ? 0 : currentSlide + 1
     goToSlide(newIndex)
   }
 
-  // Autoplay
+  // Autoplay con JavaScript (solo si useJsAnimation es true)
   useEffect(() => {
+    if (!useJsAnimation) return
+
     if (autoPlayRef.current) {
       clearInterval(autoPlayRef.current)
     }
@@ -83,18 +88,21 @@ const HeroSlider = () => {
         clearInterval(autoPlayRef.current)
       }
     }
-  }, [currentSlide])
+  }, [currentSlide, useJsAnimation])
 
   // Manejo de eventos táctiles para dispositivos móviles
   const handleTouchStart = (e: React.TouchEvent) => {
+    if (!useJsAnimation) return
     setTouchStart(e.touches[0].clientX)
   }
 
   const handleTouchMove = (e: React.TouchEvent) => {
+    if (!useJsAnimation) return
     setTouchEnd(e.touches[0].clientX)
   }
 
   const handleTouchEnd = () => {
+    if (!useJsAnimation) return
     if (touchStart - touchEnd > 50) {
       // Deslizar a la izquierda
       nextSlide()
@@ -106,6 +114,11 @@ const HeroSlider = () => {
     }
   }
 
+  // Cambiar entre animación CSS y JS
+  const toggleAnimation = () => {
+    setUseJsAnimation(!useJsAnimation)
+  }
+
   return (
     <div
       className={styles.heroSlider}
@@ -113,22 +126,25 @@ const HeroSlider = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className={styles.slidesContainer} ref={slideRef}>
+      <div 
+        className={`${styles.slidesContainer} ${!useJsAnimation ? styles.autoplay : ''}`} 
+        ref={slideRef}
+      >
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`${styles.slide} ${index === currentSlide ? styles.active : ""}`}
+            className={`${styles.slide} ${useJsAnimation && index === currentSlide ? styles.active : ""}`}
             style={{
               backgroundImage: `url(${slide.image})`,
-              opacity: index === currentSlide ? 1 : 0,
-              zIndex: index === currentSlide ? 1 : 0,
+              opacity: useJsAnimation ? (index === currentSlide ? 1 : 0) : undefined,
+              zIndex: useJsAnimation ? (index === currentSlide ? 1 : 0) : undefined,
             }}
           >
           </div>
         ))}
       </div>
 
-      {!isMobile && (
+      {!isMobile && useJsAnimation && (
         <>
           <button className={`${styles.navButton} ${styles.prevButton}`} onClick={prevSlide}>
             <FaChevronLeft />
@@ -143,11 +159,29 @@ const HeroSlider = () => {
         {slides.map((_, index) => (
           <button
             key={index}
-            className={`${styles.indicator} ${index === currentSlide ? styles.active : ""}`}
+            className={`${styles.indicator} ${useJsAnimation && index === currentSlide ? styles.active : ""}`}
             onClick={() => goToSlide(index)}
           />
         ))}
       </div>
+      
+      {/* Botón oculto para cambiar entre animación CSS y JS (solo para pruebas) */}
+      <button 
+        onClick={toggleAnimation} 
+        style={{ 
+          position: 'absolute', 
+          bottom: '5px', 
+          right: '5px', 
+          zIndex: 100, 
+          background: 'transparent', 
+          border: 'none', 
+          color: 'transparent',
+          width: '10px',
+          height: '10px'
+        }}
+      >
+        Toggle
+      </button>
     </div>
   )
 }

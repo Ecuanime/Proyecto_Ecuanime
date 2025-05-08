@@ -5,8 +5,17 @@
 
 .content {
   display: flex;
-  gap: 30px; /* Reducido */
+  flex-direction: column;
+  gap: 20px;
   align-items: center;
+}
+
+@media (min-width: 992px) {
+  .content {
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+  }
 }
 
 .text {
@@ -14,21 +23,35 @@
 }
 
 .text p {
-  margin-bottom: 15px; /* Reducido */
-  font-size: 1rem; /* Reducido */
-  line-height: 1.6; /* Reducido */
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .text p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
 }
 
 .values {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px; /* Reducido */
-  margin-top: 30px; /* Reducido */
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .values {
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 30px;
+  }
 }
 
 .value {
   text-align: center;
-  padding: 15px; /* Reducido */
+  padding: 15px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.05);
   transition: transform 0.3s ease, background-color 0.3s ease;
@@ -41,17 +64,18 @@
 
 .value h3 {
   color: var(--accent-color);
-  margin-bottom: 8px; /* Reducido */
-  font-size: 1.1rem; /* Reducido */
+  margin-bottom: 8px;
+  font-size: 1.1rem;
 }
 
 .video {
   flex: 1;
+  width: 100%;
 }
 
 .videoWrapper {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
   border-radius: 8px;
@@ -85,8 +109,8 @@
 }
 
 .playButton {
-  width: 70px; /* Reducido */
-  height: 70px; /* Reducido */
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.2);
   display: flex;
@@ -94,6 +118,13 @@
   align-items: center;
   color: white;
   transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .playButton {
+    width: 70px;
+    height: 70px;
+  }
 }
 
 .playButton:hover {
@@ -109,27 +140,11 @@
 
 .fadeIn {
   opacity: 0;
-  transform: translateY(20px); /* Reducido */
+  transform: translateY(20px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-@media (max-width: 992px) {
-  .content {
-    flex-direction: column;
-  }
-
-  .values {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .values {
-    grid-template-columns: repeat(1, 1fr);
-  }
 }

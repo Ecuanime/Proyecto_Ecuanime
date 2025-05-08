@@ -2,7 +2,7 @@
 
 import { type ReactNode, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
-import { FaHome, FaUsers, FaCog, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa"
+import { FaHome, FaUsers,  FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa"
 import { useAuth } from "../../../context/AuthContext"
 import styles from "./AdminLayout.module.css"
 
@@ -66,14 +66,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
             <span>Usuarios</span>
           </Link>
 
-          <Link
-            to="/admin/configuracion"
-            className={`${styles.navItem} ${location.pathname === "/admin/configuracion" ? styles.active : ""}`}
-            onClick={closeSidebar}
-          >
-            <FaCog className={styles.navIcon} />
-            <span>Configuración</span>
-          </Link>
+
         </nav>
 
         <div className={styles.sidebarFooter}>

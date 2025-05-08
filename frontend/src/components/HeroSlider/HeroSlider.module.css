@@ -1,11 +1,24 @@
 .heroSlider {
-  height: 100vh;
+  height: 60vh;
   width: 100%;
   margin-top: 0;
   position: relative;
   overflow: hidden;
-  padding-top: 50px;
+  padding-top: 22px;
   box-sizing: border-box;
+}
+
+@media (min-width: 376px) {
+  .heroSlider {
+    padding-top: 25px;
+  }
+}
+
+@media (min-width: 768px) {
+  .heroSlider {
+    height: 100vh;
+    padding-top: 50px;
+  }
 }
 
 .slidesContainer {
@@ -14,22 +27,85 @@
   position: relative;
 }
 
+/* Manteniendo la clase .slide como solicitaste */
 .slide {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw; /* Se amplía al 100% del viewport */
+  width: 100vw;
   height: 100%;
-  background-size: 1350; /* Ancho fijo de 1200px, alto automático */
+  background-size: 1350;
   background-repeat: no-repeat;
   background-position: center 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 0;
+}
+
+/* Solución para que la imagen no se pierda en responsive */
+@media (max-width: 1350px) {
+  .slide {
+    background-position: center top; /* Ajustamos la posición para que se vea la parte importante */
+  }
+}
+
+@media (max-width: 768px) {
+  .slide {
+    background-position: center top;
+    background-size: cover; /* Usamos cover para dispositivos pequeños */
+  }
+}
+
+/* Para iPhone SE y dispositivos muy pequeños */
+@media (max-width: 375px) {
+  .slide {
+    background-position: center top;
+  }
 }
 
 .slide.active {
   opacity: 1;
+  z-index: 1;
+}
+
+/* Animación automática con CSS */
+@keyframes slideshow {
+  0%, 20% {
+    opacity: 1;
+    z-index: 1;
+  }
+  25%, 95% {
+    opacity: 0;
+    z-index: 0;
+  }
+  100% {
+    opacity: 0;
+    z-index: 0;
+  }
+}
+
+/* Aplicamos la animación a cada slide con un retraso diferente */
+.slidesContainer.autoplay .slide:nth-child(1) {
+  animation: slideshow 25s infinite;
+}
+
+.slidesContainer.autoplay .slide:nth-child(2) {
+  animation: slideshow 25s infinite 5s;
+}
+
+.slidesContainer.autoplay .slide:nth-child(3) {
+  animation: slideshow 25s infinite 10s;
+}
+
+.slidesContainer.autoplay .slide:nth-child(4) {
+  animation: slideshow 25s infinite 15s;
+}
+
+.slidesContainer.autoplay .slide:nth-child(5) {
+  animation: slideshow 25s infinite 20s;
 }
 
 .navButton {
@@ -39,16 +115,32 @@
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 0.9rem;
   cursor: pointer;
   z-index: 10;
   transition: background-color 0.3s ease;
+}
+
+@media (min-width: 376px) {
+  .navButton {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .navButton {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
 }
 
 .navButton:hover {
@@ -56,26 +148,45 @@
 }
 
 .prevButton {
-  left: 15px;
+  left: 10px;
+}
+
+@media (min-width: 768px) {
+  .prevButton {
+    left: 15px;
+  }
 }
 
 .nextButton {
-  right: 15px;
+  right: 10px;
+}
+
+@media (min-width: 768px) {
+  .nextButton {
+    right: 15px;
+  }
 }
 
 .indicators {
   position: absolute;
-  bottom: 25px;
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  gap: 6px;
   z-index: 10;
 }
 
+@media (min-width: 768px) {
+  .indicators {
+    bottom: 25px;
+    gap: 8px;
+  }
+}
+
 .indicator {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
   border: none;
@@ -83,35 +194,57 @@
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+@media (min-width: 376px) {
+  .indicator {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+}
+
 .indicator.active {
   background-color: var(--accent-color);
   transform: scale(1.1);
 }
 
-@media (max-width: 992px) {
-  .slideContent h2 {
-    font-size: 2.2rem;
+/* Animación para los indicadores */
+@keyframes indicatorActive {
+  0%, 20% {
+    background-color: var(--accent-color);
+    transform: scale(1.1);
   }
-
-  .slideContent p {
-    font-size: 1.1rem;
+  25%, 95% {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1);
   }
 }
 
-@media (max-width: 576px) {
-  .heroSlider {
-    height: 70vh;
-  }
+.slidesContainer.autoplay ~ .indicators .indicator:nth-child(1) {
+  animation: indicatorActive 25s infinite;
+}
 
-  .slideContent {
-    margin-top: 70px;
-  }
+.slidesContainer.autoplay ~ .indicators .indicator:nth-child(2) {
+  animation: indicatorActive 25s infinite 5s;
+}
 
-  .slideContent h2 {
-    font-size: 1.8rem;
-  }
+.slidesContainer.autoplay ~ .indicators .indicator:nth-child(3) {
+  animation: indicatorActive 25s infinite 10s;
+}
 
-  .slideContent p {
-    font-size: 0.9rem;
-  }
+.slidesContainer.autoplay ~ .indicators .indicator:nth-child(4) {
+  animation: indicatorActive 25s infinite 15s;
+}
+
+.slidesContainer.autoplay ~ .indicators .indicator:nth-child(5) {
+  animation: indicatorActive 25s infinite 20s;
 }

@@ -179,12 +179,7 @@ const Dashboard = () => {
                             >
                               Ver
                             </button>
-                            <button
-                              className={styles.actionButton}
-                              onClick={() => window.open(`mailto:${client.email}`, "_blank")}
-                            >
-                              Contactar
-                            </button>
+
                           </div>
                         </td>
                       </tr>

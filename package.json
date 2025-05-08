@@ -6,10 +6,11 @@
   "scripts": {
     "install-backend": "cd Backend && npm install",
     "install-frontend": "cd frontend && npm install",
-    "build-frontend": "cd frontend && npm run build",
+    "build-frontend": "cd frontend && npm install && npm run build",
     "start": "cd Backend && npm start",
     "build": "npm run install-backend && npm run install-frontend && npm run build-frontend",
-    "dev": "cd Backend && npm run dev"
+    "dev": "cd Backend && npm run dev",
+    
   },
   "engines": {
     "node": ">=18.0.0"

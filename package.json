@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "Proyecto Ecuanime Moda",
   "main": "index.js",
-  "scripts": {
-    "install-backend": "cd Backend && npm install",
-    "install-frontend": "cd frontend && npm install",
-    "build-frontend": "cd frontend && npx vite build",
-    "start": "cd Backend && npm start",
-    "build": "npm run install-backend && npm run install-frontend && npm run build-frontend",
-    "dev": "cd Backend && npm run dev"
-  },
+"scripts": {
+  "install-backend": "cd Backend && npm install",
+  "install-frontend": "cd frontend && npm install",
+  "prebuild-frontend": "cd frontend && npm install vite tsx -D",
+  "build-frontend": "cd frontend && npx vite build",
+  "start": "cd Backend && npm start",
+  "build": "npm run install-backend && npm run install-frontend && npm run prebuild-frontend && npm run build-frontend",
+  "dev": "cd Backend && npm run dev"
+},
   "engines": {
     "node": ">=18.0.0"
   }

@@ -23,9 +23,15 @@ app.use(express.json());
 // Configuración de CORS
 const corsOptions = {
   origin: (origin, callback) => {
-    const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [];
+    const allowedOrigins = process.env.CORS_ORIGIN
+      ? process.env.CORS_ORIGIN.split(',')
+      : [];
 
-    if (!origin || process.env.NODE_ENV === 'development' || allowedOrigins.includes(origin)) {
+    if (
+      !origin ||
+      process.env.NODE_ENV === 'development' ||
+      allowedOrigins.includes(origin)
+    ) {
       callback(null, true);
     } else {
       callback(new Error('No permitido por CORS'));
@@ -33,7 +39,7 @@ const corsOptions = {
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 app.use(cors(corsOptions));
@@ -42,34 +48,37 @@ app.use(cors(corsOptions));
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 
-// Ruta de prueba
 app.get('/api/status', (req, res) => {
   res.json({
     status: 'success',
     message: 'API funcionando correctamente',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
   });
 });
 
-// Middleware para manejar errores
-app.use(notFound);
-app.use(errorHandler);
-
-// === NUEVO: Servir frontend estático ===
+// === Servir frontend estático ===
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const frontendPath = path.resolve(__dirname, '../../frontend/dist');
+// Asumiendo que tu carpeta "frontend" es hermana de "Backend"
+const frontendPath = path.resolve(__dirname, '../frontend/dist');
+
 app.use(express.static(frontendPath));
 
-// Catch-all: para rutas de React
+// Catch-all para React Router: envía siempre index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
+// Middleware de manejo de errores (404 y genérico)
+app.use(notFound);
+app.use(errorHandler);
+
 // Iniciar servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT} en modo ${process.env.NODE_ENV}`);
+  console.log(
+    `Servidor corriendo en puerto ${PORT} en modo ${process.env.NODE_ENV}`
+  );
 });

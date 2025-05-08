@@ -1,6 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 import connectDB from './config/db.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
@@ -21,7 +24,7 @@ app.use(express.json());
 const corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [];
-    
+
     if (!origin || process.env.NODE_ENV === 'development' || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -35,11 +38,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Rutas
+// Rutas de la API
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 
-// Ruta de estado
+// Ruta de prueba
 app.get('/api/status', (req, res) => {
   res.json({
     status: 'success',
@@ -52,6 +55,18 @@ app.get('/api/status', (req, res) => {
 // Middleware para manejar errores
 app.use(notFound);
 app.use(errorHandler);
+
+// === NUEVO: Servir frontend estático ===
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const frontendPath = path.resolve(__dirname, '../../frontend/dist');
+app.use(express.static(frontendPath));
+
+// Catch-all: para rutas de React
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 // Iniciar servidor
 const PORT = process.env.PORT || 5000;

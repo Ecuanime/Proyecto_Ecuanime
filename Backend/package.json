@@ -4,11 +4,12 @@
   "description": "Backend para negocio de ropa mayorista",
   "main": "src/server.js",
   "type": "module",
-  "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "create-admin": "node src/utils/createAdmin.js"
-  },
+"scripts": {
+  "start": "node src/server.js",
+  "dev": "nodemon src/server.js",
+  "create-admin": "node src/utils/createAdmin.js",
+  "build": "cd ../frontend && npm install && npm run build"
+},
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

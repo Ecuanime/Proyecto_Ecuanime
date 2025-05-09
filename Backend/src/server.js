@@ -42,7 +42,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // **SUBIMOS DOS NIVELES** hasta Proyecto_REACT_ECUANIME, luego bajamos a frontend/dist
+// src/server.js
 const frontendDist = path.resolve(__dirname, '../../frontend/dist');
+console.log('>>> frontendDist is', frontendDist);
+app.use(express.static(frontendDist));
+
+
 
 app.use(express.static(frontendDist));
 app.get('*', (req, res) => {

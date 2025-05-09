@@ -11,7 +11,7 @@
     "install-frontend": "cd ../frontend && npm install",
     "build-frontend": "npm run install-frontend && cd ../frontend && npm run build",
     "build": "npm run build-frontend",
-    "postinstall": "npm run build-frontend"
+  "postinstall": "npm run install-frontend && npm run build-frontend"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -26,7 +26,6 @@ const corsOptions = {
     const allowedOrigins = process.env.CORS_ORIGIN
       ? process.env.CORS_ORIGIN.split(',')
       : [];
-
     if (
       !origin ||
       process.env.NODE_ENV === 'development' ||
@@ -41,13 +40,11 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
-
 app.use(cors(corsOptions));
 
 // Rutas de la API
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-
 app.get('/api/status', (req, res) => {
   res.json({
     status: 'success',
@@ -57,16 +54,16 @@ app.get('/api/status', (req, res) => {
   });
 });
 
-// === Servir frontend estático ===
+// === SERVIR FRONTEND ESTÁTICO (antes de los errores) ===
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Asumiendo que tu carpeta "frontend" es hermana de "Backend"
+// Sube un nivel (de Backend) y entra a frontend/dist
 const frontendPath = path.resolve(__dirname, '../frontend/dist');
 
 app.use(express.static(frontendPath));
 
-// Catch-all para React Router: envía siempre index.html
+// Catch-all: siempre enviar index.html para React Router
 app.get('*', (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
 });

@@ -194,48 +194,48 @@ const Products = () => {
           </div>
         )}
       </div>
-      {isModalOpen && selectedProduct && (
-        <div className={styles.modalOverlay} onClick={handleCloseModal}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.closeButton} onClick={handleCloseModal}>
-              ×
-            </button>
-            <div className={styles.modalImageContainer} id="productDetailImage">
-              <img src={selectedProduct.image || "/placeholder.svg"} alt={selectedProduct.name} />
-            </div>
-            <div className={styles.modalInfo}>
-              <h2>{selectedProduct.name}</h2>
-              <div className={styles.modalPrice}>
-                <span>$ {selectedProduct.price.toLocaleString("es-CO")}</span>
-                <small>Precio mayorista</small>
-              </div>
-              <div className={styles.modalDescription}>
-                <h3>Descripción:</h3>
-                <p>{selectedProduct.description}</p>
-              </div>
-              {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
-                <div className={styles.modalSizes}>
-                  <h3>Tallas Disponibles:</h3>
-                  <ul className={styles.modalSizesList}>
-                    {selectedProduct.sizes.map((size, index) => (
-                      <li key={index}>{size}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              <button
-                className={styles.modalContactButton}
-                onClick={() => {
-                  handleContactClick(selectedProduct)
-                  handleCloseModal()
-                }}
-              >
-                <FaWhatsapp /> Contactar asesor
-              </button>
-            </div>
-          </div>
+ {isModalOpen && selectedProduct && (
+  <div className={styles.modalOverlay} onClick={handleCloseModal}>
+    <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+      <button className={styles.closeButton} onClick={handleCloseModal}>
+        ×
+      </button>
+      <div className={styles.modalImageContainer}>
+        <img src={selectedProduct.image || "/placeholder.svg"} alt={selectedProduct.name} />
+      </div>
+      <div className={styles.modalInfo}>
+        <h2>{selectedProduct.name}</h2>
+        <div className={styles.modalPrice}>
+          <span>$ {selectedProduct.price.toLocaleString("es-CO")}</span>
+          <small>Precio mayorista</small>
         </div>
-      )}
+        <div className={styles.modalDescription}>
+          <h3>Descripción:</h3>
+          <p>{selectedProduct.description}</p>
+        </div>
+        {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
+          <div className={styles.modalSizes}>
+            <h3>Tallas Disponibles:</h3>
+            <ul className={styles.modalSizesList}>
+              {selectedProduct.sizes.map((size, index) => (
+                <li key={index}>{size}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <button
+          className={styles.modalContactButton}
+          onClick={() => {
+            handleContactClick(selectedProduct)
+            handleCloseModal()
+          }}
+        >
+          <FaWhatsapp /> Contactar asesor
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </section>
   )
 }

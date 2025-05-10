@@ -9,9 +9,10 @@ interface Product {
   name: string
   price: number
   image: string
+  modalImage?: string // Nueva propiedad para la imagen del modal
   category: string
   description: string
-  sizes?: string[] // Added sizes attribute
+  sizes?: string[]
 }
 
 const Products = () => {
@@ -34,7 +35,8 @@ const Products = () => {
             id: 1,
             name: "Camiseta tipo polo",
             price: 30000,
-            image: " https://i.postimg.cc/5yYDGvS6/imagen-polo-editada.jpg",
+            image: "https://i.postimg.cc/5yYDGvS6/imagen-polo-editada.jpg",
+            modalImage: "https://i.postimg.cc/MGTnQJqV/portada-tipo-polo-catalogo.jpg", // Misma imagen por ahora
             category: "Hombre",
             description:
               "Descubre nuestras camisetas tipo polo en tela piqué suavizada de alto gramaje (220), diseñadas para ofrecerte máximo confort y durabilidad. Su tejido premium garantiza una textura suave al tacto y un excelente acabado, ideal tanto para uso diario como para uniformes corporativos. Disponibles en 22 vibrantes colores que se mantienen firmes lavado tras lavado. Calidad superior que se nota y se siente.",
@@ -44,27 +46,30 @@ const Products = () => {
             id: 2,
             name: "Boxer Masculino",
             price: 9800,
-            image: "https://i.postimg.cc/zfrkppSN/portada-boxers-catalogo.jpg",
+            image: "https://i.postimg.cc/pVgccPSV/imagen-de-productos-boxers.jpg",
+            modalImage: "https://i.postimg.cc/zfrkppSN/portada-boxers-catalogo.jpg", // Misma imagen por ahora
             category: "Hombre",
             description:
               "Boxers masculinos en tela microfibra transpirable, que brindan frescura y comodidad todo el día. Con resorte ancho de 4 cm para un ajuste perfecto y excelentes acabados que garantizan durabilidad y estilo. Largo medio, disponibles en 10 colores modernos y Calidad premium en cada detalle.",
-            sizes: ["S", "M", "L", "XL", "XXL", "XXXL"], // Added sizes
+            sizes: ["S", "M", "L", "XL", "XXL", "XXXL"],
           },
           {
             id: 4,
             name: "Camisetas de mujer",
             price: 20000,
-            image: "https://i.postimg.cc/7ZGPP8cH/portada-camisetas-dama-catalogo.jpg",
+            image: "https://i.postimg.cc/XJNXbMDp/imagen-productos-camisetas-dama.jpg",
+            modalImage: "https://i.postimg.cc/7ZGPP8cH/portada-camisetas-dama-catalogo.jpg", // Misma imagen por ahora
             category: "Mujer",
             description:
               "Camisetas para mujer con cuello redondo y moldería regular fit, elaboradas en tela poli algodón de excelente calidad, suave al tacto y de gran durabilidad. Más de 40 diseños modernos y actuales que se adaptan a tu estilo.  Comodidad y moda en cada detalle.",
-            sizes: ["S", "M", "L", "XL", "XXL"], // Added sizes
+            sizes: ["S", "M", "L", "XL", "XXL"],
           },
           {
             id: 7,
             name: "Camisetas hombre ",
             price: 20000,
-            image: "https://i.postimg.cc/3xGzym3W/portada-camisetas-hombre-catalogo.jpg",
+            image: "https://i.postimg.cc/Pqp2QcMv/imagen-portada-productos.jpg",
+            modalImage: "https://i.postimg.cc/3xGzym3W/portada-camisetas-hombre-catalogo.jpg", // Misma imagen por ahora
             category: "Hombre",
             description:
               "Camisetas cuello redondo con moldería regular fit, confeccionadas en tela poli algodón que ofrece excelente calidad, comodidad y durabilidad. Más de 40 diseños modernos y actuales para todos los gustos. La combinación perfecta entre estilo y resistencia.",
@@ -75,17 +80,18 @@ const Products = () => {
             name: "Camisetas hombre y mujer Oversize",
             price: 30000,
             image: "https://i.postimg.cc/1zXvP0sk/portada-camisetas-oversize-catalogo.jpg",
+            modalImage: "https://i.postimg.cc/1zXvP0sk/portada-camisetas-oversize-catalogo.jpg", // Misma imagen por ahora
             category: "mujer",
             description:
               "Camisetas oversize para hombre y mujer, hechas en 100% algodón de alto gramaje premium: suaves, resistentes y con flow. Disponibles en colores modernos que marcan tendencia. El fit relajado que se siente cómodo y se ve increíble. ¡Exprésate con estilo y calidad!",
             sizes: ["S", "M", "L", "XL", "Mujer Talla unica"],
           },
-
           {
             id: 6,
             name: "Buzos de hombre y mujer",
             price: 37000,
-            image: "https://i.postimg.cc/BQWf5Lw0/portada-catalog-buzos.jpg",
+            image: "https://i.postimg.cc/3RbrQkvc/imagen-productos-buzos.jpg",
+            modalImage: "https://i.postimg.cc/BQWf5Lw0/portada-catalog-buzos.jpg", // Misma imagen por ahora
             category: "Buzos",
             description:
               "Buzos para hombre y mujer en tela burda algodón, con excelentes acabados que garantizan calidad y confort. Moldería regular que brinda un ajuste cómodo y moderno. Estilo y durabilidad en cada prenda.",
@@ -194,48 +200,51 @@ const Products = () => {
           </div>
         )}
       </div>
- {isModalOpen && selectedProduct && (
-  <div className={styles.modalOverlay} onClick={handleCloseModal}>
-    <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-      <button className={styles.closeButton} onClick={handleCloseModal}>
-        ×
-      </button>
-      <div className={styles.modalImageContainer}>
-        <img src={selectedProduct.image || "/placeholder.svg"} alt={selectedProduct.name} />
-      </div>
-      <div className={styles.modalInfo}>
-        <h2>{selectedProduct.name}</h2>
-        <div className={styles.modalPrice}>
-          <span>$ {selectedProduct.price.toLocaleString("es-CO")}</span>
-          <small>Precio mayorista</small>
-        </div>
-        <div className={styles.modalDescription}>
-          <h3>Descripción:</h3>
-          <p>{selectedProduct.description}</p>
-        </div>
-        {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
-          <div className={styles.modalSizes}>
-            <h3>Tallas Disponibles:</h3>
-            <ul className={styles.modalSizesList}>
-              {selectedProduct.sizes.map((size, index) => (
-                <li key={index}>{size}</li>
-              ))}
-            </ul>
+      {isModalOpen && selectedProduct && (
+        <div className={styles.modalOverlay} onClick={handleCloseModal}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.closeButton} onClick={handleCloseModal}>
+              ×
+            </button>
+            <div className={styles.modalImageContainer}>
+              <img
+                src={selectedProduct.modalImage || selectedProduct.image || "/placeholder.svg"}
+                alt={selectedProduct.name}
+              />
+            </div>
+            <div className={styles.modalInfo}>
+              <h2>{selectedProduct.name}</h2>
+              <div className={styles.modalPrice}>
+                <span>$ {selectedProduct.price.toLocaleString("es-CO")}</span>
+                <small>Precio mayorista</small>
+              </div>
+              <div className={styles.modalDescription}>
+                <h3>Descripción:</h3>
+                <p>{selectedProduct.description}</p>
+              </div>
+              {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
+                <div className={styles.modalSizes}>
+                  <h3>Tallas Disponibles:</h3>
+                  <ul className={styles.modalSizesList}>
+                    {selectedProduct.sizes.map((size, index) => (
+                      <li key={index}>{size}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <button
+                className={styles.modalContactButton}
+                onClick={() => {
+                  handleContactClick(selectedProduct)
+                  handleCloseModal()
+                }}
+              >
+                <FaWhatsapp /> Contactar asesor
+              </button>
+            </div>
           </div>
-        )}
-        <button
-          className={styles.modalContactButton}
-          onClick={() => {
-            handleContactClick(selectedProduct)
-            handleCloseModal()
-          }}
-        >
-          <FaWhatsapp /> Contactar asesor
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+        </div>
+      )}
     </section>
   )
 }

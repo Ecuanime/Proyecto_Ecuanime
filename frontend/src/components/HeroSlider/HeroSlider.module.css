@@ -27,14 +27,13 @@
   position: relative;
 }
 
-/* Manteniendo la clase .slide como solicitaste */
 .slide {
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100%;
-  background-size: 1350;
+  background-size: 1450;
   background-repeat: no-repeat;
   background-position: center 40px;
   display: flex;
@@ -45,33 +44,188 @@
   z-index: 0;
 }
 
-/* Solución para que la imagen no se pierda en responsive */
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* ====== ✅ AJUSTE CRÍTICO ENTRE 769px Y 991px ====== */
+@media (min-width: 769px) and (max-width: 991px) {
+  .heroSlider {
+    height: 100vh;
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .slidesContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slide {
+    background-size: contain !important;
+    background-position: center center !important;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Ajuste general cuando hay menos de 1350px */
 @media (max-width: 1350px) {
   .slide {
-    background-position: center top; /* Ajustamos la posición para que se vea la parte importante */
+    background-position: center top;
   }
 }
 
 @media (max-width: 768px) {
   .slide {
     background-position: center top;
-    background-size: cover; /* Usamos cover para dispositivos pequeños */
+    background-size: cover;
   }
 }
 
-/* Para iPhone SE y dispositivos muy pequeños */
+/* iPhone SE y pantallas muy pequeñas */
 @media (max-width: 375px) {
   .slide {
     background-position: center top;
   }
 }
 
-.slide.active {
-  opacity: 1;
-  z-index: 1;
+/* Ajuste específico para móviles */
+@media (max-width: 768px) {
+  .slide {
+    background-size: contain !important;
+    background-position: center !important;
+    height: 98%;
+    margin: 0 auto;
+    top: 10px;
+  }
+
+  .heroSlider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
-/* Animación automática con CSS */
+@media (max-width: 375px) {
+  .slide {
+    background-size: 90% auto !important;
+    top: 15px;
+  }
+}
+
+/* Desktop normal */
+@media (min-width: 992px) {
+  .heroSlider {
+    height: 100vh;
+    max-height: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .slide {
+    background-size: contain;
+    background-position: center;
+    max-height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .slidesContainer {
+    height: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .navButton {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .navButton:hover {
+    opacity: 1;
+  }
+
+  .prevButton {
+    left: 30px;
+  }
+
+  .nextButton {
+    right: 30px;
+  }
+
+  .indicators {
+    bottom: 40px;
+  }
+
+  .indicator {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+  }
+}
+
+/* Pantallas ultrawide */
+@media (min-width: 1440px) {
+  .heroSlider {
+    max-height: 1000px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .slide {
+    background-size: contain;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 2560px) {
+  .slide {
+    background-size: contain;
+    max-width: 2200px;
+    margin: 0 auto;
+  }
+
+  .heroSlider {
+    max-height: 1200px;
+  }
+}
+
+@media (min-width: 3440px) {
+  .slide {
+    max-width: 2800px;
+    background-size: contain;
+  }
+
+  .heroSlider {
+    max-height: 1400px;
+  }
+}
+
+@media (min-width: 992px) and (max-height: 800px) {
+  .heroSlider {
+    max-height: 800px;
+  }
+
+  .slide {
+    background-size: contain;
+  }
+}
+
+/* ====== SLIDESHOW AUTOMÁTICO Y ESTILOS EXTRA ====== */
+
 @keyframes slideshow {
   0%, 20% {
     opacity: 1;
@@ -87,27 +241,23 @@
   }
 }
 
-/* Aplicamos la animación a cada slide con un retraso diferente */
 .slidesContainer.autoplay .slide:nth-child(1) {
   animation: slideshow 25s infinite;
 }
-
 .slidesContainer.autoplay .slide:nth-child(2) {
   animation: slideshow 25s infinite 5s;
 }
-
 .slidesContainer.autoplay .slide:nth-child(3) {
   animation: slideshow 25s infinite 10s;
 }
-
 .slidesContainer.autoplay .slide:nth-child(4) {
   animation: slideshow 25s infinite 15s;
 }
-
 .slidesContainer.autoplay .slide:nth-child(5) {
   animation: slideshow 25s infinite 20s;
 }
 
+/* Botones */
 .navButton {
   position: absolute;
   top: 50%;
@@ -150,7 +300,6 @@
 .prevButton {
   left: 10px;
 }
-
 @media (min-width: 768px) {
   .prevButton {
     left: 15px;
@@ -160,13 +309,13 @@
 .nextButton {
   right: 10px;
 }
-
 @media (min-width: 768px) {
   .nextButton {
     right: 15px;
   }
 }
 
+/* Indicadores */
 .indicators {
   position: absolute;
   bottom: 15px;
@@ -213,7 +362,6 @@
   transform: scale(1.1);
 }
 
-/* Animación para los indicadores */
 @keyframes indicatorActive {
   0%, 20% {
     background-color: var(--accent-color);
@@ -232,45 +380,15 @@
 .slidesContainer.autoplay ~ .indicators .indicator:nth-child(1) {
   animation: indicatorActive 25s infinite;
 }
-
 .slidesContainer.autoplay ~ .indicators .indicator:nth-child(2) {
   animation: indicatorActive 25s infinite 5s;
 }
-
 .slidesContainer.autoplay ~ .indicators .indicator:nth-child(3) {
   animation: indicatorActive 25s infinite 10s;
 }
-
 .slidesContainer.autoplay ~ .indicators .indicator:nth-child(4) {
   animation: indicatorActive 25s infinite 15s;
 }
-
 .slidesContainer.autoplay ~ .indicators .indicator:nth-child(5) {
   animation: indicatorActive 25s infinite 20s;
-}
-
-/* Ajuste específico para imágenes móviles */
-@media (max-width: 768px) {
-  .slide {
-    background-size: contain !important; /* Cambia a contain para mostrar toda la imagen */
-    background-position: center !important; /* Centra la imagen */
-    height: 98%; /* Reduce un poco la altura para que quepa mejor */
-    margin: 0 auto; /* Centra horizontalmente */
-    top: 10px; /* Ajusta la posición vertical */
-  }
-  
-  /* Ajusta el contenedor para mejor visualización */
-  .heroSlider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-/* Ajuste específico para dispositivos muy pequeños */
-@media (max-width: 375px) {
-  .slide {
-    background-size: 90% auto !important; /* Reduce un poco más el tamaño */
-    top: 15px; /* Ajusta la posición vertical */
-  }
 }

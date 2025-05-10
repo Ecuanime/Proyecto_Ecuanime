@@ -4,28 +4,29 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import styles from "./HeroSlider.module.css"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 // Slides para PC
 const desktopSlides = [
   {
     id: 1,
-    image: "https://i.postimg.cc/fLqmBYYK/imagen-polos-web-definitiva.jpg",
+    image: "https://i.postimg.cc/13VxngwS/archivos-pagina-web.jpg", //Tipo polo
   },
   {
     id: 2,
-    image: "https://i.postimg.cc/tJ0PKpmZ/IMAGEN-WANNER-BOXER-TERMINADO.jpg",
+    image: "https://i.postimg.cc/kgsj5qhC/boxers-waner.jpg", //Boxer
   },
   {
     id: 3,
-    image: "https://i.postimg.cc/WzQ9YB0X/WANNER-DE-CAMISETAS-DAMA-PAGINA-WEB.jpg",
+    image: "https://i.postimg.cc/wTCzkc6M/WANNER-DE-CAMISETAS-DAMA-PAGINA-WEB.jpg", //Camisetas Dama
   },
   {
     id: 4,
-    image: "https://i.postimg.cc/L8kyv053/WANNER-CAMISETAS-DE-HOMBRE-PAGINA-WEB.jpg",
+    image: "https://i.postimg.cc/hv8YbxMz/WANNER-CAMISETAS-DE-HOMBRE-PAGINA-WEB.jpg", //Camisetas hombre
   },
   {
     id: 5,
-    image: "https://i.postimg.cc/tTcD7Kvp/WANNER-BUZOS-PAGINA-WEB.jpg",
+    image: "https://i.postimg.cc/Gp0krNbR/WANNER-BUZOS-PAGINA-WEB.jpg", //Buzos
   },
 ]
 
@@ -37,19 +38,19 @@ const mobileSlides = [
   },
   {
     id: 2,
-    image: "https://i.postimg.cc/tJ0PKpmZ/IMAGEN-WANNER-BOXER-TERMINADO.jpg", // Reemplaza con tu imagen para móvil
+    image: "https://i.postimg.cc/FHGwfjn7/imagen-wanner-celular-boxers.jpg", // Reemplaza con tu imagen para móvil
   },
   {
     id: 3,
-    image: "https://i.postimg.cc/WzQ9YB0X/WANNER-DE-CAMISETAS-DAMA-PAGINA-WEB.jpg", // Reemplaza con tu imagen para móvil
+    image: "https://i.postimg.cc/vHYz4pRt/wanner-celular-camisetas-dama.jpg", // Reemplaza con tu imagen para móvil
   },
   {
     id: 4,
-    image: "https://i.postimg.cc/L8kyv053/WANNER-CAMISETAS-DE-HOMBRE-PAGINA-WEB.jpg", // Reemplaza con tu imagen para móvil
+    image: "https://i.postimg.cc/PqPVP0wR/imagen-wanner-celular-camisetas-hombre.jpg", // Reemplaza con tu imagen para móvil
   },
   {
     id: 5,
-    image: "https://i.postimg.cc/tTcD7Kvp/WANNER-BUZOS-PAGINA-WEB.jpg", // Reemplaza con tu imagen para móvil
+    image: "https://i.postimg.cc/BQbSQnv5/imagen-celular-buzos-wanner.jpg", // Reemplaza con tu imagen para móvil
   },
 ]
 
@@ -147,68 +148,69 @@ const HeroSlider = () => {
   }
 
   return (
-    <div
-      className={styles.heroSlider}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      <div 
-        className={`${styles.slidesContainer} ${!useJsAnimation ? styles.autoplay : ''}`} 
-        ref={slideRef}
+    <div className={`${isMobile ? "" : "container-fluid p-0"} ${styles.heroSliderContainer}`}>
+      <div
+        className={`${styles.heroSlider}`}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
-        {slides.map((slide, index) => (
-          <div
-            key={slide.id}
-            className={`${styles.slide} ${useJsAnimation && index === currentSlide ? styles.active : ""}`}
-            style={{
-              backgroundImage: `url(${slide.image})`,
-              opacity: useJsAnimation ? (index === currentSlide ? 1 : 0) : undefined,
-              zIndex: useJsAnimation ? (index === currentSlide ? 1 : 0) : undefined,
-            }}
-          >
-          </div>
-        ))}
-      </div>
+        <div
+          className={`${styles.slidesContainer} ${!useJsAnimation ? styles.autoplay : ""} ${isMobile ? "" : "row g-0"}`}
+          ref={slideRef}
+        >
+          {slides.map((slide, index) => (
+            <div
+              key={slide.id}
+              className={`${styles.slide} ${useJsAnimation && index === currentSlide ? styles.active : ""} ${isMobile ? "" : "col-12"}`}
+              style={{
+                backgroundImage: `url(${slide.image})`,
+                opacity: useJsAnimation ? (index === currentSlide ? 1 : 0) : undefined,
+                zIndex: useJsAnimation ? (index === currentSlide ? 1 : 0) : undefined,
+              }}
+            ></div>
+          ))}
+        </div>
 
-      {!isMobile && useJsAnimation && (
-        <>
-          <button className={`${styles.navButton} ${styles.prevButton}`} onClick={prevSlide}>
-            <FaChevronLeft />
-          </button>
-          <button className={`${styles.navButton} ${styles.nextButton}`} onClick={nextSlide}>
-            <FaChevronRight />
-          </button>
-        </>
-      )}
+        {!isMobile && useJsAnimation && (
+          <>
+            <button className={`${styles.navButton} ${styles.prevButton} d-none d-lg-flex`} onClick={prevSlide}>
+              <FaChevronLeft />
+            </button>
+            <button className={`${styles.navButton} ${styles.nextButton} d-none d-lg-flex`} onClick={nextSlide}>
+              <FaChevronRight />
+            </button>
+          </>
+        )}
 
-      <div className={styles.indicators}>
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            className={`${styles.indicator} ${useJsAnimation && index === currentSlide ? styles.active : ""}`}
-            onClick={() => goToSlide(index)}
-          />
-        ))}
+        <div className={`${styles.indicators} ${isMobile ? "" : "d-flex justify-content-center"}`}>
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              className={`${styles.indicator} ${useJsAnimation && index === currentSlide ? styles.active : ""}`}
+              onClick={() => goToSlide(index)}
+            />
+          ))}
+        </div>
+        
+        {/* Botón oculto para cambiar entre animación CSS y JS (solo para pruebas) */}
+        <button
+          onClick={toggleAnimation}
+          style={{
+            position: "absolute",
+            bottom: "5px",
+            right: "5px",
+            zIndex: 100,
+            background: "transparent",
+            border: "none",
+            color: "transparent",
+            width: "10px",
+            height: "10px",
+          }}
+        >
+          Toggle
+        </button>
       </div>
-      
-      {/* Botón oculto para cambiar entre animación CSS y JS (solo para pruebas) */}
-      <button 
-        onClick={toggleAnimation} 
-        style={{ 
-          position: 'absolute', 
-          bottom: '5px', 
-          right: '5px', 
-          zIndex: 100, 
-          background: 'transparent', 
-          border: 'none', 
-          color: 'transparent',
-          width: '10px',
-          height: '10px'
-        }}
-      >
-        Toggle
-      </button>
     </div>
   )
 }

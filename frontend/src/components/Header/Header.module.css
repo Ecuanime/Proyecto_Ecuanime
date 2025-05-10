@@ -428,4 +428,48 @@
     font-size: 0.8rem;
     padding: 6px 12px;
   }
+}/* ============= NUEVAS REGLAS PARA COORDINAR CON EL SLIDER ============= */
+
+/* Ajustes para coordinar con el slider */
+@media (min-width: 992px) {
+  .header {
+    position: fixed;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    z-index: 1010; /* Mayor que el z-index del slider */
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: all 0.3s ease;
+    padding: 3px 0; /* Reducir el padding vertical */
+  }
+  
+  .scrolled {
+    top: 0;
+    padding: 2px 0; /* Reducir aún más cuando está scrolled */
+    background-color: rgba(0, 0, 0, 0.95);
+  }
+  
+  /* Ajuste para el mensaje deslizante */
+  .scrollingMessageContainer {
+    z-index: 1011; /* Mayor que el header */
+    padding: 1px 0; /* Reducir el padding */
+  }
+  
+  /* Ajustar el tamaño del logo para que sea más compacto */
+  .logo img {
+    height: 70px; /* Reducir altura del logo (antes era 85px) */
+    margin-left: 70px;
+  }
+}
+
+/* Ajuste para el mensaje deslizante para que ocupe menos espacio */
+.scrollingMessageContainer {
+  padding: 1px 0; /* Reducir el padding (antes era 2px o 4px) */
+}
+
+@media (min-width: 768px) {
+  .scrollingMessageContainer {
+    padding: 2px 0; /* Reducir el padding (antes era 4px) */
+    font-size: 0.8rem; /* Reducir tamaño de fuente (antes era 0.9rem) */
+  }
 }

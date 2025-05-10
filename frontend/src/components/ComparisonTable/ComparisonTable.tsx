@@ -2,6 +2,54 @@ import { FaCheck, FaTimes } from "react-icons/fa"
 import styles from "./ComparisonTable.module.css"
 
 const ComparisonTable = () => {
+  const features = [
+    {
+      name: "Pedido mínimo bajo",
+      us: true,
+      others: false,
+    },
+    {
+      name: "Envío a todo el país",
+      us: true,
+      others: true,
+    },
+    {
+      name: "Catálogos actualizados mensualmente",
+      us: true,
+      others: false,
+    },
+    {
+      name: "Asesoría personalizada",
+      us: true,
+      others: false,
+    },
+    {
+      name: "Garantía de calidad",
+      us: true,
+      others: true,
+    },
+    {
+      name: "Devoluciones sin complicaciones",
+      us: true,
+      others: false,
+    },
+    {
+      name: "Múltiples métodos de pago",
+      us: true,
+      others: true,
+    },
+    {
+      name: "Descuentos por volumen",
+      us: true,
+      others: false,
+    },
+    {
+      name: "Atención 7 días a la semana",
+      us: true,
+      others: false,
+    },
+  ]
+
   return (
     <section className={`section ${styles.comparison}`}>
       <div className="container">
@@ -18,87 +66,21 @@ const ComparisonTable = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Pedido mínimo bajo</td>
-                <td className={styles.usColumn}>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-                <td>
-                  <FaTimes className={styles.timesIcon} />
-                </td>
-              </tr>
-              <tr>
-                <td>Envío a todo el país</td>
-                <td className={styles.usColumn}>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-                <td>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-              </tr>
-              <tr>
-                <td>Catálogos actualizados mensualmente</td>
-                <td className={styles.usColumn}>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-                <td>
-                  <FaTimes className={styles.timesIcon} />
-                </td>
-              </tr>
-              <tr>
-                <td>Asesoría personalizada</td>
-                <td className={styles.usColumn}>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-                <td>
-                  <FaTimes className={styles.timesIcon} />
-                </td>
-              </tr>
-              <tr>
-                <td>Garantía de calidad</td>
-                <td className={styles.usColumn}>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-                <td>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-              </tr>
-              <tr>
-                <td>Devoluciones sin complicaciones</td>
-                <td className={styles.usColumn}>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-                <td>
-                  <FaTimes className={styles.timesIcon} />
-                </td>
-              </tr>
-              <tr>
-                <td>Múltiples métodos de pago</td>
-                <td className={styles.usColumn}>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-                <td>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-              </tr>
-              <tr>
-                <td>Descuentos por volumen</td>
-                <td className={styles.usColumn}>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-                <td>
-                  <FaTimes className={styles.timesIcon} />
-                </td>
-              </tr>
-              <tr>
-                <td>Atención 7 días a la semana</td>
-                <td className={styles.usColumn}>
-                  <FaCheck className={styles.checkIcon} />
-                </td>
-                <td>
-                  <FaTimes className={styles.timesIcon} />
-                </td>
-              </tr>
+              {features.map((feature, index) => (
+                <tr key={index}>
+                  <td>{feature.name}</td>
+                  <td className={styles.usColumn}>
+                    {feature.us ? <FaCheck className={styles.checkIcon} /> : <FaTimes className={styles.timesIcon} />}
+                  </td>
+                  <td>
+                    {feature.others ? (
+                      <FaCheck className={styles.checkIcon} />
+                    ) : (
+                      <FaTimes className={styles.timesIcon} />
+                    )}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

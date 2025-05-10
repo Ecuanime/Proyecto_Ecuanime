@@ -17,7 +17,6 @@
 }
 
 .tableWrapper {
-  overflow-x: auto;
   margin-bottom: 15px;
   -webkit-overflow-scrolling: touch;
 }
@@ -34,34 +33,90 @@
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  min-width: 600px;
 }
 
-.comparisonTable th,
-.comparisonTable td {
-  padding: 10px;
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.85rem;
-}
-
+/* Estilos para pantallas grandes (desktop) */
 @media (min-width: 768px) {
+  .comparisonTable {
+    min-width: 600px;
+  }
+
   .comparisonTable th,
   .comparisonTable td {
     padding: 12px 15px;
     font-size: 0.9rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .comparisonTable th {
+    background-color: rgba(255, 255, 255, 0.05);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .featureColumn {
+    text-align: left !important;
+    min-width: 180px;
   }
 }
 
-.comparisonTable th {
-  background-color: rgba(255, 255, 255, 0.05);
-  font-weight: 600;
-  font-size: 0.9rem;
-}
+/* Estilos para pantallas pequeñas (móvil) */
+@media (max-width: 767px) {
+  .comparisonTable,
+  .comparisonTable thead,
+  .comparisonTable tbody,
+  .comparisonTable th,
+  .comparisonTable td,
+  .comparisonTable tr {
+    display: block;
+  }
 
-@media (min-width: 768px) {
-  .comparisonTable th {
-    font-size: 1rem;
+  .comparisonTable thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .comparisonTable tr {
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+
+  .comparisonTable td {
+    position: relative;
+    padding: 10px 10px 10px 50%;
+    text-align: right;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.85rem;
+  }
+
+  .comparisonTable td:before {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: 500;
+  }
+
+  /* Añadir etiquetas para cada celda */
+  .comparisonTable td:nth-of-type(1):before {
+    content: "Características";
+  }
+  .comparisonTable td:nth-of-type(2):before {
+    content: "Nosotros";
+  }
+  .comparisonTable td:nth-of-type(3):before {
+    content: "Otros Proveedores";
+  }
+
+  .usColumn {
+    background-color: rgba(255, 69, 0, 0.05);
   }
 }
 
@@ -77,12 +132,6 @@
   text-align: left !important;
   font-weight: 500;
   min-width: 150px;
-}
-
-@media (min-width: 768px) {
-  .featureColumn {
-    min-width: 180px;
-  }
 }
 
 .usColumn {

@@ -99,7 +99,7 @@ const EmailTemplate = (userName: string) => {
           <p>Como agradecimiento por tu registro, te enviamos nuestro catálogo completo con todos los productos disponibles actualmente.</p>
           
           <div class="catalog-preview">
-            <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Catálogo Preview">
+            <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixli b=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Catálogo Preview">
           </div>
           
           <p>Nuestro catálogo incluye:</p>

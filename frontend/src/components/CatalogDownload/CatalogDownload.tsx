@@ -53,7 +53,7 @@ const CatalogDownload = () => {
 
       // Descargar archivo ZIP directamente
       const link = document.createElement("a");
-      link.href = "https://drive.google.com/file/d/1_7RHo54SGUhVMRjhq2sxAa_NsxrHU1dT/view?usp=sharing";
+      link.href = "https://github.com/Ecuanime/Descargas/raw/main/Catalogo.zip";
       link.download = "Catalogos.zip";
       document.body.appendChild(link);
       link.click();

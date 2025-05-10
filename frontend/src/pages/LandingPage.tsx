@@ -20,11 +20,11 @@ const LandingPage = () => {
       <Products />
       <Testimonials />
       <Counters />
-      <PaymentMethods />
       <CatalogDownload />
-      <ContactForm />
-      <FAQ />
       <ComparisonTable />
+      <FAQ />
+      <PaymentMethods />
+      <ContactForm />
       <Footer />
     </>
   )

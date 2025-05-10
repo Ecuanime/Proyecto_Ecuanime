@@ -248,3 +248,29 @@
 .slidesContainer.autoplay ~ .indicators .indicator:nth-child(5) {
   animation: indicatorActive 25s infinite 20s;
 }
+
+/* Ajuste específico para imágenes móviles */
+@media (max-width: 768px) {
+  .slide {
+    background-size: contain !important; /* Cambia a contain para mostrar toda la imagen */
+    background-position: center !important; /* Centra la imagen */
+    height: 98%; /* Reduce un poco la altura para que quepa mejor */
+    margin: 0 auto; /* Centra horizontalmente */
+    top: 10px; /* Ajusta la posición vertical */
+  }
+  
+  /* Ajusta el contenedor para mejor visualización */
+  .heroSlider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Ajuste específico para dispositivos muy pequeños */
+@media (max-width: 375px) {
+  .slide {
+    background-size: 90% auto !important; /* Reduce un poco más el tamaño */
+    top: 15px; /* Ajusta la posición vertical */
+  }
+}

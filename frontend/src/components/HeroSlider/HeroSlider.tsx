@@ -1,12 +1,12 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect, useRef } from "react"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import styles from "./HeroSlider.module.css"
 
-const slides = [
+// Slides para PC
+const desktopSlides = [
   {
     id: 1,
     image: "https://i.postimg.cc/fLqmBYYK/imagen-polos-web-definitiva.jpg",
@@ -26,6 +26,30 @@ const slides = [
   {
     id: 5,
     image: "https://i.postimg.cc/tTcD7Kvp/WANNER-BUZOS-PAGINA-WEB.jpg",
+  },
+]
+
+// Slides para móvil - Puedes reemplazar estas URLs con tus imágenes para móvil
+const mobileSlides = [
+  {
+    id: 1,
+    image: "https://i.postimg.cc/PfLM9FKJ/imagen-editada-para-la-pagina.jpg", // Reemplaza con tu imagen para móvil
+  },
+  {
+    id: 2,
+    image: "https://i.postimg.cc/tJ0PKpmZ/IMAGEN-WANNER-BOXER-TERMINADO.jpg", // Reemplaza con tu imagen para móvil
+  },
+  {
+    id: 3,
+    image: "https://i.postimg.cc/WzQ9YB0X/WANNER-DE-CAMISETAS-DAMA-PAGINA-WEB.jpg", // Reemplaza con tu imagen para móvil
+  },
+  {
+    id: 4,
+    image: "https://i.postimg.cc/L8kyv053/WANNER-CAMISETAS-DE-HOMBRE-PAGINA-WEB.jpg", // Reemplaza con tu imagen para móvil
+  },
+  {
+    id: 5,
+    image: "https://i.postimg.cc/tTcD7Kvp/WANNER-BUZOS-PAGINA-WEB.jpg", // Reemplaza con tu imagen para móvil
   },
 ]
 
@@ -49,6 +73,9 @@ const HeroSlider = () => {
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
   }, [])
+
+  // Seleccionar el conjunto de slides según el dispositivo
+  const slides = isMobile ? mobileSlides : desktopSlides
 
   // Función para cambiar de slide
   const goToSlide = (index: number) => {

@@ -14,7 +14,7 @@ const paymentMethods = [
   { 
     id: 7, 
     name: "Visa", 
-    logo: "https://placehold.co/120x60/FFFFFF/000000?text=VISA" 
+    logo: "https://i.postimg.cc/BnRQT4k9/Visa.jpg " 
   },
   { 
     id: 3, 

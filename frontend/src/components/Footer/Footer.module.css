@@ -1,7 +1,9 @@
 .footer {
-  background-color: #000;
+  background-color: #000; /* Negro sólido como en tu CSS original */
+  color: #fff; /* Texto principal blanco para mejor contraste con fondo negro */
   padding: 40px 0 15px;
   position: relative;
+  font-family: 'Arial', sans-serif; /* Considera definir una fuente base para el footer */
 }
 
 @media (min-width: 768px) {
@@ -12,60 +14,62 @@
 
 .footerContent {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr; /* Una columna por defecto para móviles */
+  gap: 30px; /* Aumentamos un poco el gap */
   margin-bottom: 30px;
 }
 
+/* Dos columnas para tablets pequeñas y más */
 @media (min-width: 576px) {
   .footerContent {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* Cuatro columnas para desktops */
 @media (min-width: 992px) {
   .footerContent {
     grid-template-columns: repeat(4, 1fr);
+    gap: 25px; /* Ajusta el gap para 4 columnas si es necesario */
     margin-bottom: 40px;
   }
 }
 
 .footerLogo img {
-  width: 150px;
+  /* Logotipo más grande */
+  width: 180px; /* Tamaño base aumentado */
   height: auto;
-  margin-bottom: 12px;
+  margin-bottom: 15px; /* Un poco más de margen */
 }
 
 @media (min-width: 768px) {
   .footerLogo img {
-    width: 180px;
-    margin-bottom: 15px;
+    width: 200px; /* Tamaño aumentado para pantallas más grandes */
+    margin-bottom: 20px;
   }
 }
 
 .footerLogo p {
-  color: #ccc;
-  margin-bottom: 12px;
-  line-height: 1.4;
-  font-size: 0.9rem;
+  color: #ccc; /* Un gris claro para el texto secundario */
+  margin-bottom: 15px;
+  line-height: 1.5; /* Mejoramos legibilidad */
+  font-size: 0.9rem; /* Tamaño base */
 }
 
 @media (min-width: 768px) {
   .footerLogo p {
-    margin-bottom: 15px;
-    line-height: 1.5;
-    font-size: 1rem;
+    font-size: 0.95rem; /* Ligeramente más grande en desktop */
   }
 }
 
 .socialLinks {
   display: flex;
-  gap: 10px;
+  gap: 12px; /* Espacio entre iconos */
 }
 
 @media (min-width: 768px) {
   .socialLinks {
-    gap: 12px;
+    gap: 15px;
   }
 }
 
@@ -73,45 +77,46 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 35px; /* Tamaño base de los iconos */
+  height: 35px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
   color: white;
-  font-size: 1rem;
+  font-size: 1.1rem; /* Tamaño del icono SVG */
   transition: all 0.3s ease;
 }
 
 @media (min-width: 768px) {
   .socialLinks a {
-    width: 35px;
-    height: 35px;
-    font-size: 1.1rem;
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
   }
 }
 
 .socialLinks a:hover {
-  background-color: var(--accent-color);
-  transform: translateY(-2px);
+  background-color: var(--accent-color, #ff6f61); /* Usar variable CSS o un color por defecto */
+  transform: translateY(-2px) scale(1.05); /* Efecto hover sutil */
 }
 
 .footerLinks h3,
 .footerContact h3,
 .footerNewsletter h3 {
-  font-size: 1rem;
+  font-size: 1.1rem; /* Tamaño de los títulos de sección */
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
   position: relative;
-  padding-bottom: 6px;
+  padding-bottom: 8px;
+  color: #fff; /* Títulos en blanco */
 }
 
 @media (min-width: 768px) {
   .footerLinks h3,
   .footerContact h3,
   .footerNewsletter h3 {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
+    font-size: 1.2rem; /* Ligeramente más grandes en desktop */
+    margin-bottom: 20px;
+    padding-bottom: 10px;
   }
 }
 
@@ -122,17 +127,9 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 40px;
+  width: 45px; /* Ancho de la línea decorativa */
   height: 2px;
-  background-color: var(--accent-color);
-}
-
-@media (min-width: 768px) {
-  .footerLinks h3::after,
-  .footerContact h3::after,
-  .footerNewsletter h3::after {
-    width: 45px;
-  }
+  background-color: var(--accent-color, #ff6f61); /* Usar variable CSS o un color por defecto */
 }
 
 .footerLinks ul,
@@ -143,86 +140,90 @@
 }
 
 .footerLinks ul li {
-  margin-bottom: 6px;
+  margin-bottom: 8px; /* Espacio entre ítems de lista */
 }
 
 @media (min-width: 768px) {
   .footerLinks ul li {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
 }
 
-.footerLinks ul li a {
+.footerLinks ul li a, /* Estilo para los <a> dentro de la lista */
+.footerLinks ul li > span { /* Si usaras spans no clickeables */
   color: #ccc;
-  transition: color 0.3s ease;
+  text-decoration: none; /* Quitar subrayado por defecto */
+  transition: color 0.3s ease, padding-left 0.3s ease; /* Transiciones suaves */
   font-size: 0.9rem;
+  display: inline-block; /* Para que el padding-left funcione bien */
 }
 
 @media (min-width: 768px) {
-  .footerLinks ul li a {
-    font-size: 1rem;
+  .footerLinks ul li a,
+  .footerLinks ul li > span {
+    font-size: 0.95rem;
   }
 }
 
 .footerLinks ul li a:hover {
-  color: var(--accent-color);
-  padding-left: 3px;
+  color: var(--accent-color, #ff6f61);
+  padding-left: 5px; /* Desplazamiento sutil al hacer hover */
 }
 
 .footerContact ul li {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 10px;
+  gap: 8px; /* Espacio entre icono y texto */
+  margin-bottom: 12px;
   color: #ccc;
   font-size: 0.9rem;
 }
 
 @media (min-width: 768px) {
   .footerContact ul li {
-    gap: 8px;
-    margin-bottom: 12px;
-    font-size: 1rem;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
   }
 }
 
 .footerContact ul li svg {
-  color: var(--accent-color);
-  font-size: 1rem;
+  color: var(--accent-color, #ff6f61);
+  font-size: 1.1rem; /* Tamaño del icono de contacto */
+  flex-shrink: 0; /* Evita que el icono se encoja */
 }
 
 @media (min-width: 768px) {
   .footerContact ul li svg {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 }
 
 .footerContact ul li a {
-  color: var(--accent-color);
+  color: var(--accent-color, #ff6f61); /* Enlaces de contacto con color de acento */
+  text-decoration: none;
 }
+.footerContact ul li a:hover {
+  text-decoration: underline;
+}
+
 
 .footerNewsletter p {
   color: #ccc;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-size: 0.9rem;
 }
 
 @media (min-width: 768px) {
   .footerNewsletter p {
-    margin-bottom: 12px;
-    font-size: 1rem;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
   }
 }
 
 .newsletterForm {
   display: flex;
-  margin-bottom: 10px;
-}
-
-@media (min-width: 768px) {
-  .newsletterForm {
-    margin-bottom: 12px;
-  }
+  margin-bottom: 12px;
 }
 
 .newsletterForm input {
@@ -230,72 +231,106 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   font-size: 0.9rem;
-  padding: 8px 12px;
+  padding: 10px 12px; /* Aumentamos padding para mejor usabilidad */
+  border: 1px solid #555; /* Borde sutil */
+  background-color: #333; /* Fondo oscuro para el input */
+  color: #fff;
+}
+.newsletterForm input::placeholder {
+  color: #888;
 }
 
 .newsletterForm button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   font-size: 0.9rem;
-  padding: 8px 12px;
+  padding: 10px 15px;
+  /* Asume que tienes estilos para .btn y .btn-primary */
+  /* Si no, añade estilos aquí: */
+  background-color: var(--accent-color, #ff6f61);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.newsletterForm button:hover {
+  background-color: var(--accent-color-dark, #e05a4f); /* Un tono más oscuro para el hover */
 }
 
+
 .newsletterDisclaimer {
-  font-size: 0.65rem;
+  font-size: 0.7rem; /* Un poco más grande para legibilidad */
   color: #999;
+  line-height: 1.4;
+}
+.newsletterDisclaimer a {
+  color: #aaa; /* Un gris un poco más claro para el enlace */
+  text-decoration: underline;
+}
+.newsletterDisclaimer a:hover {
+  color: var(--accent-color, #ff6f61);
 }
 
 @media (min-width: 768px) {
   .newsletterDisclaimer {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
 }
 
 .footerBottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15); /* Borde un poco más visible */
+  padding-top: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   color: #999;
-  font-size: 0.75rem;
-  gap: 8px;
+  font-size: 0.8rem;
+  gap: 10px;
 }
 
 @media (min-width: 768px) {
   .footerBottom {
-    padding-top: 15px;
+    padding-top: 20px;
     flex-direction: row;
     justify-content: space-between;
     text-align: left;
-    font-size: 0.8rem;
-    gap: 0;
+    font-size: 0.85rem;
   }
 }
 
 .footerBottomLinks {
   display: flex;
-  gap: 12px;
+  gap: 15px; /* Espacio entre enlaces del bottom */
 }
 
 @media (min-width: 768px) {
   .footerBottomLinks {
-    gap: 15px;
+    gap: 20px;
   }
 }
 
 .footerBottomLinks a {
-  color: #999;
-  font-size: 0.75rem;
+  color: #aaa; /* Un gris un poco más claro */
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.3s ease;
 }
 
 @media (min-width: 768px) {
   .footerBottomLinks a {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
 }
 
 .footerBottomLinks a:hover {
-  color: var(--accent-color);
+  color: var(--accent-color, #ff6f61);
+  text-decoration: underline;
 }
+
+/* Definición de la variable CSS --accent-color si no la tienes globalmente */
+/* Puedes poner esto en tu archivo CSS global o al inicio de este archivo, fuera de cualquier selector */
+/* :root { */
+/* --accent-color: #ff6f61; */
+/* --accent-color-dark: #e05a4f; */
+/* } */

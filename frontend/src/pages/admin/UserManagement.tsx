@@ -1,12 +1,14 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import { Search, UserPlus, Edit, Mail, Trash } from "lucide-react"
 import AdminLayout from "../../pages/admin/components/AdminLayout.js"
 import { userService } from "../../services/api.js"
-import styles from "./UserManagement.module.css"
+import styles from "./UserManagement.module.css" // Mantendremos tus estilos personalizados
+
+// Importa los estilos de Bootstrap (asegúrate de tener Bootstrap instalado en tu proyecto)
+import "bootstrap/dist/css/bootstrap.min.css"
 
 interface User {
   _id: string
@@ -120,107 +122,142 @@ const UserManagement = () => {
     alert("Funcionalidad de añadir usuario pendiente de implementar")
   }
 
+  const handleLogout = () => {
+    // Simulación de cierre de sesión (reemplaza con tu lógica real)
+    console.log("Cerrando sesión")
+    // Redirigir a la página principal
+    window.location.href = "/"
+  }
+
   return (
     <AdminLayout>
-      <div className={styles.userManagementHeader}>
-        <h1>Gestión de Usuarios</h1>
-        <p>Administra los usuarios del sistema</p>
+      <div className="container-fluid">
+        <div className="row mb-3">
+          <div className="col">
+            <h1>Gestión de Usuarios</h1>
+            <p className="text-muted">Administra los usuarios del sistema</p>
+          </div>
+        </div>
+
+        <div className="row mb-3 align-items-center">
+          <div className="col-md-6">
+            <div className="input-group">
+              <span className="input-group-text bg-light border-0">
+                <Search className="text-muted" />
+              </span>
+              <input
+                type="text"
+                className="form-control border-0 shadow-sm"
+                placeholder="Buscar por nombre, email o teléfono..."
+                value={searchTerm}
+                onChange={handleSearch}
+              />
+            </div>
+          </div>
+          <div className="col-md-6 d-flex justify-content-end">
+            <button className="btn btn-primary" onClick={handleAddUser}>
+              <UserPlus size={16} className="me-2" /> Nuevo Usuario
+            </button>
+            <button className="btn btn-danger ms-2" onClick={handleLogout}>
+              Cerrar Sesión
+            </button>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-12">
+            {isLoading ? (
+              <div className="d-flex flex-column align-items-center justify-content-center py-5">
+                <div className="spinner-border text-primary mb-3" role="status">
+                  <span className="visually-hidden">Cargando...</span>
+                </div>
+                <p className="text-muted">Cargando usuarios...</p>
+              </div>
+            ) : error ? (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            ) : (
+              <div className="table-responsive">
+                <table className="table table-striped table-hover bg-light rounded shadow-sm">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Email</th>
+                      <th className="d-none d-md-table-cell">Teléfono</th>
+                      <th className="d-none d-lg-table-cell">Región</th>
+                      <th>Rol</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredUsers.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="text-center text-muted py-4">
+                          No se encontraron usuarios
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredUsers.map((user) => (
+                        <tr key={user._id}>
+                          <td>{user.name}</td>
+                          <td>{user.email}</td>
+                          <td className="d-none d-md-table-cell">{user.phone || "N/A"}</td>
+                          <td className="d-none d-lg-table-cell">{user.region || "N/A"}</td>
+                          <td>
+                            <span
+                              className={`badge rounded-pill ${
+                                user.role === "admin" ? "bg-danger" : "bg-info"
+                              }`}
+                            >
+                              {user.role === "admin" ? "Administrador" : "Usuario"}
+                            </span>
+                          </td>
+                          <td>
+                            <div className="d-flex gap-2">
+                              <button
+                                className="btn btn-sm btn-outline-primary"
+                                onClick={() => handleEdit(user)}
+                                title="Editar usuario"
+                              >
+                                <Edit size={16} />
+                              </button>
+                              <button
+                                className="btn btn-sm btn-outline-success"
+                                onClick={() => handleSendWelcome(user._id)}
+                                title="Enviar correo de bienvenida"
+                              >
+                                <Mail size={16} />
+                              </button>
+                              <button
+                                className="btn btn-sm btn-outline-danger"
+                                onClick={() => handleDelete(user)}
+                                title="Eliminar usuario"
+                              >
+                                <Trash size={16} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Modal de edición */}
+        {showEditModal && selectedUser && (
+          <EditUserModal user={selectedUser} onClose={() => setShowEditModal(false)} onSave={saveUserChanges} />
+        )}
+
+        {/* Modal de confirmación de eliminación */}
+        {showDeleteModal && selectedUser && (
+          <DeleteConfirmModal user={selectedUser} onClose={() => setShowDeleteModal(false)} onConfirm={confirmDelete} />
+        )}
       </div>
-
-      <div className={styles.searchBar}>
-        <div className={styles.searchInput}>
-          <Search className={styles.searchIcon} />
-          <input
-            type="text"
-            placeholder="Buscar por nombre, email o teléfono..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-        </div>
-        <button className={styles.addButton} onClick={handleAddUser}>
-          <UserPlus size={16} /> Nuevo Usuario
-        </button>
-      </div>
-
-      {isLoading ? (
-        <div className={styles.loading}>
-          <div className={styles.spinner}></div>
-          <p>Cargando usuarios...</p>
-        </div>
-      ) : error ? (
-        <div className={styles.errorState}>
-          <p>{error}</p>
-        </div>
-      ) : (
-        <div className={styles.tableContainer}>
-          <table className={styles.usersTable}>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Región</th>
-                <th>Rol</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUsers.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className={styles.noResults}>
-                    No se encontraron usuarios
-                  </td>
-                </tr>
-              ) : (
-                filteredUsers.map((user) => (
-                  <tr key={user._id}>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.phone || "N/A"}</td>
-                    <td>{user.region || "N/A"}</td>
-                    <td>
-                      <span
-                        className={`${styles.roleBadge} ${user.role === "admin" ? styles.adminBadge : styles.userBadge}`}
-                      >
-                        {user.role === "admin" ? "Administrador" : "Usuario"}
-                      </span>
-                    </td>
-                    <td className={styles.actions}>
-                      <button className={styles.actionButton} onClick={() => handleEdit(user)} title="Editar usuario">
-                        <Edit size={16} />
-                      </button>
-                      <button
-                        className={styles.actionButton}
-                        onClick={() => handleSendWelcome(user._id)}
-                        title="Enviar correo de bienvenida"
-                      >
-                        <Mail size={16} />
-                      </button>
-                      <button
-                        className={`${styles.actionButton} ${styles.deleteButton}`}
-                        onClick={() => handleDelete(user)}
-                        title="Eliminar usuario"
-                      >
-                        <Trash size={16} />
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {/* Modal de edición */}
-      {showEditModal && selectedUser && (
-        <EditUserModal user={selectedUser} onClose={() => setShowEditModal(false)} onSave={saveUserChanges} />
-      )}
-
-      {/* Modal de confirmación de eliminación */}
-      {showDeleteModal && selectedUser && (
-        <DeleteConfirmModal user={selectedUser} onClose={() => setShowDeleteModal(false)} onConfirm={confirmDelete} />
-      )}
     </AdminLayout>
   )
 }
@@ -252,52 +289,54 @@ const EditUserModal = ({ user, onClose, onSave }: EditUserModalProps) => {
   }
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modal}>
-        <div className={styles.modalHeader}>
-          <h2>Editar Usuario</h2>
-          <button className={styles.closeButton} onClick={onClose}>
-            ×
-          </button>
+    <div className="modal fade show" style={{ display: "block" }}>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Editar Usuario</h5>
+            <button type="button" className="btn-close" onClick={onClose}></button>
+          </div>
+          <div className="modal-body">
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label">Nombre</label>
+                <input type="text" className="form-control" name="name" value={userData.name} onChange={handleChange} required />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Email</label>
+                <input type="email" className="form-control" value={user.email} disabled />
+                <small className="text-muted">El email no se puede modificar</small>
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Teléfono</label>
+                <input type="tel" className="form-control" name="phone" value={userData.phone} onChange={handleChange} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Región</label>
+                <input type="text" className="form-control" name="region" value={userData.region} onChange={handleChange} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Nombre de Tienda</label>
+                <input type="text" className="form-control" name="storeName" value={userData.storeName} onChange={handleChange} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Rol</label>
+                <select className="form-select" name="role" value={userData.role} onChange={handleChange}>
+                  <option value="user">Usuario</option>
+                  <option value="admin">Administrador</option>
+                </select>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={onClose}>
+                  Cancelar
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  Guardar Cambios
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className={styles.formGroup}>
-            <label>Nombre</label>
-            <input type="text" name="name" value={userData.name} onChange={handleChange} required />
-          </div>
-          <div className={styles.formGroup}>
-            <label>Email</label>
-            <input type="email" value={user.email} disabled className={styles.disabledInput} />
-            <small>El email no se puede modificar</small>
-          </div>
-          <div className={styles.formGroup}>
-            <label>Teléfono</label>
-            <input type="tel" name="phone" value={userData.phone} onChange={handleChange} />
-          </div>
-          <div className={styles.formGroup}>
-            <label>Región</label>
-            <input type="text" name="region" value={userData.region} onChange={handleChange} />
-          </div>
-          <div className={styles.formGroup}>
-            <label>Nombre de Tienda</label>
-            <input type="text" name="storeName" value={userData.storeName} onChange={handleChange} />
-          </div>
-          <div className={styles.formGroup}>
-            <label>Rol</label>
-            <select name="role" value={userData.role} onChange={handleChange}>
-              <option value="user">Usuario</option>
-              <option value="admin">Administrador</option>
-            </select>
-          </div>
-          <div className={styles.modalFooter}>
-            <button type="button" className={styles.cancelButton} onClick={onClose}>
-              Cancelar
-            </button>
-            <button type="submit" className={styles.saveButton}>
-              Guardar Cambios
-            </button>
-          </div>
-        </form>
       </div>
     </div>
   )
@@ -312,27 +351,27 @@ interface DeleteConfirmModalProps {
 
 const DeleteConfirmModal = ({ user, onClose, onConfirm }: DeleteConfirmModalProps) => {
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modal}>
-        <div className={styles.modalHeader}>
-          <h2>Confirmar Eliminación</h2>
-          <button className={styles.closeButton} onClick={onClose}>
-            ×
-          </button>
-        </div>
-        <div className={styles.modalBody}>
-          <p>
-            ¿Estás seguro que deseas eliminar al usuario <strong>{user.name}</strong>?
-          </p>
-          <p>Esta acción no se puede deshacer.</p>
-        </div>
-        <div className={styles.modalFooter}>
-          <button className={styles.cancelButton} onClick={onClose}>
-            Cancelar
-          </button>
-          <button className={`${styles.deleteButton} ${styles.confirmButton}`} onClick={onConfirm}>
-            Eliminar
-          </button>
+    <div className="modal fade show" style={{ display: "block" }}>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Confirmar Eliminación</h5>
+            <button type="button" className="btn-close" onClick={onClose}></button>
+          </div>
+          <div className="modal-body">
+            <p>
+              ¿Estás seguro que deseas eliminar al usuario <strong>{user.name}</strong>?
+            </p>
+            <p className="text-muted">Esta acción no se puede deshacer.</p>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" onClick={onClose}>
+              Cancelar
+            </button>
+            <button type="button" className="btn btn-danger" onClick={onConfirm}>
+              Eliminar
+            </button>
+          </div>
         </div>
       </div>
     </div>

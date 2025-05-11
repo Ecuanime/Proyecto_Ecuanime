@@ -1,4 +1,4 @@
-
+// src/pages/Login.jsx
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -38,7 +38,10 @@ const Login = () => {
         setError("Credenciales inválidas. Por favor, intenta de nuevo.");
       }
     } catch (error) {
-      setError(error.response?.data?.message || "Error al iniciar sesión. Por favor, intenta de nuevo.");
+      setError(
+        error.response?.data?.message ||
+          "Error al iniciar sesión. Por favor, intenta de nuevo."
+      );
     }
   };
 
@@ -46,7 +49,11 @@ const Login = () => {
     <div className={styles.authPage}>
       <div className={styles.authContainer}>
         <div className={styles.authHeader}>
-          <img src="https://i.postimg.cc/zXjLVJJz/LOGO-PARA-PAGINA-WEB-FONDO-NEGRO.png" alt="Logo" className={styles.logo} />
+          <img
+            src="https://i.postimg.cc/zXjLVJJz/LOGO-PARA-PAGINA-WEB-FONDO-NEGRO.png"
+            alt="Logo"
+            className={styles.logo}
+          />
           <h1>Iniciar Sesión</h1>
           <p>Ingresa a tu cuenta para acceder a todos nuestros servicios</p>
         </div>
@@ -70,7 +77,9 @@ const Login = () => {
               {...register("email")}
               placeholder="tucorreo@ejemplo.com"
             />
-            {errors.email && <p className="error-message">{errors.email.message}</p>}
+            {errors.email && (
+              <p className="error-message">{errors.email.message}</p>
+            )}
           </div>
 
           <div className={styles.formGroup}>
@@ -84,14 +93,20 @@ const Login = () => {
               {...register("password")}
               placeholder="••••••"
             />
-            {errors.password && <p className="error-message">{errors.password.message}</p>}
+            {errors.password && (
+              <p className="error-message">{errors.password.message}</p>
+            )}
           </div>
 
           <div className={styles.forgotPassword}>
             <Link to="/recuperar-contrasena">¿Olvidaste tu contraseña?</Link>
           </div>
 
-          <button type="submit" className={`btn btn-primary ${styles.authButton}`} disabled={isLoading}>
+          <button
+            type="submit"
+            className={`btn btn-primary ${styles.authButton}`}
+            disabled={isLoading}
+          >
             {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
           </button>
         </form>

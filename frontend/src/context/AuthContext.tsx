@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       const storedToken = localStorage.getItem("token");
-      
+
       if (storedToken) {
         setIsLoading(true);
         try {
@@ -37,12 +37,21 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const data = await authService.login(email, password);
-      
+
       if (data.token) {
         localStorage.setItem("token", data.token);
         setToken(data.token);
         setUser(data.user);
         setIsAuthenticated(true);
+        
+        // CAMBIO AQUÍ: Obtener el perfil completo inmediatamente después del login
+        try {
+          const profileData = await authService.getProfile();
+          setUser(profileData); // Actualiza con datos completos del perfil incluyendo el rol
+        } catch (profileError) {
+          console.error("Error al cargar perfil completo:", profileError);
+        }
+        
         return true;
       }
       return false;
@@ -59,7 +68,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const data = await authService.register(userData);
-      
+
       // Si el registro devuelve un token, iniciar sesión automáticamente
       if (data.token) {
         localStorage.setItem("token", data.token);
@@ -90,7 +99,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const updatedUser = await authService.updateProfile(userData);
-      
+
       // Actualizar el usuario en el contexto
       setUser({
         ...user,

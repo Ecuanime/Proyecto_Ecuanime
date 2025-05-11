@@ -88,6 +88,7 @@
   overflow-x: auto;
 }
 
+/* Modificar el estilo de la tabla para que tenga fondo negro */
 .clientsTable {
   width: 100%;
   border-collapse: collapse;
@@ -102,7 +103,7 @@
 }
 
 .clientsTable th {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(30, 30, 30, 0.5);
   font-weight: 600;
   color: #ccc;
 }

@@ -1,104 +1,101 @@
 "use client"
 
-import { type ReactNode, useState } from "react"
-import { Link, useNavigate, useLocation } from "react-router-dom"
-import { FaHome, FaUsers,  FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa"
-import { useAuth } from "../../../context/AuthContext"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { Menu, X, Home, Users, LogOut, Settings, ChevronDown } from 'lucide-react'
+import { useAuth } from "../../context/AuthContext"
 import styles from "./AdminLayout.module.css"
 
-interface AdminLayoutProps {
-  children: ReactNode
-}
-
-const AdminLayout = ({ children }: AdminLayoutProps) => {
+const AdminLayout = ({ children }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const { user, logout } = useAuth()
   const navigate = useNavigate()
-  const location = useLocation()
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-
-  const handleLogout = () => {
-    logout()
-    navigate("/") // Redirige a la página principal
-  }
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen)
   }
 
-  const closeSidebar = () => {
-    if (sidebarOpen) {
-      setSidebarOpen(false)
+  const handleLogout = async () => {
+    try {
+      logout() // Usando tu función de logout que ya maneja la limpieza del token
+      // Redirigir a la página principal después de cerrar sesión
+      navigate("/")
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error)
     }
   }
 
   return (
     <div className={styles.adminLayout}>
-      <div className={`${styles.sidebar} ${sidebarOpen ? styles.open : ""}`}>
+      {/* Sidebar */}
+      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ""}`}>
         <div className={styles.sidebarHeader}>
-          <img src="https://i.postimg.cc/zXjLVJJz/LOGO-PARA-PAGINA-WEB-FONDO-NEGRO.png" alt="Logo" className={styles.logo} />
+          <h2>Admin Panel</h2>
           <button className={styles.closeSidebar} onClick={toggleSidebar}>
-            <FaTimes />
+            <X size={24} />
           </button>
-        </div>
-
-        <div className={styles.userInfo}>
-          <div className={styles.userAvatar}>{user?.name.charAt(0)}</div>
-          <div className={styles.userName}>{user?.name}</div>
-          <div className={styles.userRole}>{user?.role === "admin" ? "Administrador" : "Usuario"}</div>
         </div>
 
         <nav className={styles.sidebarNav}>
-          <Link
-            to="/admin"
-            className={`${styles.navItem} ${location.pathname === "/admin" ? styles.active : ""}`}
-            onClick={closeSidebar}
-          >
-            <FaHome className={styles.navIcon} />
-            <span>Dashboard</span>
-          </Link>
-
-          <Link
-            to="/admin/usuarios"
-            className={`${styles.navItem} ${location.pathname === "/admin/usuarios" ? styles.active : ""}`}
-            onClick={closeSidebar}
-          >
-            <FaUsers className={styles.navIcon} />
-            <span>Usuarios</span>
-          </Link>
-
-
+          <ul>
+            <li>
+              <a href="/admin" className={window.location.pathname === "/admin" ? styles.active : ""}>
+                <Home size={20} />
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin/usuarios"
+                className={window.location.pathname.includes("/admin/usuarios") ? styles.active : ""}
+              >
+                <Users size={20} />
+                <span>Usuarios</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin/configuracion"
+                className={window.location.pathname.includes("/admin/configuracion") ? styles.active : ""}
+              >
+                <Settings size={20} />
+                <span>Configuración</span>
+              </a>
+            </li>
+            <li>
+              <button onClick={handleLogout} className={styles.logoutButton}>
+                <LogOut size={20} />
+                <span>Cerrar sesión</span>
+              </button>
+            </li>
+          </ul>
         </nav>
+      </aside>
 
-        <div className={styles.sidebarFooter}>
-          <button className={styles.logoutButton} onClick={handleLogout}>
-            <FaSignOutAlt className={styles.navIcon} />
-            <span>Cerrar Sesión</span>
-          </button>
-        </div>
-      </div>
-
-      <div className={styles.mainContent}>
-        <header className={styles.header}>
-          <button className={styles.menuToggle} onClick={toggleSidebar}>
-            <FaBars />
+      {/* Main content */}
+      <main className={styles.mainContent}>
+        {/* Top navbar */}
+        <header className={styles.topNav}>
+          <button className={styles.menuButton} onClick={toggleSidebar}>
+            <Menu size={24} />
           </button>
 
-          <div className={styles.headerRight}>
-            {/* Se eliminó el componente de notificaciones */}
+          <div className={styles.userMenu}>
+            <div className={styles.userInfo}>
+              <span>{user?.name || "Admin"}</span>
+              <ChevronDown size={16} />
+            </div>
             <div className={styles.userDropdown}>
-              <div className={styles.userAvatar}>{user?.name.charAt(0)}</div>
+              <a href="/admin/perfil">Mi Perfil</a>
+              <a href="/admin/configuracion">Configuración</a>
+              <button onClick={handleLogout}>Cerrar sesión</button>
             </div>
           </div>
         </header>
 
-        <main className={styles.content}>{children}</main>
-
-        <footer className={styles.footer}>
-          <p>&copy; {new Date().getFullYear()} Tu Empresa. Todos los derechos reservados.</p>
-        </footer>
-      </div>
-
-      {sidebarOpen && <div className={styles.overlay} onClick={toggleSidebar}></div>}
+        {/* Page content */}
+        <div className={styles.pageContent}>{children}</div>
+      </main>
     </div>
   )
 }

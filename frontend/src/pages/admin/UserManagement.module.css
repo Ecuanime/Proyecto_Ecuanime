@@ -100,20 +100,20 @@
 /* Tabla de usuarios */
 .tableContainer {
   overflow-x: auto;
-  background-color: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: transparent;
 }
 
+/* Modificar el estilo de la tabla para que tenga fondo negro */
 .usersTable {
   width: 100%;
   border-collapse: collapse;
+  background-color: transparent !important;
 }
 
 .usersTable th {
   text-align: left;
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(30, 30, 30, 0.5) !important;
   color: #ccc;
   font-weight: 500;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -123,14 +123,11 @@
   padding: 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   color: white;
-}
-
-.usersTable tr:last-child td {
-  border-bottom: none;
+  background-color: transparent !important;
 }
 
 .usersTable tr:hover td {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
 .noResults {

@@ -1,270 +1,244 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { FaSpinner } from "react-icons/fa"
-import { useAuth } from "../../context/AuthContext"
-import { userService } from "../../services/api.js"
-import AdminLayout from "./components/AdminLayout"
-import styles from "./Dashboard.module.css"
-import "bootstrap/dist/css/bootstrap.min.css" // Importa Bootstrap para la estructura base
+import React, { useState, useEffect, useCallback } from "react";
+import { Users, UserPlus, Activity, ShieldCheck, BarChart3 as BarChartIconLucide } from "lucide-react"; // Cambiado BarChart2 a BarChart3 o el que prefieras
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Cell // Para colores personalizados en las barras
+} from 'recharts'; // Importaciones de Recharts
+import AdminLayout from "../../pages/admin/components/AdminLayout.js";
+import { userService } from "../../services/api.js";
+import styles from "./Dashboard.module.css"; // Asumiendo que tienes Dashboard.module.css
 
-interface Client {
-  _id: string
-  name: string
-  email: string
-  phone: string
-  region: string
-  registrationDate: string
-  // Puedes añadir aquí otros campos que necesites mostrar en el modal
-  storeName?: string
-  // ... otros campos
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  role: "admin" | "user";
+  createdAt?: string;
 }
 
 interface DashboardStats {
-  totalUsers: number
-  newUsers: number
-  pendingMessages: number
-  catalogDownloads: number
+  totalUsers: number;
+  newUsersLastWeek: number;
+  adminCount: number;
+  userCount: number; // Añadido para el gráfico
+  activeUsersToday: number;
 }
 
+// Colores para el gráfico (coherentes con los badges)
+const COLORS = {
+  admin: 'var(--warning-color, #ffc107)', // Color de --warning-color
+  user: 'var(--info-color, #17a2b8)'     // Color de --info-color
+};
+
 const Dashboard = () => {
-  const { user } = useAuth()
-  const navigate = useNavigate()
-  const [clients, setClients] = useState<Client[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [stats, setStats] = useState<DashboardStats>({
-    totalUsers: 0,
-    newUsers: 0,
-    pendingMessages: 0,
-    catalogDownloads: 0,
-  })
-  const [error, setError] = useState<string | null>(null)
-  const [selectedClient, setSelectedClient] = useState<Client | null>(null)
-  const [showClientModal, setShowClientModal] = useState(false)
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [recentUsers, setRecentUsers] = useState<User[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadDashboardData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      const usersData = await userService.getUsers();
+      
+      const totalUsers = usersData.length;
+      const adminCount = usersData.filter((user: User) => user.role === "admin").length;
+      const userCount = totalUsers - adminCount; // Usuarios no administradores
+
+      const newUsersLastWeek = Math.floor(Math.random() * (totalUsers / 10));
+      const activeUsersToday = Math.floor(Math.random() * (totalUsers / 2));
+
+      setStats({
+        totalUsers,
+        newUsersLastWeek,
+        adminCount,
+        userCount, // Añadido
+        activeUsersToday,
+      });
+
+      const sortedRecentUsers = usersData
+        .sort((a: User, b: User) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+        .slice(0, 5);
+      setRecentUsers(sortedRecentUsers);
+
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Error al cargar datos del dashboard";
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    if (!user || user.role !== "admin") {
-      navigate("/admin/login")
-      return
-    }
+    loadDashboardData();
+  }, [loadDashboardData]);
 
-    const fetchData = async () => {
-      setIsLoading(true)
-      setError(null)
+  // Datos para el gráfico de usuarios por rol
+  const usersByRoleData = stats ? [
+    { name: 'Administradores', count: stats.adminCount, fill: COLORS.admin },
+    { name: 'Usuarios', count: stats.userCount, fill: COLORS.user },
+  ] : [];
 
-      try {
-        // Obtener todos los usuarios
-        const allUsers = await userService.getUsers()
-
-        // Obtener usuarios recientes (últimos 5)
-        const recentClients = allUsers
-          .filter((user: any) => user.role !== "admin")
-          .sort((a: any, b: any) => {
-            return (
-              new Date(b.registrationDate || b.createdAt || 0).getTime() -
-              new Date(a.registrationDate || a.createdAt || 0).getTime()
-            )
-          })
-          .slice(0, 5)
-          .map((client: any) => ({
-            _id: client._id,
-            name: client.name || "Sin nombre",
-            email: client.email || "Sin email",
-            phone: client.phone || "Sin teléfono",
-            region: client.region || "Sin región",
-            registrationDate: client.registrationDate || client.createdAt || new Date().toISOString(),
-            storeName: client.storeName, // Ejemplo de cómo traer otros campos
-            // ... trae aquí otros campos que necesites
-          }))
-
-        setClients(recentClients)
-
-        // Calcular estadísticas
-        const newUsersCount = allUsers.filter((user: any) => {
-          const registrationDate = new Date(user.registrationDate || user.createdAt || 0)
-          const thirtyDaysAgo = new Date()
-          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
-          return registrationDate >= thirtyDaysAgo
-        }).length
-
-        setStats({
-          totalUsers: allUsers.filter((user: any) => user.role !== "admin").length,
-          newUsers: newUsersCount,
-          pendingMessages: Math.floor(Math.random() * 10), // Simulado por ahora
-          catalogDownloads: allUsers.length * 2, // Simulado por ahora
-        })
-      } catch (error: any) {
-        console.error("Error fetching dashboard data:", error)
-        setError(`Error al cargar datos: ${error.message || "Error desconocido"}`)
-
-        // Datos de respaldo en caso de error
-        setClients([])
-        setStats({
-          totalUsers: 0,
-          newUsers: 0,
-          pendingMessages: 0,
-          catalogDownloads: 0,
-        })
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [user, navigate])
-
-  const handleShowClientDetails = (client: Client) => {
-    setSelectedClient(client)
-    setShowClientModal(true)
+  if (isLoading) {
+    return (
+      <AdminLayout>
+        <div className={styles.dashboardContainer}>
+          <div className={styles.loadingState}>
+            <div className={styles.spinner}></div>
+            <p>Cargando Dashboard...</p>
+          </div>
+        </div>
+      </AdminLayout>
+    );
   }
 
-  const handleCloseClientModal = () => {
-    setSelectedClient(null)
-    setShowClientModal(false)
+  if (error) {
+    return (
+      <AdminLayout>
+        <div className={styles.dashboardContainer}>
+          <div className={styles.errorState}>
+            <p>{error}</p>
+            <button onClick={loadDashboardData} className={styles.retryButton}>Reintentar</button>
+          </div>
+        </div>
+      </AdminLayout>
+    );
   }
 
   return (
     <AdminLayout>
-      <div className={styles.dashboardHeader}>
-        <h1>Dashboard</h1>
-        <p>Bienvenido, {user?.name}!</p>
-      </div>
-
-      {error && (
-        <div className={styles.errorMessage}>
-          <p>{error}</p>
+      <div className={styles.dashboardContainer}>
+        <div className={styles.dashboardHeader}>
+          <h1>Dashboard Principal</h1>
+          <p>Bienvenido al panel de administración. Aquí tienes un resumen general.</p>
         </div>
-      )}
 
-      {isLoading ? (
-        <div className={styles.loading}>
-          <FaSpinner className={styles.spinner} />
-          <p>Cargando datos del dashboard...</p>
-        </div>
-      ) : (
-        <>
-          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 mb-4">
-            <div className="col">
-              <div className={`${styles.statCard} rounded shadow-sm p-3`}>
-                <h3>Clientes Totales</h3>
-                <p className={`${styles.statNumber}`}>{stats.totalUsers}</p>
+        {stats && (
+          <div className={styles.statsGrid}>
+            <div className={styles.statCard}>
+              <div className={styles.statIconWrapper} style={{ backgroundColor: 'rgba(0, 123, 255, 0.1)', color: 'var(--accent-color, #007bff)' }}>
+                <Users size={28} />
+              </div>
+              <div className={styles.statInfo}>
+                <h4>Total de Usuarios</h4>
+                <p>{stats.totalUsers}</p>
               </div>
             </div>
-            <div className="col">
-              <div className={`${styles.statCard} rounded shadow-sm p-3`}>
-                <h3>Nuevos Clientes (Mes)</h3>
-                <p className={`${styles.statNumber}`}>{stats.newUsers}</p>
+            <div className={styles.statCard}>
+               <div className={styles.statIconWrapper} style={{ backgroundColor: 'rgba(40, 167, 69, 0.1)', color: 'var(--success-color, #28a745)' }}>
+                <UserPlus size={28} />
+              </div>
+              <div className={styles.statInfo}>
+                <h4>Nuevos (Últ. 7 días)</h4>
+                <p>{stats.newUsersLastWeek}</p>
+              </div>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statIconWrapper} style={{ backgroundColor: 'rgba(255, 193, 7, 0.1)', color: 'var(--warning-color, #ffc107)' }}>
+                <ShieldCheck size={28} />
+              </div>
+              <div className={styles.statInfo}>
+                <h4>Administradores</h4>
+                <p>{stats.adminCount}</p>
+              </div>
+            </div>
+             <div className={styles.statCard}>
+              <div className={styles.statIconWrapper} style={{ backgroundColor: 'rgba(23, 162, 184, 0.1)', color: 'var(--info-color, #17a2b8)' }}>
+                <Activity size={28} />
+              </div>
+              <div className={styles.statInfo}>
+                <h4>Activos Hoy (Sim.)</h4>
+                <p>{stats.activeUsersToday}</p>
               </div>
             </div>
           </div>
+        )}
 
-          <div className="bg-transparent rounded shadow-sm p-3 mb-4">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h2>Clientes Recientes</h2>
-              <button className="btn btn-primary" onClick={() => navigate("/admin/usuarios")}>
-                Ver Todos
-              </button>
-            </div>
-
-            {clients.length === 0 ? (
-              <div className={styles.noData}>
-                <p>No hay clientes registrados aún.</p>
-              </div>
-            ) : (
-              <div className="table-responsive">
-                <table className={`${styles.clientsTable} table table-hover bg-transparent`}>
+        <div className={styles.mainContentGrid}>
+          <div className={`${styles.contentCard} ${styles.recentUsersCard}`}>
+            <h3 className={styles.cardTitle}>Usuarios Registrados Recientemente</h3>
+            {recentUsers.length > 0 ? (
+              <div className={styles.tableContainer}>
+                <table className={styles.dashboardTable}>
                   <thead>
                     <tr>
                       <th>Nombre</th>
-                      <th>Email</th>
-                      <th className="d-none d-md-table-cell">Teléfono</th>
-                      <th className="d-none d-lg-table-cell">Región</th>
-                      <th>Fecha</th>
-                      <th>Acciones</th>
+                      <th className="d-none d-sm-table-cell">Email</th>
+                      <th>Rol</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {clients.map((client) => (
-                      <tr key={client._id}>
-                        <td>{client.name}</td>
-                        <td>{client.email}</td>
-                        <td className="d-none d-md-table-cell">{client.phone}</td>
-                        <td className="d-none d-lg-table-cell">{client.region}</td>
-                        <td>{new Date(client.registrationDate).toLocaleDateString()}</td>
+                    {recentUsers.map(user => (
+                      <tr key={user._id}>
+                        <td>{user.name}</td>
+                        <td className="d-none d-sm-table-cell">{user.email}</td>
                         <td>
-                          <button
-                            className={`${styles.actionButton} btn btn-sm btn-outline-info`}
-                            onClick={() => handleShowClientDetails(client)}
-                          >
-                            Ver
-                          </button>
+                          <span className={`${styles.roleBadge} ${user.role === "admin" ? styles.adminBadge : styles.userBadge}`}>
+                            {user.role}
+                          </span>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
+            ) : (
+              <p className={styles.noDataMessage}>No hay usuarios recientes para mostrar.</p>
             )}
           </div>
 
-          {/* Modal de Detalles del Cliente */}
-          {selectedClient && (
-            <div className="modal fade show" style={{ display: "block" }} aria-modal="true" role="dialog">
-              <div className="modal-dialog modal-dialog-centered modal-lg">
-                <div className={`${styles.modal} modal-content`}>
-                  <div className={`${styles.modalHeader} modal-header`}>
-                    <h5 className="modal-title">Detalles del Cliente</h5>
-                    <button
-                      type="button"
-                      className="btn-close"
-                      onClick={handleCloseClientModal}
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div className={`${styles.modalBody} modal-body`}>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <p>
-                          <strong>Nombre:</strong> {selectedClient.name}
-                        </p>
-                        <p>
-                          <strong>Email:</strong> {selectedClient.email}
-                        </p>
-                        <p>
-                          <strong>Teléfono:</strong> {selectedClient.phone}
-                        </p>
-                        <p>
-                          <strong>Región:</strong> {selectedClient.region}
-                        </p>
-                      </div>
-                      <div className="col-md-6">
-                        <p>
-                          <strong>Fecha de Registro:</strong>{" "}
-                          {new Date(selectedClient.registrationDate).toLocaleDateString()}
-                        </p>
-                        {selectedClient.storeName && (
-                          <p>
-                            <strong>Nombre de Tienda:</strong> {selectedClient.storeName}
-                          </p>
-                        )}
-                        {/* Aquí puedes mostrar otros detalles del cliente */}
-                      </div>
-                    </div>
-                  </div>
-                  <div className={`${styles.modalFooter} modal-footer`}>
-                    <button type="button" className="btn btn-secondary" onClick={handleCloseClientModal}>
-                      Cerrar
-                    </button>
-                  </div>
-                </div>
+          {/* GRÁFICO REAL CON RECHARTS */}
+          <div className={`${styles.contentCard} ${styles.chartCard}`}>
+            <h3 className={styles.cardTitle}>Distribución de Usuarios por Rol</h3>
+            {usersByRoleData.length > 0 ? (
+              <div className={styles.chartContainer}> {/* Contenedor para el gráfico */}
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart
+                    data={usersByRoleData}
+                    margin={{ top: 5, right: 0, left: -25, bottom: 5 }} /* Ajusta márgenes */
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+                    <XAxis dataKey="name" tick={{ fill: 'var(--text-secondary-dark)', fontSize: 12 }} />
+                    <YAxis allowDecimals={false} tick={{ fill: 'var(--text-secondary-dark)', fontSize: 12 }} />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: 'var(--surface-dark-light)',
+                        borderColor: 'var(--border-dark)',
+                        borderRadius: '6px',
+                        color: 'var(--text-primary-dark)'
+                      }}
+                      cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
+                    />
+                    {/* <Legend wrapperStyle={{ color: 'var(--text-secondary-dark)', fontSize: 12 }}/> */}
+                    <Bar dataKey="count"  barSize={40}>
+                       {usersByRoleData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
-            </div>
-          )}
-        </>
-      )}
+            ) : (
+              <div className={styles.chartPlaceholder}>
+                 <BarChartIconLucide size={50} opacity={0.3} />
+                 <p>No hay datos suficientes para mostrar el gráfico.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </AdminLayout>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

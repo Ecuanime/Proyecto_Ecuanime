@@ -1,4 +1,3 @@
-import axios from 'axios';
 
 // Configuración base de axios
 const API_URL = import.meta.env.VITE_API_URL || 'https://proyecto-ecuanime.onrender.com/api';
@@ -91,7 +90,19 @@ export const authService = {
       handleApiError(error);
       throw error;
     }
-  }
+  },
+
+  // --- NUEVA FUNCIÓN PARA GOOGLE SIGN-IN ---
+  loginOrRegisterWithGoogle: async (idToken) => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/google-signin`, { idToken });
+      return response.data;
+    } catch (error) {
+      handleApiError(error);
+      throw error;
+    }
+  },
+  // --- FIN NUEVA FUNCIÓN ---
 };
 
 // Servicios de usuarios

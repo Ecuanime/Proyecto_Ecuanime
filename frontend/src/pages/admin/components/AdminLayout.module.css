@@ -1,240 +1,222 @@
+/* AdminLayout.module.css */
+
+/* Estilos base del layout */
 .adminLayout {
-    display: flex;
-    min-height: 100vh;
-    background-color: #0a0a0a;
-  }
-  
+  display: flex;
+  min-height: 100vh;
+  background-color: #0a0a0a; /* Negro principal del layout */
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background-color: #000; /* Sidebar negro */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1000; /* Encima del overlay */
+  transition: transform 0.3s ease;
+}
+
+.sidebarHeader {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Para el logo/título y el botón de cierre */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebarHeader h2 {
+  margin: 0;
+  font-size: 1.1rem; /* Ajusta según tu logo o título */
+  font-weight: 600;
+}
+
+/* Originalmente .logo, pero no está en el JSX actual. Si lo añades, estilízalo aquí. */
+/* .logo { height: 40px; } */
+
+.closeSidebar { /* Botón X para cerrar el sidebar en móvil */
+  display: none; /* Oculto en desktop */
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px; /* Para facilitar el clic */
+}
+
+/* Originalmente .userInfo, .userAvatar, .userName, .userRole. Si los añades, estilízalos aquí. */
+
+.sidebarNav {
+  flex: 1; /* Ocupa el espacio disponible */
+  padding: 15px 0;
+  overflow-y: auto; /* Scroll si los ítems exceden la altura */
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px; /* Padding interno */
+  margin: 0 15px 8px 15px; /* Margen externo para separación y centrado visual */
+  color: #ccc;
+  text-decoration: none;
+  background-color: transparent;
+  border: none; /* Los botones del footer tendrán su propio borde */
+  width: calc(100% - 30px); /* Ancho ajustado por los márgenes laterales */
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  gap: 12px; /* Espacio entre el ícono y el texto */
+  border-radius: 6px; /* Bordes redondeados */
+  font-size: 0.95rem;
+}
+
+.navItem:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.navItem.active { /* Si implementas lógica para un ítem activo */
+  background-color: var(--accent-color, #007bff); /* Usa variable CSS o un color por defecto */
+  color: white;
+  font-weight: 500;
+}
+
+/* .navIcon { margin-right: 10px; font-size: 1.2rem; } -- 'gap' en .navItem lo maneja */
+
+.sidebarFooter {
+  padding: 15px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column; /* Apila los botones */
+  gap: 10px; /* Espacio entre los botones del footer */
+}
+
+/* NUEVA CLASE BASE PARA BOTONES DEL FOOTER */
+.footerButton {
+  /* .navItem ya define display, align-items, width, padding, color, gap, border-radius, transition */
+  /* Este se aplica junto con .navItem: className={`${styles.navItem} ${styles.footerButton}`} */
+  background: none; /* Fondo transparente para heredar el negro del sidebar */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Borde sutil para los botones del footer */
+  /* El margen ya está gestionado por .navItem y el gap en .sidebarFooter */
+  /* Si el texto debe estar centrado en los botones del footer (en vez de izq. por navItem): */
+  /* justify-content: center; */
+}
+
+.footerButton:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Hover un poco más notorio */
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+/* Clases específicas (pueden estar vacías si .footerButton es suficiente) */
+.homePageButtonFooter {
+  /* Estilos únicos para el botón de Página Principal si son necesarios */
+}
+
+.logoutButtonFooter {
+  /* Estilos únicos para el botón de Cerrar Sesión si son necesarios */
+}
+
+/* Main Content Area */
+.mainContent {
+  flex: 1;
+  margin-left: 120px; /* Reducir el margen izquierdo */
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease;
+  /* Para asegurar que el contenido también tenga fondo oscuro si es necesario: */
+  /* background-color: #0a0a0a; */ /* O el color que prefieras */
+}
+
+/* Header Styles (el que contiene el toggle y el título principal) */
+.header {
+  height: 60px;
+  background-color: #000; /* Header negro, igual que el sidebar */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */ /* Si tienes más elementos a la derecha */
+  padding: 0 20px;
+  position: sticky; /* Para que se quede fijo al hacer scroll */
+  top: 0;
+  z-index: 900; /* Debajo del sidebar y overlay */
+  color: white;
+}
+
+.header h2 {
+  margin: 0 0 0 15px; /* Espacio después del botón de menú */
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.menuToggle { /* Botón de hamburguesa */
+  display: none; /* Oculto en desktop */
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.4rem; /* Tamaño del ícono de menú */
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* .headerRight, .notifications, .badge, .userDropdown no están en el JSX proporcionado */
+
+/* .content { flex: 1; padding: 20px; } -- El children se renderiza en mainContent directamente */
+
+/* .footer { ... } -- No hay un footer de página general en el JSX */
+
+.overlay {
+  display: none; /* Controlado por JS (estado menuOpen) */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.65); /* Overlay oscuro */
+  z-index: 999; /* Encima del contenido pero debajo del sidebar */
+}
+
+/* --- Responsive Media Queries --- */
+@media (max-width: 992px) { /* Ajusta este breakpoint según necesites */
   .sidebar {
-    width: 250px;
-    background-color: #000;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 1000;
-    transition: transform 0.3s ease;
+    transform: translateX(-100%); /* Sidebar oculto por defecto en móvil */
+  }
+
+  .sidebar.sidebarOpen { /* Clase para mostrar el sidebar en móvil */
+    transform: translateX(0);
+    /* width: 280px; */ /* Puedes ajustar el ancho para móvil si es diferente */
+    box-shadow: 3px 0px 15px rgba(0, 0, 0, 0.2);
   }
   
-  .sidebarHeader {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  .sidebarHeader .closeSidebar { /* Muestra el botón X en el header del sidebar móvil */
+    display: block;
   }
-  
-  .logo {
-    height: 40px;
-  }
-  
-  .closeSidebar {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-  }
-  
-  .userInfo {
-    padding: 20px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  .userAvatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: var(--accent-color);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0 auto 10px;
-  }
-  
-  .userName {
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
-  
-  .userRole {
-    font-size: 0.8rem;
-    color: #ccc;
-  }
-  
-  .sidebarNav {
-    flex: 1;
-    padding: 20px 0;
-    overflow-y: auto;
-  }
-  
-  .navItem {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    color: #ccc;
-    transition: all 0.3s ease;
-  }
-  
-  .navItem:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: white;
-  }
-  
-  .navItem.active {
-    background-color: var(--accent-color);
-    color: white;
-  }
-  
-  .navIcon {
-    margin-right: 10px;
-    font-size: 1.2rem;
-  }
-  
-  .sidebarFooter {
-    padding: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  .logoutButton {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 12px;
-    background: none;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    color: #ccc;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .logoutButton:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: white;
-  }
-  
+
   .mainContent {
-    flex: 1;
-    margin-left: 250px;
-    display: flex;
-    flex-direction: column;
-    transition: margin-left 0.3s ease;
+    margin-left: 0; /* Contenido ocupa todo el ancho */
   }
-  
+
   .header {
-    height: 60px;
-    background-color: #000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    /* justify-content: space-between; */ /* Asegura espacio si solo están toggle y título */
   }
-  
-  .menuToggle {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
+
+  .menuToggle { /* Muestra el botón de hamburguesa en el header */
+    display: block;
   }
-  
-  .headerRight {
-    display: flex;
-    align-items: center;
+
+  .overlay { /* Se mostrará cuando menuOpen sea true */
+     display: block;
   }
-  
-  .notifications {
-    position: relative;
-    margin-right: 20px;
-    cursor: pointer;
-  }
-  
-  .badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: var(--accent-color);
-    color: white;
-    font-size: 0.7rem;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .userDropdown {
-    cursor: pointer;
-  }
-  
-  .userDropdown .userAvatar {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-    margin: 0;
-  }
-  
-  .content {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .footer {
-    padding: 15px 20px;
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ccc;
-    font-size: 0.8rem;
-  }
-  
-  .overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 900;
-  }
-  
-  @media (max-width: 992px) {
-    .sidebar {
-      transform: translateX(-100%);
-    }
-  
-    .sidebar.open {
-      transform: translateX(0);
-    }
-  
-    .closeSidebar {
-      display: block;
-    }
-  
-    .mainContent {
-      margin-left: 0;
-    }
-  
-    .menuToggle {
-      display: block;
-    }
-  
-    .overlay {
-      display: block;
-    }
-  }
-  
+}
+
+/* Asegúrate de definir --accent-color en :root o un selector global si usas .active */
+/*
+:root {
+  --accent-color: #007bff; 
+}
+*/

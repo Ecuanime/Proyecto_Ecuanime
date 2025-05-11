@@ -173,7 +173,7 @@ const Dashboard = () => {
               </div>
             ) : (
               <div className="table-responsive">
-                <table className={`${styles.clientsTable} table table-hover`}>
+                <table className={`${styles.clientsTable} table table-hover bg-transparent`}>
                   <thead>
                     <tr>
                       <th>Nombre</th>
@@ -215,25 +215,47 @@ const Dashboard = () => {
                 <div className={`${styles.modal} modal-content`}>
                   <div className={`${styles.modalHeader} modal-header`}>
                     <h5 className="modal-title">Detalles del Cliente</h5>
-                    <button type="button" className="btn-close" onClick={handleCloseClientModal} aria-label="Close"></button>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      onClick={handleCloseClientModal}
+                      aria-label="Close"
+                    ></button>
                   </div>
                   <div className={`${styles.modalBody} modal-body`}>
                     <div className="row">
                       <div className="col-md-6">
-                        <p><strong>Nombre:</strong> {selectedClient.name}</p>
-                        <p><strong>Email:</strong> {selectedClient.email}</p>
-                        <p><strong>Teléfono:</strong> {selectedClient.phone}</p>
-                        <p><strong>Región:</strong> {selectedClient.region}</p>
+                        <p>
+                          <strong>Nombre:</strong> {selectedClient.name}
+                        </p>
+                        <p>
+                          <strong>Email:</strong> {selectedClient.email}
+                        </p>
+                        <p>
+                          <strong>Teléfono:</strong> {selectedClient.phone}
+                        </p>
+                        <p>
+                          <strong>Región:</strong> {selectedClient.region}
+                        </p>
                       </div>
                       <div className="col-md-6">
-                        <p><strong>Fecha de Registro:</strong> {new Date(selectedClient.registrationDate).toLocaleDateString()}</p>
-                        {selectedClient.storeName && <p><strong>Nombre de Tienda:</strong> {selectedClient.storeName}</p>}
+                        <p>
+                          <strong>Fecha de Registro:</strong>{" "}
+                          {new Date(selectedClient.registrationDate).toLocaleDateString()}
+                        </p>
+                        {selectedClient.storeName && (
+                          <p>
+                            <strong>Nombre de Tienda:</strong> {selectedClient.storeName}
+                          </p>
+                        )}
                         {/* Aquí puedes mostrar otros detalles del cliente */}
                       </div>
                     </div>
                   </div>
                   <div className={`${styles.modalFooter} modal-footer`}>
-                    <button type="button" className="btn btn-secondary" onClick={handleCloseClientModal}>Cerrar</button>
+                    <button type="button" className="btn btn-secondary" onClick={handleCloseClientModal}>
+                      Cerrar
+                    </button>
                   </div>
                 </div>
               </div>

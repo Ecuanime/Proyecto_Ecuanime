@@ -183,7 +183,9 @@ const UserManagement = () => {
               </div>
             ) : (
               <div className="table-responsive">
-                <table className={`${styles.usersTable} table table-striped table-hover bg-light rounded shadow-sm w-100`}>
+                <table
+                  className={`${styles.usersTable} table table-striped table-hover bg-transparent rounded shadow-sm w-100`}
+                >
                   <thead>
                     <tr>
                       <th>Nombre</th>
@@ -263,9 +265,7 @@ const UserManagement = () => {
         )}
 
         {/* Modal de añadir usuario */}
-        {showAddModal && (
-          <AddUserModal onClose={closeAddModal} onCreateUser={createUser} />
-        )}
+        {showAddModal && <AddUserModal onClose={closeAddModal} onCreateUser={createUser} />}
       </div>
     </AdminLayout>
   )
@@ -309,23 +309,55 @@ const AddUserModal = ({ onClose, onCreateUser }: AddUserModalProps) => {
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="form-label">Nombre</label>
-                <input type="text" className="form-control" name="name" value={newUserData.name} onChange={handleChange} required />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="name"
+                  value={newUserData.name}
+                  onChange={handleChange}
+                  required
+                />
               </div>
               <div className="mb-3">
                 <label className="form-label">Email</label>
-                <input type="email" className="form-control" name="email" value={newUserData.email} onChange={handleChange} required />
+                <input
+                  type="email"
+                  className="form-control"
+                  name="email"
+                  value={newUserData.email}
+                  onChange={handleChange}
+                  required
+                />
               </div>
               <div className="mb-3">
                 <label className="form-label">Teléfono</label>
-                <input type="tel" className="form-control" name="phone" value={newUserData.phone} onChange={handleChange} />
+                <input
+                  type="tel"
+                  className="form-control"
+                  name="phone"
+                  value={newUserData.phone}
+                  onChange={handleChange}
+                />
               </div>
               <div className="mb-3">
                 <label className="form-label">Región</label>
-                <input type="text" className="form-control" name="region" value={newUserData.region} onChange={handleChange} />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="region"
+                  value={newUserData.region}
+                  onChange={handleChange}
+                />
               </div>
               <div className="mb-3">
                 <label className="form-label">Nombre de Tienda</label>
-                <input type="text" className="form-control" name="storeName" value={newUserData.storeName} onChange={handleChange} />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="storeName"
+                  value={newUserData.storeName}
+                  onChange={handleChange}
+                />
               </div>
               <div className="mb-3">
                 <label className="form-label">Rol</label>
@@ -388,7 +420,14 @@ const EditUserModal = ({ user, onClose, onSave }: EditUserModalProps) => {
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="form-label">Nombre</label>
-                <input type="text" className="form-control" name="name" value={userData.name} onChange={handleChange} required />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="name"
+                  value={userData.name}
+                  onChange={handleChange}
+                  required
+                />
               </div>
               <div className="mb-3">
                 <label className="form-label">Email</label>
@@ -397,15 +436,33 @@ const EditUserModal = ({ user, onClose, onSave }: EditUserModalProps) => {
               </div>
               <div className="mb-3">
                 <label className="form-label">Teléfono</label>
-                <input type="tel" className="form-control" name="phone" value={userData.phone} onChange={handleChange} />
+                <input
+                  type="tel"
+                  className="form-control"
+                  name="phone"
+                  value={userData.phone}
+                  onChange={handleChange}
+                />
               </div>
               <div className="mb-3">
                 <label className="form-label">Región</label>
-                <input type="text" className="form-control" name="region" value={userData.region} onChange={handleChange} />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="region"
+                  value={userData.region}
+                  onChange={handleChange}
+                />
               </div>
               <div className="mb-3">
                 <label className="form-label">Nombre de Tienda</label>
-                <input type="text" className="form-control" name="storeName" value={userData.storeName} onChange={handleChange} />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="storeName"
+                  value={userData.storeName}
+                  onChange={handleChange}
+                />
               </div>
               <div className="mb-3">
                 <label className="form-label">Rol</label>

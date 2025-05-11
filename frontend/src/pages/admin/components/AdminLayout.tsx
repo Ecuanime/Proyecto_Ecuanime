@@ -1,11 +1,10 @@
 "use client"
 
 import { useState } from "react"
+
 import type { ReactNode } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { LayoutDashboard, Users, Settings, LogOut, Menu, X } from "lucide-react"
-// Corregir la ruta de importación del contexto de autenticación
-// La ruta debe ser relativa a la ubicación actual del archivo
+import { LayoutDashboard, Users, LogOut, Menu, X } from "lucide-react"
 import { useAuth } from "../../../context/AuthContext"
 import styles from "./AdminLayout.module.css"
 
@@ -20,8 +19,10 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
   const handleLogout = () => {
     logout()
-    // Redirigir al usuario a la página principal después de cerrar sesión
-    navigate("/")
+    // Redirigir al usuario a la página principal (landing page)
+    window.location.href = "https://proyecto-ecuanime.onrender.com/"
+    // Alternativa usando navigate:
+    // navigate("/")
   }
 
   const toggleMenu = () => {
@@ -36,7 +37,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           <h2>Admin Panel</h2>
         </div>
         <nav className={styles.sidebarNav}>
-          <Link to="/admin/dashboard" className={styles.navItem}>
+          <Link to="/admin" className={styles.navItem}>
             <LayoutDashboard size={20} />
             <span>Dashboard</span>
           </Link>
@@ -44,10 +45,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
             <Users size={20} />
             <span>Usuarios</span>
           </Link>
-          <Link to="/admin/configuracion" className={styles.navItem}>
-            <Settings size={20} />
-            <span>Configuración</span>
-          </Link>
+          {/* Se eliminó la opción de Configuración */}
           <button onClick={handleLogout} className={`${styles.navItem} ${styles.logoutButton}`}>
             <LogOut size={20} />
             <span>Cerrar Sesión</span>
@@ -67,7 +65,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       {menuOpen && (
         <div className={styles.mobileMenu}>
           <nav>
-            <Link to="/admin/dashboard" className={styles.mobileNavItem} onClick={() => setMenuOpen(false)}>
+            <Link to="/admin" className={styles.mobileNavItem} onClick={() => setMenuOpen(false)}>
               <LayoutDashboard size={20} />
               <span>Dashboard</span>
             </Link>
@@ -75,10 +73,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
               <Users size={20} />
               <span>Usuarios</span>
             </Link>
-            <Link to="/admin/configuracion" className={styles.mobileNavItem} onClick={() => setMenuOpen(false)}>
-              <Settings size={20} />
-              <span>Configuración</span>
-            </Link>
+            {/* Se eliminó la opción de Configuración */}
             <button onClick={handleLogout} className={`${styles.mobileNavItem} ${styles.logoutButton}`}>
               <LogOut size={20} />
               <span>Cerrar Sesión</span>

@@ -1,356 +1,521 @@
 /* UserManagement.module.css */
-/* Estilos del encabezado */
+
+/* Variables CSS Globales (asegúrate de que sean consistentes en todo tu proyecto) */
+:root {
+  --accent-color: #007bff;
+  --accent-color-hover: #0056b3;
+  --background-dark: #121212;       /* Fondo principal de la página interna */
+  --surface-dark: #1e1e1e;          /* Fondo de tarjetas, tabla, modales */
+  --surface-dark-light: #2a2a2a;    /* Para hovers, inputs activos */
+  --text-primary-dark: #e0e0e0;     /* Texto principal claro */
+  --text-secondary-dark: #b0b0b0;   /* Texto secundario/placeholder */
+  --border-dark: rgba(255, 255, 255, 0.1); /* Bordes sutiles */
+  --danger-color: #e74c3c;          /* Rojo para peligro/eliminación (ej. Bootstrap) */
+  --danger-color-hover: #c0392b;
+  --success-color: #2ecc71;         /* Verde para éxito (ej. Bootstrap) */
+  --success-color-hover: #27ae60;
+  --warning-color: #ffc107;         /* Amarillo/Naranja para Admin badge */
+  --info-color: #17a2b8;            /* Azul/Cian para User badge */
+}
+
+/* Contenedor Principal de la Página */
+.userManagementContainer {
+  padding: 25px 30px;
+  background-color: var(--background-dark);
+  min-height: calc(100vh - 60px); /* Ajusta 60px si la altura de tu AdminLayout header es diferente */
+}
+
+/* Encabezado de la Página */
 .userManagementHeader {
   margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-dark);
 }
-
 .userManagementHeader h1 {
   font-size: 2rem;
-  margin-bottom: 10px;
-  color: white; /* Manteniendo tu color de texto */
+  margin-bottom: 8px;
+  color: var(--text-primary-dark);
+  font-weight: 600;
 }
-
 .userManagementHeader p {
-  color: #ccc;
+  color: var(--text-secondary-dark);
+  font-size: 1rem;
+  max-width: 700px;
 }
 
-/* Barra de búsqueda y botón de añadir */
+/* Contenedor de Controles (Búsqueda y Botón Añadir) */
+.controlsContainer {
+  display: flex;
+  flex-wrap: wrap; /* Para que los elementos se apilen en pantallas pequeñas si es necesario */
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+.searchInputContainer {
+  flex-grow: 1;
+  min-width: 280px; /* Ancho mínimo para la búsqueda */
+  max-width: 480px;
+}
 .searchInput {
   position: relative;
-  margin-bottom: 20px; /* Añadido margen inferior para separar del botón en pantallas pequeñas */
 }
-
-.searchInput input {
+.inputField, /* Para tu JSX que usa .inputField */
+.searchInput input { /* Para mantener tu selector original */
   width: 100%;
-  padding: 10px 15px 10px 40px;
-  border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
-  font-size: 0.9rem;
+  padding: 12px 18px 12px 45px; /* Espacio para el icono de búsqueda */
+  border-radius: 8px;
+  background-color: var(--surface-dark-light);
+  border: 1px solid var(--border-dark);
+  color: var(--text-primary-dark);
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
-
+.inputField::placeholder,
+.searchInput input::placeholder {
+  color: var(--text-secondary-dark);
+  opacity: 0.7;
+}
+.inputField:focus,
 .searchInput input:focus {
   outline: none;
   border-color: var(--accent-color);
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: var(--surface-dark); /* Oscurecer un poco al enfocar */
+  box-shadow: 0 0 0 3px rgba(var(--accent-color), 0.25); /* Sutil resplandor */
 }
-
 .searchIcon {
   position: absolute;
-  left: 12px;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #999;
+  color: var(--text-secondary-dark);
+  pointer-events: none; /* Para que no interfiera con el clic en el input */
 }
-
 .addButton {
-  display: inline-flex; /* Cambiado a inline-flex para alineación en pantallas pequeñas */
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 16px;
+  padding: 10px 18px;
   border-radius: 6px;
   background-color: var(--accent-color);
   color: white;
-  border: none;
+  border: 1px solid var(--accent-color);
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-bottom: 15px; /* Añadido margen inferior para separar de la tabla en pantallas pequeñas */
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  font-size: 0.9rem;
+  white-space: nowrap; /* Para que el texto del botón no se parta */
 }
-
 .addButton:hover {
-  background-color: var(--accent-color-hover, #0056b3);
+  background-color: var(--accent-color-hover);
+  border-color: var(--accent-color-hover);
 }
+.addButton svg { width: 18px; height: 18px; }
 
-/* Estado de carga */
-.loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 0;
+/* Wrapper y Contenedor de la Tabla */
+.tableWrapper {
+  background-color: var(--surface-dark);
+  border-radius: 10px;
+  padding: 15px; /* Padding alrededor del tableContainer */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-dark);
 }
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  border-top-color: var(--accent-color);
-  animation: spin 1s ease-in-out infinite;
-  margin-bottom: 15px;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Estado de error */
-.errorState {
-  text-align: center;
-  padding: 40px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  color: #dc3545;
-}
-
-/* Tabla de usuarios */
 .tableContainer {
-  overflow-x: auto;
-  background-color: transparent;
+  overflow-x: auto; /* ESENCIAL para scroll horizontal y no perder columnas */
+  -webkit-overflow-scrolling: touch; /* Scroll más suave en iOS */
 }
-
-/* Modificar el estilo de la tabla para que tenga fondo negro */
 .usersTable {
   width: 100%;
   border-collapse: collapse;
-  background-color: transparent !important;
+  min-width: 800px; /* AJUSTA ESTO: Ancho mínimo antes de que aparezca el scroll.
+                       Debe ser suficiente para tus 6 columnas visibles. */
 }
-
-.usersTable th {
-  text-align: left;
-  padding: 15px;
-  background-color: rgba(30, 30, 30, 0.5) !important;
-  color: #ccc;
-  font-weight: 500;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
+.usersTable th,
 .usersTable td {
-  padding: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  color: white;
-  background-color: transparent !important;
+  text-align: left; /* Alineación izquierda para mejor legibilidad de datos */
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-dark);
+  color: var(--text-secondary-dark);
+  font-size: 0.875rem;
+  vertical-align: middle; /* Alinear verticalmente el contenido de las celdas */
 }
-
+.usersTable th {
+  background-color: rgba(255, 255, 255, 0.03); /* Fondo muy sutil para encabezados */
+  color: var(--text-primary-dark);
+  font-weight: 600;
+  border-bottom-width: 2px; /* Borde inferior más grueso para encabezados */
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap; /* Evitar que los títulos de encabezado se partan */
+}
+.usersTable tr:last-child td {
+  border-bottom: none;
+}
 .usersTable tr:hover td {
-  background-color: rgba(255, 255, 255, 0.05) !important;
+  background-color: var(--surface-dark-light);
+  color: var(--text-primary-dark);
 }
-
+.usersTable td:first-child { /* Para destacar la columna de Nombre */
+  font-weight: 500;
+  color: var(--text-primary-dark);
+}
 .noResults {
   text-align: center;
-  padding: 30px;
-  color: #ccc;
+  padding: 40px 20px;
+  color: var(--text-secondary-dark);
+  font-style: italic;
+  font-size: 0.95rem;
 }
 
-/* Badges de rol */
+/* Badges de Rol */
 .roleBadge {
   display: inline-block;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: capitalize;
 }
-
 .adminBadge {
-  background-color: rgba(220, 53, 69, 0.2);
-  color: #ff6b6b;
+  background-color: rgba(var(--warning-color), 0.15); /* Naranja/Amarillo de Bootstrap warning */
+  color: var(--warning-color);
 }
-
 .userBadge {
-  background-color: rgba(13, 202, 240, 0.2);
-  color: #0dcaf0;
+  background-color: rgba(var(--info-color), 0.15); /* Cian de Bootstrap info */
+  color: var(--info-color);
 }
 
-/* Acciones */
+/* Acciones en la Tabla */
 .actions {
   display: flex;
+  justify-content: flex-start; /* Alineado a la izquierda por defecto en la celda */
   gap: 8px;
+  align-items: center;
+  white-space: nowrap; /* Evitar que el grupo de botones se parta */
 }
-
 .actionButton {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: none;
+  padding: 8px;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary-dark);
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.2s ease;
 }
+.actionButton svg { width: 16px; height: 16px; }
+.actionButton:hover { color: white; }
+.editButton:hover { background-color: var(--accent-color); border-color: var(--accent-color); }
+.sendMailButton:hover { background-color: var(--success-color); border-color: var(--success-color); }
+.deleteButton:hover { background-color: var(--danger-color); border-color: var(--danger-color); }
 
-.actionButton:hover {
-  background-color: var(--accent-color);
+/* Estados de Carga y Error */
+.loading, .errorState {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 40px 20px; text-align: center; border-radius: 8px; margin: 30px 0;
 }
-
-.deleteButton:hover {
-  background-color: #dc3545;
+.loading { color: var(--text-secondary-dark); }
+.errorState {
+  background-color: rgba(var(--danger-color), 0.1);
+  color: var(--danger-color); /* Texto de error más legible */
+  border: 1px solid rgba(var(--danger-color), 0.3);
+  font-weight: 500;
 }
+.spinner {
+  width: 40px; height: 40px; border: 4px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%; border-top-color: var(--accent-color);
+  animation: spin 0.8s linear infinite; margin-bottom: 15px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.errorState .modalButton.primaryButton { margin-top: 15px; } /* Para el botón Reintentar */
 
-/* Modales */
+
+/* --- Estilos de Modal (Como los tenías, con ajustes para consistencia y responsividad) --- */
 .modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Un poco menos opaco que tu original 0.75 */
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1050;
+  backdrop-filter: blur(3px); /* Efecto blur sutil */
+  padding: 15px; /* Padding para que el modal no toque los bordes en móvil */
 }
-
 .modal {
-  background-color: #1a1a1a;
-  border-radius: 8px;
+  background-color: var(--surface-dark);
+  border-radius: 10px; /* Consistente con tableWrapper */
   width: 100%;
-  max-width: 500px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
+  max-width: 530px; /* Ligeramente ajustado */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-dark);
+  display: flex; flex-direction: column;
+  max-height: calc(100vh - 30px); /* Para asegurar visibilidad completa con padding del overlay */
 }
-
 .modalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border-dark);
+  flex-shrink: 0; /* Evitar que el header se encoja */
 }
-
-.modalHeader h2, .modalHeader h5 {
-  margin: 0;
-  font-size: 1.2rem;
-  color: white;
+.modalHeader h2, .modalHeader h5 { /* Para cubrir ambos h5 y h2 */
+  margin: 0; font-size: 1.25rem;
+  color: var(--text-primary-dark); font-weight: 500;
 }
-
 .closeButton {
-  background: none;
-  border: none;
-  color: #ccc;
-  font-size: 1.5rem;
-  cursor: pointer;
-  line-height: 1;
+  background: none; border: none; color: var(--text-secondary-dark);
+  font-size: 1.6rem; /* Tamaño del icono X */
+  cursor: pointer; line-height: 1; padding: 5px; /* Área de clic un poco mayor */
+  margin: -5px; /* Compensar el padding */
 }
-
-.closeButton:hover {
-  color: white;
-}
+.closeButton:hover { color: var(--text-primary-dark); }
 
 .modalBody {
-  padding: 20px;
-  color: #ccc;
+  padding: 20px 22px; /* Padding consistente */
+  color: var(--text-secondary-dark);
+  overflow-y: auto; /* Scroll si el contenido del formulario es largo */
+  flex-grow: 1; /* Ocupar espacio disponible */
 }
-
 .modalFooter {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  padding: 15px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex; justify-content: flex-end; gap: 12px;
+  padding: 16px 22px;
+  border-top: 1px solid var(--border-dark);
+  background-color: rgba(0,0,0, 0.05); /* Fondo muy sutil para el footer */
+  flex-shrink: 0; /* Evitar que el footer se encoja */
 }
 
-/* Formulario */
-.formGroup {
-  margin-bottom: 15px;
-  padding: 0 20px;
-}
-
+/* Formulario dentro del Modal */
+.formGroup { margin-bottom: 18px; }
 .formGroup label {
-  display: block;
-  margin-bottom: 5px;
-  color: #ccc;
+  display: block; margin-bottom: 7px;
+  color: var(--text-primary-dark);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.formGroup input,
+.formGroup select {
+  width: 100%; padding: 11px 14px;
+  border-radius: 6px;
+  background-color: var(--surface-dark-light);
+  border: 1px solid var(--border-dark);
+  color: var(--text-primary-dark);
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.formGroup input::placeholder,
+.formGroup select::placeholder { color: var(--text-secondary-dark); opacity: 0.7; }
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none; border-color: var(--accent-color);
+  background-color: var(--surface-dark);
+  box-shadow: 0 0 0 3px rgba(var(--accent-color), 0.25);
+}
+.disabledInput { opacity: 0.6; cursor: not-allowed; background-color: rgba(255,255,255,0.03); }
+.formGroup small { display: block; margin-top: 5px; color: var(--text-secondary-dark); font-size: 0.75rem; opacity: 0.8; }
+
+/* Botones de Modal */
+.modalButton {
+  padding: 9px 18px;
+  border-radius: 6px; font-weight: 500; cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent; font-size: 0.875rem;
+  line-height: 1.5; /* Para mejor espaciado vertical del texto */
+}
+/* Clases primario/secundario/peligro que ya tenías y combinas con modalButton */
+.primaryButton { /* Estilo base para botones primarios, usado con modalButton */
+  background-color: var(--accent-color); color: white; border-color: var(--accent-color);
+}
+.primaryButton:hover { background-color: var(--accent-color-hover); border-color: var(--accent-color-hover); }
+
+.secondaryButton {
+  background-color: rgba(255, 255, 255, 0.1); color: var(--text-primary-dark);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.secondaryButton:hover { background-color: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.3); }
+
+.dangerButton {
+  background-color: var(--danger-color); color: white; border-color: var(--danger-color);
+}
+.dangerButton:hover { background-color: var(--danger-color-hover); border-color: var(--danger-color-hover); }
+
+
+/* --- Media Queries para Responsividad de UserManagement --- */
+
+@media (max-width: 992px) { /* Tablets y móviles grandes */
+  .userManagementContainer {
+    padding: 20px;
+  }
+  .controlsContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .searchInputContainer {
+    max-width: none;
+  }
+  .addButton {
+    width: 100%;
+    justify-content: center;
+    padding: 12px; /* Más padding para botón de ancho completo */
+  }
+  .usersTable {
+     min-width: 700px; /* Reducir min-width, el scroll será más frecuente */
+  }
+}
+
+@media (max-width: 768px) { /* Móviles medianos */
+  .userManagementHeader h1 {
+    font-size: 1.8rem;
+  }
+  .userManagementHeader p {
+    font-size: 0.9rem;
+  }
+  .usersTable {
+     min-width: 600px; /* Reducir más */
+  }
+  .usersTable th, .usersTable td {
+    padding: 12px 10px;
+    font-size: 0.85rem;
+  }
+  .actions {
+    gap: 6px;
+  }
+  .actionButton {
+    width: 32px; height: 32px; padding: 6px;
+  }
+  .actionButton svg { width: 14px; height: 14px; }
+}
+
+@media (max-width: 576px) { /* Móviles pequeños */
+  .userManagementContainer {
+    padding: 15px;
+  }
+  .userManagementHeader h1 {
+    font-size: 1.6rem;
+  }
+  .controlsContainer {
+    margin-bottom: 20px;
+  }
+  .inputField, .searchInput input {
+    padding: 11px 15px 11px 40px;
+    font-size: 0.9rem;
+  }
+  .searchIcon { left: 12px; width: 18px; height: 18px; }
+
+  .tableWrapper {
+    /* Para que la tabla con scroll se vea mejor en móviles muy pequeños */
+    margin-left: -15px; /* Si el .userManagementContainer tiene 15px de padding */
+    margin-right: -15px;
+    border-radius: 0; /* Quitar radius si va de borde a borde */
+    border-left: none;
+    border-right: none;
+    padding: 0 5px 5px 5px; /* Padding solo arriba/abajo y un poco a los lados del scroll */
+  }
+  .usersTable {
+    min-width: 0; /* Permitir que la tabla se encoja y dependa 100% del scroll */
+                  /* O un valor como 450px si quieres un mínimo absoluto */
+  }
+  .usersTable th, .usersTable td {
+    padding: 10px 8px;
+    font-size: 0.8rem;
+    white-space: normal; /* Permitir que el texto de las celdas se divida en varias líneas */
+  }
+  .usersTable th {
+    white-space: nowrap; /* Encabezados pueden seguir siendo nowrap */
+  }
+  .roleBadge {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+  }
+  .actions { /* Apilar botones de acción en móviles pequeños */
+    flex-direction: column;
+    align-items: flex-start; /* Alinear a la izquierda */
+    gap: 8px; /* Espacio entre botones apilados */
+  }
+  .actionButton { /* Botones de acción a ancho completo */
+    width: 100%;
+    justify-content: center; /* Centrar icono */
+    padding: 8px;
+  }
+  /* Si tuvieras texto en los actionButton y quisieras alinearlo a la izquierda con el icono: */
+  /* .actionButton { justify-content: flex-start; padding-left: 10px; } */
+  /* .actionButton svg { margin-right: 8px; } */
+
+  /* Ajustes de Modal para móviles pequeños */
+  .modalOverlay { padding: 10px; } /* Menos padding en el overlay */
+  .modal {
+    /* max-width: calc(100% - 20px); ya se maneja por el padding del overlay */
+    /* margin: 10px; */
+    max-height: calc(100vh - 20px); /* Asegurar que quepa en pantalla */
+  }
+  .modalHeader { padding: 15px 20px; }
+  .modalHeader h2, .modalHeader h5 { font-size: 1.15rem; }
+  .modalBody { padding: 15px 20px; }
+  .modalFooter {
+    padding: 15px 20px;
+    flex-direction: column-reverse; /* Botones apilados, primario arriba */
+    gap: 10px;
+  }
+  .modalFooter .modalButton { /* Incluye .primaryButton, .secondaryButton, .dangerButton si son solo .modalButton */
+    width: 100%; /* Botones de modal a ancho completo */
+  }
+}
+
+/* Clases de utilidad para Bootstrap (si no las tienes globales)
+   Tu JSX ya las usa (ej. d-none d-md-table-cell).
+   Si las eliminaste del JSX para no perder columnas, no necesitas estas definiciones.
+   Si decidieras reintroducirlas en algún punto y NO usas Bootstrap globalmente,
+   podrías definirlas aquí.
+*/
+/*
+.dNone { display: none !important; }
+@media (min-width: 576px) { .dSmTableCell { display: table-cell !important; } }
+@media (min-width: 768px) { .dMdTableCell { display: table-cell !important; } }
+@media (min-width: 992px) { .dLgTableCell { display: table-cell !important; } }
+*/
+
+.avatarImage {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #555; /* Un color de fondo para el placeholder */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
   font-size: 0.9rem;
 }
 
-.formGroup input,
-.formGroup select {
-  width: 100%;
-  padding: 10px;
+.authProviderBadge {
+  padding: 3px 8px;
   border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
-.formGroup input:focus,
-.formGroup select:focus {
-  outline: none;
-  border-color: var(--accent-color);
+.googleBadge {
+  background-color: rgba(219, 68, 55, 0.2); /* Color rojo de Google, semitransparente */
+  color: #DB4437;
+}
+
+.emailBadge {
+  background-color: rgba(66, 133, 244, 0.2); /* Color azul, semitransparente */
+  color: #4285F4;
 }
 
 .disabledInput {
-  opacity: 0.6;
+  background-color: #f0f0f0; /* O un color más oscuro para tema oscuro */
+  color: #777;
   cursor: not-allowed;
-}
-
-.formGroup small {
-  display: block;
-  margin-top: 5px;
-  color: #999;
-  font-size: 0.8rem;
-}
-
-/* Botones */
-.cancelButton,
-.saveButton,
-.confirmButton {
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  border: none;
-}
-
-.cancelButton {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-}
-
-.cancelButton:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.saveButton {
-  background-color: var(--accent-color);
-  color: white;
-}
-
-.saveButton:hover {
-  background-color: var(--accent-color-hover, #0056b3);
-}
-
-.confirmButton {
-  background-color: #dc3545;
-  color: white;
-}
-
-.confirmButton:hover {
-  background-color: #c82333;
-}
-
-/* Responsive */
-@media (max-width: 992px) {
-  .searchInput {
-    margin-bottom: 15px; /* Ajuste para mejor espaciado en pantallas pequeñas */
-  }
-
-  .addButton {
-    width: 100%; /* El botón ocupa todo el ancho en pantallas pequeñas */
-    margin-bottom: 15px; /* Espacio antes de la tabla */
-  }
-
-  .actions {
-    flex-direction: row; /* Vuelve a la disposición horizontal en pantallas medianas */
-  }
-}
-
-@media (max-width: 768px) {
-  .actions {
-    flex-direction: column; /* Apila los botones de acción en pantallas pequeñas */
-  }
-
-  .usersTable th:nth-child(3),
-  .usersTable th:nth-child(4),
-  .usersTable td:nth-child(3),
-  .usersTable td:nth-child(4) {
-    display: none; /* Oculta teléfono y región en pantallas muy pequeñas */
-  }
 }

@@ -5,63 +5,75 @@ const userSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'Por favor ingrese un nombre']
+      required: true,
     },
     email: {
       type: String,
-      required: [true, 'Por favor ingrese un email'],
+      required: true,
       unique: true,
-      lowercase: true,
-      trim: true,
-      match: [/^\S+@\S+\.\S+$/, 'Por favor ingrese un email válido']
-    },
-    phone: {
-      type: String,
-      trim: true
     },
     password: {
       type: String,
-      required: [true, 'Por favor ingrese una contraseña'],
-      minlength: [6, 'La contraseña debe tener al menos 6 caracteres']
+      required: function () {  // Make password NOT required for Google sign-in
+        return !this.authProvider || this.authProvider === 'email';
+      },
+    },
+    phone: {
+      type: String,
     },
     role: {
       type: String,
       enum: ['user', 'admin'],
-      default: 'user'
-    },
-    region: {
-      type: String,
-      trim: true
-    },
-    storeName: {
-      type: String,
-      trim: true
+      default: 'user',
     },
     isWelcomed: {
       type: Boolean,
       default: false
     },
-    resetPasswordToken: String,
-    resetPasswordExpires: Date
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordExpires: {
+      type: Date,
+    },
+    authProvider: { //  'email' o 'google'
+      type: String,
+      enum: ['email', 'google'],
+      default: 'email',
+    },
+    photoURL: { // URL de la foto de perfil (para Google)
+      type: String,
+    },
+    firebaseUid: { // Almacena el UID de Firebase (opcional, pero útil)
+      type: String,
+      unique: true, // Asegura que cada UID de Firebase sea único en tu colección de usuarios
+      sparse: true,  // Permite que el campo sea nulo/undefined para usuarios no autenticados con Firebase
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
-// Encriptar contraseña antes de guardar
-userSchema.pre('save', async function(next) {
+// Middleware para hashear la contraseña antes de guardar (solo para registro normal)
+userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
-    return next();
+    next();
+    return;
   }
-  
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Método para comparar contraseñas
-userSchema.methods.matchPassword = async function(enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return bcrypt.compare(enteredPassword, this.password);
 };
 
 const User = mongoose.model('User', userSchema);

@@ -7,6 +7,7 @@ import { useAuth } from "../../context/AuthContext"
 import { userService } from "../../services/api.js"
 import AdminLayout from "./components/AdminLayout"
 import styles from "./Dashboard.module.css"
+import "bootstrap/dist/css/bootstrap.min.css" // Importa Bootstrap
 
 interface Client {
   _id: string
@@ -15,6 +16,9 @@ interface Client {
   phone: string
   region: string
   registrationDate: string
+  // Puedes añadir aquí otros campos que necesites mostrar en el modal
+  storeName?: string
+  // ... otros campos
 }
 
 interface DashboardStats {
@@ -36,6 +40,8 @@ const Dashboard = () => {
     catalogDownloads: 0,
   })
   const [error, setError] = useState<string | null>(null)
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null)
+  const [showClientModal, setShowClientModal] = useState(false)
 
   useEffect(() => {
     if (!user || user.role !== "admin") {
@@ -68,6 +74,8 @@ const Dashboard = () => {
             phone: client.phone || "Sin teléfono",
             region: client.region || "Sin región",
             registrationDate: client.registrationDate || client.createdAt || new Date().toISOString(),
+            storeName: client.storeName, // Ejemplo de cómo traer otros campos
+            // ... trae aquí otros campos que necesites
           }))
 
         setClients(recentClients)
@@ -106,6 +114,16 @@ const Dashboard = () => {
     fetchData()
   }, [user, navigate])
 
+  const handleShowClientDetails = (client: Client) => {
+    setSelectedClient(client)
+    setShowClientModal(true)
+  }
+
+  const handleCloseClientModal = () => {
+    setSelectedClient(null)
+    setShowClientModal(false)
+  }
+
   return (
     <AdminLayout>
       <div className={styles.dashboardHeader}>
@@ -126,20 +144,23 @@ const Dashboard = () => {
         </div>
       ) : (
         <>
-          <div className={styles.statsGrid}>
-            <div className={styles.statCard}>
-              <h3>Clientes Totales</h3>
-              <p className={styles.statNumber}>{stats.totalUsers}</p>
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 mb-4">
+            <div className="col">
+              <div className={`${styles.statCard} bg-light rounded shadow-sm p-3`}>
+                <h3>Clientes Totales</h3>
+                <p className={`${styles.statNumber} text-primary`}>{stats.totalUsers}</p>
+              </div>
             </div>
-            <div className={styles.statCard}>
-              <h3>Nuevos Clientes (Mes)</h3>
-              <p className={styles.statNumber}>{stats.newUsers}</p>
+            <div className="col">
+              <div className={`${styles.statCard} bg-light rounded shadow-sm p-3`}>
+                <h3>Nuevos Clientes (Mes)</h3>
+                <p className={`${styles.statNumber} text-success`}>{stats.newUsers}</p>
+              </div>
             </div>
-       
           </div>
 
-          <div className={styles.clientsSection}>
-            <div className={styles.sectionHeader}>
+          <div className="bg-light rounded shadow-sm p-3 mb-4">
+            <div className="d-flex justify-content-between align-items-center mb-3">
               <h2>Clientes Recientes</h2>
               <button className="btn btn-primary" onClick={() => navigate("/admin/usuarios")}>
                 Ver Todos
@@ -151,14 +172,14 @@ const Dashboard = () => {
                 <p>No hay clientes registrados aún.</p>
               </div>
             ) : (
-              <div className={styles.tableContainer}>
-                <table className={styles.clientsTable}>
+              <div className="table-responsive">
+                <table className="table table-hover">
                   <thead>
                     <tr>
                       <th>Nombre</th>
                       <th>Email</th>
-                      <th>Teléfono</th>
-                      <th>Región</th>
+                      <th className="d-none d-md-table-cell">Teléfono</th>
+                      <th className="d-none d-lg-table-cell">Región</th>
                       <th>Fecha</th>
                       <th>Acciones</th>
                     </tr>
@@ -168,19 +189,16 @@ const Dashboard = () => {
                       <tr key={client._id}>
                         <td>{client.name}</td>
                         <td>{client.email}</td>
-                        <td>{client.phone}</td>
-                        <td>{client.region}</td>
+                        <td className="d-none d-md-table-cell">{client.phone}</td>
+                        <td className="d-none d-lg-table-cell">{client.region}</td>
                         <td>{new Date(client.registrationDate).toLocaleDateString()}</td>
                         <td>
-                          <div className={styles.actions}>
-                            <button
-                              className={styles.actionButton}
-                              onClick={() => navigate(`/admin/usuarios/${client._id}`)}
-                            >
-                              Ver
-                            </button>
-
-                          </div>
+                          <button
+                            className="btn btn-sm btn-outline-info"
+                            onClick={() => handleShowClientDetails(client)}
+                          >
+                            Ver
+                          </button>
                         </td>
                       </tr>
                     ))}
@@ -189,6 +207,38 @@ const Dashboard = () => {
               </div>
             )}
           </div>
+
+          {/* Modal de Detalles del Cliente */}
+          {selectedClient && (
+            <div className="modal fade show" style={{ display: "block" }} aria-modal="true" role="dialog">
+              <div className="modal-dialog modal-dialog-centered modal-lg">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">Detalles del Cliente</h5>
+                    <button type="button" className="btn-close" onClick={handleCloseClientModal} aria-label="Close"></button>
+                  </div>
+                  <div className="modal-body">
+                    <div className="row">
+                      <div className="col-md-6">
+                        <p><strong>Nombre:</strong> {selectedClient.name}</p>
+                        <p><strong>Email:</strong> {selectedClient.email}</p>
+                        <p><strong>Teléfono:</strong> {selectedClient.phone}</p>
+                        <p><strong>Región:</strong> {selectedClient.region}</p>
+                      </div>
+                      <div className="col-md-6">
+                        <p><strong>Fecha de Registro:</strong> {new Date(selectedClient.registrationDate).toLocaleDateString()}</p>
+                        {selectedClient.storeName && <p><strong>Nombre de Tienda:</strong> {selectedClient.storeName}</p>}
+                        {/* Aquí puedes mostrar otros detalles del cliente */}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" onClick={handleCloseClientModal}>Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </>
       )}
     </AdminLayout>

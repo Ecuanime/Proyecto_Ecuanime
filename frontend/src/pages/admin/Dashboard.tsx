@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthContext"
 import { userService } from "../../services/api.js"
 import AdminLayout from "./components/AdminLayout"
 import styles from "./Dashboard.module.css"
-import "bootstrap/dist/css/bootstrap.min.css" // Importa Bootstrap
+import "bootstrap/dist/css/bootstrap.min.css" // Importa Bootstrap para la estructura base
 
 interface Client {
   _id: string
@@ -146,20 +146,20 @@ const Dashboard = () => {
         <>
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 mb-4">
             <div className="col">
-              <div className={`${styles.statCard} bg-light rounded shadow-sm p-3`}>
+              <div className={`${styles.statCard} rounded shadow-sm p-3`}>
                 <h3>Clientes Totales</h3>
-                <p className={`${styles.statNumber} text-primary`}>{stats.totalUsers}</p>
+                <p className={`${styles.statNumber}`}>{stats.totalUsers}</p>
               </div>
             </div>
             <div className="col">
-              <div className={`${styles.statCard} bg-light rounded shadow-sm p-3`}>
+              <div className={`${styles.statCard} rounded shadow-sm p-3`}>
                 <h3>Nuevos Clientes (Mes)</h3>
-                <p className={`${styles.statNumber} text-success`}>{stats.newUsers}</p>
+                <p className={`${styles.statNumber}`}>{stats.newUsers}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-light rounded shadow-sm p-3 mb-4">
+          <div className="bg-transparent rounded shadow-sm p-3 mb-4">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h2>Clientes Recientes</h2>
               <button className="btn btn-primary" onClick={() => navigate("/admin/usuarios")}>
@@ -173,7 +173,7 @@ const Dashboard = () => {
               </div>
             ) : (
               <div className="table-responsive">
-                <table className="table table-hover">
+                <table className={`${styles.clientsTable} table table-hover`}>
                   <thead>
                     <tr>
                       <th>Nombre</th>
@@ -194,7 +194,7 @@ const Dashboard = () => {
                         <td>{new Date(client.registrationDate).toLocaleDateString()}</td>
                         <td>
                           <button
-                            className="btn btn-sm btn-outline-info"
+                            className={`${styles.actionButton} btn btn-sm btn-outline-info`}
                             onClick={() => handleShowClientDetails(client)}
                           >
                             Ver
@@ -212,12 +212,12 @@ const Dashboard = () => {
           {selectedClient && (
             <div className="modal fade show" style={{ display: "block" }} aria-modal="true" role="dialog">
               <div className="modal-dialog modal-dialog-centered modal-lg">
-                <div className="modal-content">
-                  <div className="modal-header">
+                <div className={`${styles.modal} modal-content`}>
+                  <div className={`${styles.modalHeader} modal-header`}>
                     <h5 className="modal-title">Detalles del Cliente</h5>
                     <button type="button" className="btn-close" onClick={handleCloseClientModal} aria-label="Close"></button>
                   </div>
-                  <div className="modal-body">
+                  <div className={`${styles.modalBody} modal-body`}>
                     <div className="row">
                       <div className="col-md-6">
                         <p><strong>Nombre:</strong> {selectedClient.name}</p>
@@ -232,7 +232,7 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="modal-footer">
+                  <div className={`${styles.modalFooter} modal-footer`}>
                     <button type="button" className="btn btn-secondary" onClick={handleCloseClientModal}>Cerrar</button>
                   </div>
                 </div>

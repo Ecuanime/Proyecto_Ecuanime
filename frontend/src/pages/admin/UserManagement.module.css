@@ -1,3 +1,4 @@
+/* UserManagement.module.css */
 /* Estilos del encabezado */
 .userManagementHeader {
   margin-bottom: 30px;
@@ -6,6 +7,7 @@
 .userManagementHeader h1 {
   font-size: 2rem;
   margin-bottom: 10px;
+  color: white; /* Manteniendo tu color de texto */
 }
 
 .userManagementHeader p {
@@ -13,17 +15,9 @@
 }
 
 /* Barra de búsqueda y botón de añadir */
-.searchBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
 .searchInput {
   position: relative;
-  flex: 1;
-  max-width: 500px;
+  margin-bottom: 20px; /* Añadido margen inferior para separar del botón en pantallas pequeñas */
 }
 
 .searchInput input {
@@ -51,7 +45,7 @@
 }
 
 .addButton {
-  display: flex;
+  display: inline-flex; /* Cambiado a inline-flex para alineación en pantallas pequeñas */
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
@@ -62,6 +56,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 15px; /* Añadido margen inferior para separar de la tabla en pantallas pequeñas */
 }
 
 .addButton:hover {
@@ -222,7 +217,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.modalHeader h2 {
+.modalHeader h2, .modalHeader h5 {
   margin: 0;
   font-size: 1.2rem;
   color: white;
@@ -336,27 +331,29 @@
 
 /* Responsive */
 @media (max-width: 992px) {
-  .searchBar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+  .searchInput {
+    margin-bottom: 15px; /* Ajuste para mejor espaciado en pantallas pequeñas */
   }
 
-  .searchInput {
-    max-width: 100%;
-    width: 100%;
+  .addButton {
+    width: 100%; /* El botón ocupa todo el ancho en pantallas pequeñas */
+    margin-bottom: 15px; /* Espacio antes de la tabla */
+  }
+
+  .actions {
+    flex-direction: row; /* Vuelve a la disposición horizontal en pantallas medianas */
   }
 }
 
 @media (max-width: 768px) {
   .actions {
-    flex-direction: column;
+    flex-direction: column; /* Apila los botones de acción en pantallas pequeñas */
   }
 
   .usersTable th:nth-child(3),
   .usersTable th:nth-child(4),
   .usersTable td:nth-child(3),
   .usersTable td:nth-child(4) {
-    display: none;
+    display: none; /* Oculta teléfono y región en pantallas muy pequeñas */
   }
 }

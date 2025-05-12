@@ -6,7 +6,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { FaDownload, FaCheck, FaSpinner } from "react-icons/fa"
 import styles from "./CatalogDownload.module.css"
-import { catalogService } from "../../services/api" // Importa el servicio que creamos
+import axios from "axios"
 
 // Esquema de validación
 const catalogSchema = z.object({
@@ -38,29 +38,42 @@ const CatalogDownload = () => {
     setError(null)
 
     try {
-      // Usar el servicio de catálogo para descargar
-      const blob = await catalogService.downloadCatalog({
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        region: data.region,
-        storeName: data.storeName || "",
-      })
+      // 1. Guardar en localStorage (como lo tenías originalmente)
+      // const formSubmission = {
+      //   userData: {
+      //     name: data.name,
+      //     email: data.email,
+      //     phone: data.phone,
+      //     region: data.region,
+      //     storeName: data.storeName || "",
+      //   },
+      //   date: new Date().toISOString(),
+      // }
+      // const previous = JSON.parse(localStorage.getItem("catalogRequests") || "[]")
+      // localStorage.setItem("catalogRequests", JSON.stringify([...previous, formSubmission]))
 
-      // Crear un objeto URL para el blob recibido
-      const url = window.URL.createObjectURL(new Blob([blob]))
-
-      // Crear un elemento <a> para descargar el archivo
+      // 2. Iniciar la descarga directa desde GitHub inmediatamente
       const link = document.createElement("a")
-      link.href = url
-      link.setAttribute("download", "Catalogos.zip")
+      link.href = "https://github.com/Ecuanime/Descargas/raw/main/Catalogo.zip"
+      link.download = "Catalogos.zip"
       document.body.appendChild(link)
       link.click()
-
-      // Limpiar
-      window.URL.revokeObjectURL(url)
       document.body.removeChild(link)
 
+      // 3. Enviar los datos al backend para registrar en MongoDB (sin esperar la respuesta)
+      const API_URL = import.meta.env.VITE_API_URL || "https://proyecto-ecuanime.onrender.com/api"
+      axios
+        .post(`${API_URL}/catalog/register`, {
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          region: data.region,
+          storeName: data.storeName || "",
+        })
+        .then(() => console.log("Descarga registrada en el servidor"))
+        .catch((err) => console.error("Error al registrar la descarga:", err))
+
+      // Mostrar éxito y resetear el formulario
       setIsSuccess(true)
       reset()
     } catch (err) {

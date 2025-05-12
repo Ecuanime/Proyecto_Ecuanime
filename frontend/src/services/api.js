@@ -211,11 +211,17 @@ export const catalogService = {
   // Descargar catálogo
   downloadCatalog: async (userData) => {
     try {
+      console.log("Descargando catálogo desde:", `${API_URL}/catalog/download`)
+      console.log("Datos de usuario:", userData)
+
       const response = await axios.post(`${API_URL}/catalog/download`, userData, {
         responseType: "blob", // Importante para recibir el archivo como blob
       })
+
+      console.log("Respuesta recibida:", response)
       return response.data
     } catch (error) {
+      console.error("Error en downloadCatalog:", error)
       handleApiError(error)
       throw error
     }

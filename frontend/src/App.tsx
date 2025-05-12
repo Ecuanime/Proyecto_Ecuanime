@@ -11,6 +11,7 @@ import { AuthProvider } from "./context/AuthContext"
 import ProtectedRoute from "./components/ProtectedRoute"
 import Dashboard from "./pages/admin/Dashboard"
 import UserManagement from "./pages/admin/UserManagement"
+import CatalogDownloads from "./pages/admin/CatalogDownloads"
 import WhatsAppButton from "./components/WhatsAppButton/WhatsAppButton"
 
 function App() {
@@ -64,7 +65,12 @@ function App() {
             }
           />
           <Route
-            path="/admin"
+            path="/admin/descargas"
+            element={
+              <ProtectedRoute>
+                <CatalogDownloads />
+              </ProtectedRoute>
+            }
           />
         </Routes>
         <WhatsAppButton />

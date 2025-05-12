@@ -1,11 +1,12 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FaDownload, FaCheck, FaSpinner } from "react-icons/fa";
-import styles from "./CatalogDownload.module.css";
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { FaDownload, FaCheck, FaSpinner } from "react-icons/fa"
+import styles from "./CatalogDownload.module.css"
+import { catalogService } from "../../services/api" // Importa el servicio que creamos
 
 // Esquema de validación
 const catalogSchema = z.object({
@@ -14,14 +15,14 @@ const catalogSchema = z.object({
   phone: z.string().min(10, "El número debe tener al menos 10 dígitos"),
   region: z.string().min(2, "Por favor ingresa tu región"),
   storeName: z.string().optional(),
-});
+})
 
-type FormData = z.infer<typeof catalogSchema>;
+type FormData = z.infer<typeof catalogSchema>
 
 const CatalogDownload = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const {
     register,
@@ -30,44 +31,45 @@ const CatalogDownload = () => {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(catalogSchema),
-  });
+  })
 
   const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true);
-    setError(null);
+    setIsSubmitting(true)
+    setError(null)
 
     try {
-      const formSubmission = {
-        userData: {
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          region: data.region,
-          storeName: data.storeName || "",
-        },
-        date: new Date().toISOString(),
-      };
+      // Usar el servicio de catálogo para descargar
+      const blob = await catalogService.downloadCatalog({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        region: data.region,
+        storeName: data.storeName || "",
+      })
 
-      const previous = JSON.parse(localStorage.getItem("catalogRequests") || "[]");
-      localStorage.setItem("catalogRequests", JSON.stringify([...previous, formSubmission]));
+      // Crear un objeto URL para el blob recibido
+      const url = window.URL.createObjectURL(new Blob([blob]))
 
-      // Descargar archivo ZIP directamente
-      const link = document.createElement("a");
-      link.href = "https://github.com/Ecuanime/Descargas/raw/main/Catalogo.zip";
-      link.download = "Catalogos.zip";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // Crear un elemento <a> para descargar el archivo
+      const link = document.createElement("a")
+      link.href = url
+      link.setAttribute("download", "Catalogos.zip")
+      document.body.appendChild(link)
+      link.click()
 
-      setIsSuccess(true);
-      reset();
+      // Limpiar
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(link)
+
+      setIsSuccess(true)
+      reset()
     } catch (err) {
-      console.error("Error en el proceso:", err);
-      setError("Error al procesar la solicitud. Por favor, intenta de nuevo.");
+      console.error("Error en el proceso:", err)
+      setError("Error al procesar la solicitud. Por favor, intenta de nuevo.")
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
-  };
+  }
 
   return (
     <section id="catalogos" className={`section ${styles.catalogDownload}`}>
@@ -122,21 +124,12 @@ const CatalogDownload = () => {
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="storeName">Nombre de la Tienda (Opcional)</label>
-                <input
-                  type="text"
-                  id="storeName"
-                  className="form-control"
-                  {...register("storeName")}
-                />
+                <input type="text" id="storeName" className="form-control" {...register("storeName")} />
               </div>
             </div>
 
             <div className={styles.submitContainer}>
-              <button
-                type="submit"
-                className={`btn btn-primary ${styles.submitButton}`}
-                disabled={isSubmitting}
-              >
+              <button type="submit" className={`btn btn-primary ${styles.submitButton}`} disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
                     <FaSpinner className={styles.spinner} /> Procesando...
@@ -162,7 +155,7 @@ const CatalogDownload = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default CatalogDownload;
+export default CatalogDownload

@@ -340,7 +340,7 @@
   right: 10px;
   background: none;
   border: none;
-  color: white;
+ color: var(--accent-color); /* <-- aquí el cambio */
   font-size: 20px;
   cursor: pointer;
   z-index: 10;
@@ -588,7 +588,7 @@
   margin-top: auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px) {closeButton 
   .modalContactButton {
     gap: 6px;
     padding: 10px 0;

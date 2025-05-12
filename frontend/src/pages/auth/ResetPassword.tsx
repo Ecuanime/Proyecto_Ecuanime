@@ -63,7 +63,7 @@ const ResetPassword = () => {
       <div className={styles.authPage}>
         <div className={styles.authContainer}>
           <div className={styles.authHeader}>
-            <img src="https://placehold.co/200x60/000000/FFFFFF?text=FASHION+STORE" alt="Logo" className={styles.logo} />
+            <img src="https://i.postimg.cc/YSMsH2bX/Chat-GPT-Image-12-may-2025-17-19-48.png" alt="Logo" className={styles.logo} />
             <h1>Error</h1>
           </div>
           
@@ -89,7 +89,7 @@ const ResetPassword = () => {
     <div className={styles.authPage}>
       <div className={styles.authContainer}>
         <div className={styles.authHeader}>
-          <img src="https://placehold.co/200x60/000000/FFFFFF?text=FASHION+STORE" alt="Logo" className={styles.logo} />
+          <img src="https://i.postimg.cc/YSMsH2bX/Chat-GPT-Image-12-may-2025-17-19-48.png" alt="Logo" className={styles.logo} />
           <h1>Restablecer Contraseña</h1>
           <p>Ingresa tu nueva contraseña</p>
         </div>

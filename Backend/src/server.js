@@ -9,6 +9,8 @@ import connectDB from './config/db.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import catalogRoutes from './routes/catalogRoutes.js';
+
 
 // 1. Carga variables de entorno y conecta a MongoDB
 dotenv.config();
@@ -89,6 +91,7 @@ if (fs.existsSync(frontendDist)) {
 // Estas rutas estarán sujetas a la política de CORS definida arriba.
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/catalog', catalogRoutes); 
 app.get('/api/status', (req, res) =>
   res.json({
     status: 'success',

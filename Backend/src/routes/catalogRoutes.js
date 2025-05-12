@@ -1,13 +1,17 @@
-import express from "express"
-import { registerCatalogDownload, getCatalogDownloads } from "../controllers/catalogController.js"
-import { protect, admin } from "../middleware/authMiddleware.js"
+// routes/catalogRoutes.js
+import { Router } from 'express';
+import {
+  registerCatalogDownload,
+  getCatalogDownloads
+} from '../controllers/catalogController.js'; // ajústalo si tu controlador está en otra ruta
 
-const router = express.Router()
+const router = Router();
 
-// Ruta pública para registrar la descarga del catálogo (sin enviar el archivo)
-router.post("/register", registerCatalogDownload)
+// Rutas públicas
+router.post('/register', registerCatalogDownload);
 
-// Ruta protegida para administradores para ver el historial de descargas
-router.get("/downloads", protect, admin, getCatalogDownloads)
+// Rutas privadas/admin (añade aquí tu middleware de auth si lo tienes)
+// router.get('/downloads', protect, admin, getCatalogDownloads);
+router.get('/downloads', getCatalogDownloads);
 
-export default router
+export default router;

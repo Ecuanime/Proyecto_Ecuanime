@@ -1,7 +1,7 @@
 import axios from "axios"
 
 // Configuración base de axios
-const API_URL = import.meta.env.VITE_API_URL || "https://ecuanimemoda.com//api"
+const API_URL = import.meta.env.VITE_API_URL || "https://ecuanimemoda.com/api"
 
 // Función para obtener el header de autorización
 const getAuthHeader = () => {

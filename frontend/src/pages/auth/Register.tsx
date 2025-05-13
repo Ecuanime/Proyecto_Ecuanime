@@ -68,7 +68,7 @@ const Register = () => {
     <div className={styles.authPage}>
       <div className={styles.authContainer}>
         <div className={styles.authHeader}>
-          <img src="https://i.postimg.cc/YSMsH2bX/Chat-GPT-Image-12-may-2025-17-19-48.png" alt="Logo" className={styles.logo} />
+          <img src="https://i.postimg.cc/7LgT124M/LOGO-PARA-PAGINA-WEB-BLANCO.png" alt="Logo" className={styles.logo} />
           <h1>Crear Cuenta</h1>
           <p>Regístrate para acceder a todos nuestros servicios</p>
         </div>

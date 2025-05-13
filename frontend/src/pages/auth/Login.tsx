@@ -50,7 +50,7 @@ const Login = () => {
       <div className={styles.authContainer}>
         <div className={styles.authHeader}>
           <img
-            src="https://i.postimg.cc/YSMsH2bX/Chat-GPT-Image-12-may-2025-17-19-48.png"
+            src="https://i.postimg.cc/7LgT124M/LOGO-PARA-PAGINA-WEB-BLANCO.png"
             alt="Logo"
             className={styles.logo}
           />

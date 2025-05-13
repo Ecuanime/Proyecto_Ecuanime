@@ -61,7 +61,7 @@ const CatalogDownload = () => {
       document.body.removeChild(link)
 
       // 3. Enviar los datos al backend para registrar en MongoDB (sin esperar la respuesta)
-      const API_URL = import.meta.env.VITE_API_URL || "https://www.ecuanimemoda.com/api"
+      const API_URL = import.meta.env.VITE_API_URL || "https://ecuanimemoda.com//api"
       axios
         .post(`${API_URL}/catalog/register`, {
           name: data.name,

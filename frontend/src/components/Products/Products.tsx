@@ -92,11 +92,12 @@ const Products = () => {
             price: 37000,
             image: "https://i.postimg.cc/3RbrQkvc/imagen-productos-buzos.jpg",
             modalImage: "https://i.postimg.cc/BQWf5Lw0/portada-catalog-buzos.jpg", // Misma imagen por ahora
-            category: "Buzos",
+            category: "Hombre",
             description:
               "Buzos para hombre y mujer en tela burda algodón, con excelentes acabados que garantizan calidad y confort. Moldería regular que brinda un ajuste cómodo y moderno. Estilo y durabilidad en cada prenda.",
             sizes: ["S", "M", "L", "XL", "XXL", "Mujer Talla unica"],
           },
+          
         ]
 
         setProducts(mockProducts)

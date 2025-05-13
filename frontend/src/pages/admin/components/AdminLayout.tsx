@@ -19,7 +19,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const handleLogout = () => {
     logout()
     // Redirigir al usuario a la página principal (landing page)
-    window.location.href = "https://proyecto-ecuanime.onrender.com/"
+    window.location.href = "https://www.ecuanimemoda.com/"
     // Alternativa usando navigate si la landing es parte de la app React:
     // navigate("/");
     if (menuOpen) {

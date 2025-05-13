@@ -81,7 +81,7 @@ const Products = () => {
             price: 30000,
             image: "https://i.postimg.cc/1zXvP0sk/portada-camisetas-oversize-catalogo.jpg",
             modalImage: "https://i.postimg.cc/1zXvP0sk/portada-camisetas-oversize-catalogo.jpg", // Misma imagen por ahora
-            category: "mujer",
+            category: "Mujer",
             description:
               "Camisetas oversize para hombre y mujer, hechas en 100% algodón de alto gramaje premium: suaves, resistentes y con flow. Disponibles en colores modernos que marcan tendencia. El fit relajado que se siente cómodo y se ve increíble. ¡Exprésate con estilo y calidad!",
             sizes: ["S", "M", "L", "XL", "Mujer Talla unica"],
@@ -153,7 +153,7 @@ const Products = () => {
               {category === "all"
                 ? "Todos"
                 : category === "mujer"
-                  ? "Ropa de Mujer"
+                  ? ""
                   : category === "hombre"
                     ? "Ropa de Hombre"
                     : category === "calzado"

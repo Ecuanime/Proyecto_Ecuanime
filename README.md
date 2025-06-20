@@ -44,16 +44,14 @@
 ├── backend/
 │ ├── src/
 │ └── package.json
-│
+
+
 ├── frontend/
 │ ├── src/
 │ └── package.json
 
-yaml
-Copiar
-Editar
 
----
+
 
 ## 🚀 Instrucciones de uso
 

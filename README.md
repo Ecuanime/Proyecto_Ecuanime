@@ -60,8 +60,8 @@ Editar
 ### Clonar el proyecto
 
 ```bash
-git clone https://github.com/tu_usuario/tu_repositorio.git
-cd tu_repositorio
+git clone https://github.com/Ecuanime/Proyecto_Ecuanime.git
+cd Proyecto_Ecuanime
 Configurar Backend
 bash
 Copiar

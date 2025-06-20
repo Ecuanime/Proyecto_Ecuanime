@@ -1,78 +1,90 @@
+# 🛍️ Ecuanime – Landing Page para Tienda Mayorista
+
+[![Visitar Sitio Web](https://img.shields.io/badge/🌐%20Visitar%20Sitio%20Web-ecuanimemoda.com-blue)](https://ecuanimemoda.com/)
+
+**Proyecto desarrollado por: Juan Sebastian Bertel Marzola**  
+📧 stbmydp2@gmail.com  
+📞 +57 320 528 9488  
 
 ---
 
-## ✅ Opción 2 – HTML profesional con logo y enlace
+## 🧩 Descripción
 
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ecuanime – Proyecto Landing Page</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f7f7f7;
-      padding: 2rem;
-    }
-    .header-logo {
-      max-height: 80px;
-    }
-    .card {
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .btn-link {
-      text-decoration: none;
-    }
-  </style>
-</head>
-<body>
-  <div class="container text-center mb-4">
-    <img src="https://ecuanimemoda.com/logo.png" alt="Ecuanime Logo" class="header-logo mb-3"/>
-    <h1 class="fw-bold">Ecuanime – Landing Page Mayorista</h1>
-    <p>Desarrollado por Juan Sebastian Bertel Marzola</p>
-    <a href="https://ecuanimemoda.com/" class="btn btn-primary" target="_blank">🌐 Ir al sitio principal</a>
-  </div>
+**Ecuanime** es una plataforma web diseñada para funcionar como **landing page profesional para una tienda mayorista de ropa**. Incluye funcionalidades completas tanto del lado del servidor como del cliente, con una interfaz moderna, responsiva y orientada a conversión.
 
-  <div class="container">
-    <div class="card p-4">
-      <h3>🔧 Tecnologías Utilizadas</h3>
-      <hr/>
-      <h5>🔙 Backend – Node.js + Express</h5>
-      <ul>
-        <li>Express.js</li>
-        <li>MongoDB (Mongoose)</li>
-        <li>JWT, bcryptjs</li>
-        <li>dotenv, nodemailer</li>
-        <li>cors, crypto</li>
-      </ul>
+---
 
-      <h5>🎨 Frontend – React + Vite</h5>
-      <ul>
-        <li>React 19, Vite</li>
-        <li>Bootstrap 5, Swiper</li>
-        <li>React Hook Form + Zod</li>
-        <li>Recharts, jsPDF, React Icons</li>
-      </ul>
+## 🛠️ Tecnologías utilizadas
 
-      <h3 class="mt-4">📁 Estructura del Proyecto</h3>
-      <pre><code>
-/backend
-  └── src/server.js
-/frontend
-  └── src/main.jsx
-      </code></pre>
+### 🔙 Backend – Node.js + Express
+- Express.js
+- MongoDB (Mongoose)
+- JWT (autenticación)
+- bcryptjs (encriptación)
+- dotenv
+- nodemailer
+- cors
 
-      <h3 class="mt-4">📩 Contacto</h3>
-      <ul>
-        <li><strong>Nombre:</strong> Juan Sebastian Bertel Marzola</li>
-        <li><strong>Correo:</strong> stbmydp2@gmail.com</li>
-        <li><strong>Teléfono:</strong> +57 320 528 9488</li>
-      </ul>
-    </div>
-  </div>
-</body>
-</html>
+### 🎨 Frontend – Vite + React
+- React 19
+- Vite
+- Bootstrap 5
+- Swiper (carruseles)
+- React Router DOM v7
+- React Hook Form + Zod
+- Recharts, react-countup
+- jsPDF (exportar PDF)
+- React Icons, Lucide React
+
+---
+
+## 📁 Estructura del proyecto
+
+/
+├── backend/
+│ ├── src/
+│ └── package.json
+│
+├── frontend/
+│ ├── src/
+│ └── package.json
+
+yaml
+Copiar
+Editar
+
+---
+
+## 🚀 Instrucciones de uso
+
+### Clonar el proyecto
+
+```bash
+git clone https://github.com/tu_usuario/tu_repositorio.git
+cd tu_repositorio
+Configurar Backend
+bash
+Copiar
+Editar
+cd backend
+npm install
+npm run dev
+Asegúrate de tener el archivo .env con las variables necesarias como MONGODB_URI, JWT_SECRET, etc.
+
+Configurar Frontend
+bash
+Copiar
+Editar
+cd frontend
+npm install
+npm run dev
+La app se abrirá en http://localhost:5173/
+
+🧑‍💻 Autor
+Nombre: Juan Sebastian Bertel Marzola
+
+Correo: stbmydp2@gmail.com
+
+Teléfono: +57 320 528 9488
+
+Sitio web: https://ecuanimemoda.com

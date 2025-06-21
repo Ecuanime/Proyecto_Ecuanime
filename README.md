@@ -51,33 +51,6 @@
 │ └── package.json
 
 
-
-
-## 🚀 Instrucciones de uso
-
-### Clonar el proyecto
-
-```bash
-git clone https://github.com/Ecuanime/Proyecto_Ecuanime.git
-cd Proyecto_Ecuanime
-Configurar Backend
-bash
-Copiar
-Editar
-cd backend
-npm install
-npm run dev
-Asegúrate de tener el archivo .env con las variables necesarias como MONGODB_URI, JWT_SECRET, etc.
-
-Configurar Frontend
-bash
-Copiar
-Editar
-cd frontend
-npm install
-npm run dev
-La app se abrirá en http://localhost:5173/
-
 🧑‍💻 Autor
 Nombre: Juan Sebastian Bertel Marzola
 

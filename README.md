@@ -51,11 +51,4 @@
 │ └── package.json
 
 
-🧑‍💻 Autor
-Nombre: Juan Sebastian Bertel Marzola
-
-Correo: stbmydp2@gmail.com
-
-Teléfono: +57 320 528 9488
-
 Sitio web: https://ecuanimemoda.com

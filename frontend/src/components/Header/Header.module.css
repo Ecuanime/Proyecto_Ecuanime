@@ -1,0 +1,475 @@
+.scrollingMessageContainer {
+  white-space: nowrap;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ff6f61;
+  color: white;
+  padding: 2px 0;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+  z-index: 1001;
+}
+
+@media (min-width: 768px) {
+  .scrollingMessageContainer {
+    padding: 4px 0;
+    font-size: 0.9rem;
+  }
+}
+
+.scrollingText {
+  display: inline-block;
+  animation: scrollText 25s linear infinite;
+  width: max-content;
+}
+
+@keyframes scrollText {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* === HEADER === */
+.header {
+  position: fixed;
+  top: 18px; /* Reducido para dispositivos pequeños */
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 4px 0;
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.scrolled {
+  padding: 4px 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 376px) {
+  .header {
+    top: 20px;
+    padding: 5px 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .header {
+    top: 25px;
+    padding: 8px 0;
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 10px; /* Reducido para dispositivos pequeños */
+  flex-wrap: nowrap; /* Evita que los elementos se envuelvan en dispositivos pequeños */
+}
+
+@media (min-width: 376px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
+.logo {
+  flex: 0 0 auto; /* No permite que el logo se encoja */
+}
+
+.logo img {
+  height: 35px; /* Reducido para iPhone SE */
+  width: auto;
+  transform: scaleX(1.2);
+  margin-left: 0;
+}
+
+@media (min-width: 376px) {
+  .logo img {
+    height: 45px;
+  }
+}
+
+@media (min-width: 768px) {
+  .logo img {
+    height: 85px;
+    margin-left: 70px;
+  }
+}
+
+/* === NAVIGATION === */
+.nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav ul li {
+  margin: 0 12px;
+}
+
+.nav ul li a {
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.4px;
+  position: relative;
+}
+
+.nav ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+.nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* === ACTIONS === */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Reducido para dispositivos pequeños */
+  flex: 0 0 auto; /* No permite que las acciones se encojan */
+}
+
+@media (min-width: 376px) {
+  .headerActions {
+    gap: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .headerActions {
+    gap: 12px;
+  }
+}
+
+.whatsappButton {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Reducido para dispositivos pequeños */
+  padding: 6px 10px; /* Reducido para dispositivos pequeños */
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 0.7rem; /* Reducido para dispositivos pequeños */
+}
+
+@media (min-width: 376px) {
+  .whatsappButton {
+    gap: 5px;
+    padding: 7px 12px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .whatsappButton {
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* === PROFILE === */
+.profileContainer {
+  position: relative;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; /* Reducido para iPhone SE */
+  height: 28px; /* Reducido para iPhone SE */
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+@media (min-width: 376px) {
+  .profileButton {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  .profileButton {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.profileButton:hover {
+  background-color: #e03e00;
+}
+
+.profileMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 6px; /* Reducido para dispositivos pequeños */
+  background-color: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  width: 180px; /* Reducido para dispositivos pequeños */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+@media (min-width: 376px) {
+  .profileMenu {
+    margin-top: 7px;
+    width: 190px;
+  }
+}
+
+@media (min-width: 768px) {
+  .profileMenu {
+    margin-top: 8px;
+    width: 200px;
+  }
+}
+
+.profileInfo {
+  padding: 10px; /* Reducido para dispositivos pequeños */
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 768px) {
+  .profileInfo {
+    padding: 12px;
+  }
+}
+
+.profileInfo span {
+  font-weight: 500;
+  font-size: 0.8rem; /* Reducido para dispositivos pequeños */
+  margin-bottom: 2px;
+}
+
+@media (min-width: 768px) {
+  .profileInfo span {
+    font-size: 0.9rem;
+  }
+}
+
+.profileInfo small {
+  color: #ccc;
+  font-size: 0.65rem; /* Reducido para dispositivos pequeños */
+}
+
+@media (min-width: 768px) {
+  .profileInfo small {
+    font-size: 0.7rem;
+  }
+}
+
+.profileMenuDivider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.profileMenuItem {
+  display: block;
+  padding: 8px 10px; /* Reducido para dispositivos pequeños */
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  text-align: left;
+  width: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.75rem; /* Reducido para dispositivos pequeños */
+}
+
+@media (min-width: 768px) {
+  .profileMenuItem {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+.profileMenuItem:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--accent-color);
+}
+
+/* === MOBILE MENU TOGGLE === */
+.mobileMenuToggle {
+  display: none;
+  font-size: 1.3rem; /* Reducido para dispositivos pequeños */
+  cursor: pointer;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .mobileMenuToggle {
+    font-size: 1.6rem;
+  }
+}
+
+/* === RESPONSIVE STYLES === */
+
+@media (max-width: 992px) {
+  .mobileMenuToggle {
+    display: block;
+  }
+
+  .nav {
+    position: fixed;
+    top: 60px; /* Ajustado para dispositivos pequeños */
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background-color: rgba(0, 0, 0, 0.95);
+    transition: left 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 999;
+  }
+  
+  @media (min-width: 376px) {
+    .nav {
+      top: 70px;
+      height: calc(100vh - 70px);
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .nav {
+      top: 85px;
+      height: calc(100vh - 85px);
+    }
+  }
+
+  .nav.active {
+    left: 0;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav ul li {
+    margin: 12px 0; /* Reducido para dispositivos pequeños */
+  }
+  
+  @media (min-width: 768px) {
+    .nav ul li {
+      margin: 15px 0;
+    }
+  }
+
+  .nav ul li a {
+    font-size: 0.9rem; /* Reducido para dispositivos pequeños */
+  }
+  
+  @media (min-width: 768px) {
+    .nav ul li a {
+      font-size: 1.1rem;
+    }
+  }
+
+  .headerActions {
+    margin-top: 0; /* Eliminado para dispositivos pequeños */
+    justify-content: flex-end; /* Alineado a la derecha */
+    width: auto;
+  }
+
+  .container {
+    flex-direction: row; /* Mantener en fila para dispositivos pequeños */
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (max-width: 375px) {
+  .whatsappButton {
+    display: none;
+  }
+
+  .nav.active .whatsappButton {
+    display: flex;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}/* ============= NUEVAS REGLAS PARA COORDINAR CON EL SLIDER ============= */
+
+/* Ajustes para coordinar con el slider */
+@media (min-width: 992px) {
+  .header {
+    position: fixed;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    z-index: 1010; /* Mayor que el z-index del slider */
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: all 0.3s ease;
+    padding: 3px 0; /* Reducir el padding vertical */
+  }
+  
+  .scrolled {
+    top: 0;
+    padding: 2px 0; /* Reducir aún más cuando está scrolled */
+    background-color: rgba(0, 0, 0, 0.95);
+  }
+  
+  /* Ajuste para el mensaje deslizante */
+  .scrollingMessageContainer {
+    z-index: 1011; /* Mayor que el header */
+    padding: 1px 0; /* Reducir el padding */
+  }
+  
+  /* Ajustar el tamaño del logo para que sea más compacto */
+  .logo img {
+    height: 70px; /* Reducir altura del logo (antes era 85px) */
+    margin-left: 70px;
+  }
+}
+
+/* Ajuste para el mensaje deslizante para que ocupe menos espacio */
+.scrollingMessageContainer {
+  padding: 1px 0; /* Reducir el padding (antes era 2px o 4px) */
+}
+
+@media (min-width: 768px) {
+  .scrollingMessageContainer {
+    padding: 2px 0; /* Reducir el padding (antes era 4px) */
+    font-size: 0.8rem; /* Reducir tamaño de fuente (antes era 0.9rem) */
+  }
+}

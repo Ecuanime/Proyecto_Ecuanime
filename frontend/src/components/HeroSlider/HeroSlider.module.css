@@ -1,0 +1,394 @@
+.heroSlider {
+  height: 60vh;
+  width: 100%;
+  margin-top: 0;
+  position: relative;
+  overflow: hidden;
+  padding-top: 22px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 376px) {
+  .heroSlider {
+    padding-top: 25px;
+  }
+}
+
+@media (min-width: 768px) {
+  .heroSlider {
+    height: 100vh;
+    padding-top: 50px;
+  }
+}
+
+.slidesContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background-size: 1450;
+  background-repeat: no-repeat;
+  background-position: center 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 0;
+}
+
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* ====== ✅ AJUSTE CRÍTICO ENTRE 769px Y 991px ====== */
+@media (min-width: 769px) and (max-width: 991px) {
+  .heroSlider {
+    height: 100vh;
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .slidesContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slide {
+    background-size: contain !important;
+    background-position: center center !important;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Ajuste general cuando hay menos de 1350px */
+@media (max-width: 1350px) {
+  .slide {
+    background-position: center top;
+  }
+}
+
+@media (max-width: 768px) {
+  .slide {
+    background-position: center top;
+    background-size: cover;
+  }
+}
+
+/* iPhone SE y pantallas muy pequeñas */
+@media (max-width: 375px) {
+  .slide {
+    background-position: center top;
+  }
+}
+
+/* Ajuste específico para móviles */
+@media (max-width: 768px) {
+  .slide {
+    background-size: contain !important;
+    background-position: center !important;
+    height: 98%;
+    margin: 0 auto;
+    top: 10px;
+  }
+
+  .heroSlider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 375px) {
+  .slide {
+    background-size: 90% auto !important;
+    top: 15px;
+  }
+}
+
+/* Desktop normal */
+@media (min-width: 992px) {
+  .heroSlider {
+    height: 100vh;
+    max-height: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .slide {
+    background-size: contain;
+    background-position: center;
+    max-height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .slidesContainer {
+    height: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .navButton {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .navButton:hover {
+    opacity: 1;
+  }
+
+  .prevButton {
+    left: 30px;
+  }
+
+  .nextButton {
+    right: 30px;
+  }
+
+  .indicators {
+    bottom: 40px;
+  }
+
+  .indicator {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+  }
+}
+
+/* Pantallas ultrawide */
+@media (min-width: 1440px) {
+  .heroSlider {
+    max-height: 1000px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .slide {
+    background-size: contain;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 2560px) {
+  .slide {
+    background-size: contain;
+    max-width: 2200px;
+    margin: 0 auto;
+  }
+
+  .heroSlider {
+    max-height: 1200px;
+  }
+}
+
+@media (min-width: 3440px) {
+  .slide {
+    max-width: 2800px;
+    background-size: contain;
+  }
+
+  .heroSlider {
+    max-height: 1400px;
+  }
+}
+
+@media (min-width: 992px) and (max-height: 800px) {
+  .heroSlider {
+    max-height: 800px;
+  }
+
+  .slide {
+    background-size: contain;
+  }
+}
+
+/* ====== SLIDESHOW AUTOMÁTICO Y ESTILOS EXTRA ====== */
+
+@keyframes slideshow {
+  0%, 20% {
+    opacity: 1;
+    z-index: 1;
+  }
+  25%, 95% {
+    opacity: 0;
+    z-index: 0;
+  }
+  100% {
+    opacity: 0;
+    z-index: 0;
+  }
+}
+
+.slidesContainer.autoplay .slide:nth-child(1) {
+  animation: slideshow 25s infinite;
+}
+.slidesContainer.autoplay .slide:nth-child(2) {
+  animation: slideshow 25s infinite 5s;
+}
+.slidesContainer.autoplay .slide:nth-child(3) {
+  animation: slideshow 25s infinite 10s;
+}
+.slidesContainer.autoplay .slide:nth-child(4) {
+  animation: slideshow 25s infinite 15s;
+}
+.slidesContainer.autoplay .slide:nth-child(5) {
+  animation: slideshow 25s infinite 20s;
+}
+
+/* Botones */
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+}
+
+@media (min-width: 376px) {
+  .navButton {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .navButton {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+}
+
+.navButton:hover {
+  background-color: rgba(255, 69, 0, 0.8);
+}
+
+.prevButton {
+  left: 10px;
+}
+@media (min-width: 768px) {
+  .prevButton {
+    left: 15px;
+  }
+}
+
+.nextButton {
+  right: 10px;
+}
+@media (min-width: 768px) {
+  .nextButton {
+    right: 15px;
+  }
+}
+
+/* Indicadores */
+.indicators {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .indicators {
+    bottom: 25px;
+    gap: 8px;
+  }
+}
+
+.indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+@media (min-width: 376px) {
+  .indicator {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.indicator.active {
+  background-color: var(--accent-color);
+  transform: scale(1.1);
+}
+
+@keyframes indicatorActive {
+  0%, 20% {
+    background-color: var(--accent-color);
+    transform: scale(1.1);
+  }
+  25%, 95% {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1);
+  }
+}
+
+.slidesContainer.autoplay ~ .indicators .indicator:nth-child(1) {
+  animation: indicatorActive 25s infinite;
+}
+.slidesContainer.autoplay ~ .indicators .indicator:nth-child(2) {
+  animation: indicatorActive 25s infinite 5s;
+}
+.slidesContainer.autoplay ~ .indicators .indicator:nth-child(3) {
+  animation: indicatorActive 25s infinite 10s;
+}
+.slidesContainer.autoplay ~ .indicators .indicator:nth-child(4) {
+  animation: indicatorActive 25s infinite 15s;
+}
+.slidesContainer.autoplay ~ .indicators .indicator:nth-child(5) {
+  animation: indicatorActive 25s infinite 20s;
+}

@@ -1,0 +1,479 @@
+.aboutUs {
+  background-color: #111;
+  position: relative;
+  padding: 80px 0;
+}
+
+/* Added decorative line at top to match products section */
+.aboutUs::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+  opacity: 0.3;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+  .content {
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+  }
+}
+
+.text {
+  flex: 1;
+}
+
+.text p {
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .text p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+/* Added styles for company information sections */
+.companyInfo {
+  color: #fff;
+}
+
+.companyInfo h3 {
+  background: linear-gradient(135deg, var(--accent-color), #ff6b35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.highlights {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+@media (min-width: 768px) {
+  .highlights {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.highlight {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Added top accent line that appears on hover */
+.highlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-color), #ff6b35);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.highlight:hover::before {
+  transform: scaleX(1);
+}
+
+.highlight:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 99, 71, 0.1);
+  border-color: rgba(255, 99, 71, 0.2);
+}
+
+/* Updated highlight headings with accent color */
+.highlight h4 {
+  color: var(--accent-color);
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.highlight:hover h4 {
+  color: #ff6b35;
+}
+
+.highlight p {
+  color: #fff; /* White text on dark background for proper contrast */
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.contactInfo {
+  margin-top: 30px;
+  padding: 25px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+/* Added shimmer effect to contact info */
+.contactInfo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s;
+}
+
+.contactInfo:hover::before {
+  left: 100%;
+}
+
+/* Updated contact info heading with gradient text */
+.contactInfo h4 {
+  background: linear-gradient(135deg, var(--accent-color), #ff6b35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.contactDetails p {
+  color: #fff; /* White text on dark background for proper contrast */
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.contactDetails strong {
+  color: #fff;
+}
+
+.values {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .values {
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 30px;
+  }
+}
+
+.value {
+  text-align: center;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.value:hover {
+  transform: translateY(-5px);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.value h3 {
+  color: var(--accent-color);
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.videoContainer {
+  flex: 1;
+  width: 100%;
+  position: relative;
+}
+
+.videoCarousel {
+  position: relative;
+  width: 100%;
+  height: 600px; /* Altura fija en lugar de aspect ratio */
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.video.active {
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 2;
+}
+
+.video.hidden {
+  opacity: 0;
+  transform: translateX(100%);
+  z-index: 1;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover; /* Esto ayuda a mantener las proporciones */
+}
+
+/* Estilos específicos para Instagram */
+.videoWrapper iframe[src*="instagram"] {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+}
+
+.playOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  border-radius: 8px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.playButton {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .playButton {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* Updated play button with accent color hover */
+.playButton:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, var(--accent-color), #ff6b35);
+  box-shadow: 0 4px 15px rgba(255, 99, 71, 0.3);
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.videoControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.navButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+/* Updated navigation buttons with accent color hover effects */
+.navButton:hover {
+  background: rgba(255, 99, 71, 0.2);
+  border-color: var(--accent-color);
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(255, 99, 71, 0.3);
+}
+
+.videoIndicators {
+  display: flex;
+  gap: 10px;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: var(--accent-color, #007bff);
+  transform: scale(1.2);
+}
+
+.videoTitle {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.fadeIn {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Global styles for section and container */
+.section {
+  padding: 4rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Fixed contrast issue by ensuring section-title has white text */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #fff !important; /* Added !important to override any conflicting styles */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .playButton {
+    width: 50px;
+    height: 50px;
+  }
+
+  .videoCarousel {
+    height: 500px;
+  }
+
+  .videoWrapper iframe[src*="instagram"] {
+    min-height: 500px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  /* Added responsive styles for company info sections */
+  .highlights {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .highlight {
+    padding: 15px;
+  }
+
+  .contactInfo {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .companyInfo h3 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .videoCarousel {
+    height: 400px;
+  }
+
+  .videoWrapper iframe[src*="instagram"] {
+    min-height: 400px;
+  }
+
+  /* Added mobile styles for company info */
+  .highlight h4 {
+    font-size: 1rem;
+  }
+
+  .highlight p {
+    font-size: 0.85rem;
+  }
+
+  .contactDetails p {
+    font-size: 0.9rem;
+  }
+}

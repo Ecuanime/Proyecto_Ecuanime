@@ -1,0 +1,265 @@
+.testimonials {
+  background-color: #0a0a0a;
+  position: relative;
+}
+
+.testimonialsContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+  .testimonialsContainer {
+    margin-bottom: 20px;
+  }
+}
+
+.testimonialsSlider {
+  width: 100%;
+  overflow: hidden;
+  padding: 15px 0;
+}
+
+@media (min-width: 768px) {
+  .testimonialsSlider {
+    padding: 20px 0;
+  }
+}
+
+.testimonialsTrack {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.testimonialCard {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 15px;
+  height: 100%;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .testimonialCard {
+    padding: 20px;
+  }
+}
+
+.testimonialCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.quoteIcon {
+  font-size: 1.4rem;
+  color: var(--accent-color);
+  opacity: 0.5;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 768px) {
+  .quoteIcon {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+}
+
+.rating {
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .rating {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+  }
+}
+
+.starFilled {
+  color: #ffd700;
+}
+
+.starEmpty {
+  color: #555;
+}
+
+.testimonialText {
+  font-style: italic;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .testimonialText {
+    margin-bottom: 15px;
+    line-height: 1.5;
+    font-size: 1rem;
+  }
+}
+
+.testimonialAuthor {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (min-width: 768px) {
+  .testimonialAuthor {
+    padding-top: 12px;
+    gap: 12px;
+  }
+}
+
+.authorAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .authorAvatar {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+.authorAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.authorInfo {
+  flex: 1;
+}
+
+.testimonialAuthor h4 {
+  font-weight: 600;
+  margin-bottom: 3px;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .testimonialAuthor h4 {
+    margin-bottom: 4px;
+    font-size: 1rem;
+  }
+}
+
+.testimonialAuthor p {
+  margin-bottom: 3px;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .testimonialAuthor p {
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+  }
+}
+
+.testimonialAuthor span {
+  font-size: 0.65rem;
+  color: #999;
+}
+
+@media (min-width: 768px) {
+  .testimonialAuthor span {
+    font-size: 0.7rem;
+  }
+}
+
+.navButton {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .navButton {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+}
+
+.navButton:hover {
+  background-color: var(--accent-color);
+}
+
+.prevButton {
+  margin-right: 10px;
+}
+
+@media (min-width: 768px) {
+  .prevButton {
+    margin-right: 12px;
+  }
+}
+
+.nextButton {
+  margin-left: 10px;
+}
+
+@media (min-width: 768px) {
+  .nextButton {
+    margin-left: 12px;
+  }
+}
+
+.indicators {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+@media (min-width: 768px) {
+  .indicators {
+    gap: 8px;
+    margin-top: 15px;
+  }
+}
+
+.indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .indicator {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.indicator.active {
+  background-color: var(--accent-color);
+  transform: scale(1.1);
+} 

@@ -1,0 +1,184 @@
+.comparison {
+  background-color: #0a0a0a;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+@media (min-width: 768px) {
+  .subtitle {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+  }
+}
+
+.tableWrapper {
+  margin-bottom: 15px;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 768px) {
+  .tableWrapper {
+    margin-bottom: 20px;
+  }
+}
+
+.comparisonTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para pantallas grandes (desktop) */
+@media (min-width: 768px) {
+  .comparisonTable {
+    min-width: 600px;
+  }
+
+  .comparisonTable th,
+  .comparisonTable td {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .comparisonTable th {
+    background-color: rgba(255, 255, 255, 0.05);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .featureColumn {
+    text-align: left !important;
+    min-width: 180px;
+  }
+}
+
+/* Estilos para pantallas pequeñas (móvil) */
+@media (max-width: 767px) {
+  .comparisonTable,
+  .comparisonTable thead,
+  .comparisonTable tbody,
+  .comparisonTable th,
+  .comparisonTable td,
+  .comparisonTable tr {
+    display: block;
+  }
+
+  .comparisonTable thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .comparisonTable tr {
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+
+  .comparisonTable td {
+    position: relative;
+    padding: 10px 10px 10px 50%;
+    text-align: right;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.85rem;
+  }
+
+  .comparisonTable td:before {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: 500;
+  }
+
+  /* Añadir etiquetas para cada celda */
+  .comparisonTable td:nth-of-type(1):before {
+    content: "Características";
+  }
+  .comparisonTable td:nth-of-type(2):before {
+    content: "Nosotros";
+  }
+  .comparisonTable td:nth-of-type(3):before {
+    content: "Otros Proveedores";
+  }
+
+  .usColumn {
+    background-color: rgba(255, 69, 0, 0.05);
+  }
+}
+
+.comparisonTable tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.comparisonTable tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.featureColumn {
+  text-align: left !important;
+  font-weight: 500;
+  min-width: 150px;
+}
+
+.usColumn {
+  background-color: rgba(255, 69, 0, 0.1);
+}
+
+.checkIcon {
+  color: #28a745;
+  font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .checkIcon {
+    font-size: 1.1rem;
+  }
+}
+
+.timesIcon {
+  color: #dc3545;
+  font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .timesIcon {
+    font-size: 1.1rem;
+  }
+}
+
+.callToAction {
+  text-align: center;
+  margin-top: 15px;
+}
+
+@media (min-width: 768px) {
+  .callToAction {
+    margin-top: 20px;
+  }
+}
+
+.callToAction p {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 768px) {
+  .callToAction p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+}

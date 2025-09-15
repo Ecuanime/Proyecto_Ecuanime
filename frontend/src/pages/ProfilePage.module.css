@@ -1,0 +1,324 @@
+.profilePage {
+  padding: 120px 0 80px;
+  background-color: #000;
+  min-height: 100vh;
+}
+
+.profileContainer {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.profileHeader {
+  margin-bottom: 30px;
+}
+
+.profileHeader h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.profileHeader p {
+  color: #ccc;
+}
+
+.profileContent {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
+}
+
+.profileSidebar {
+  text-align: center;
+  padding: 30px 20px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  height: fit-content;
+}
+
+.profileAvatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 0 auto 20px;
+}
+
+.profileSidebar h2 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.profileSidebar p {
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.profileRole {
+  display: inline-block;
+  padding: 5px 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: var(--accent-color);
+}
+
+.profileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.adminButton {
+  padding: 10px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.adminButton:hover {
+  background-color: #e03e00;
+}
+
+.logoutButton {
+  padding: 10px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logoutButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.profileForm {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 30px;
+}
+
+.profileForm h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #f0f0f0;
+}
+
+.inputIcon {
+  margin-right: 8px;
+  color: var(--accent-color);
+}
+
+/* Estilo para los inputs generales */
+.form-control {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #f0f0f0;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.25);
+}
+
+.form-control::placeholder {
+  color: #aaa;
+}
+
+/* Estilo para inputs deshabilitados - IGUAL que los habilitados */
+.form-control[disabled] {
+  background-color: rgba(0, 0, 0, 0.3) !important; /* Mismo fondo que los campos normales */
+  color: #f0f0f0 !important; /* Mismo color de texto que los campos normales */
+  cursor: not-allowed; /* Solo esto indica que está deshabilitado */
+  border-color: rgba(255, 255, 255, 0.2) !important; /* Mismo borde que los campos normales */
+  opacity: 1 !important; /* Evitar opacidad automática del navegador */
+}
+
+/* Asegurar que el placeholder tenga el mismo color */
+.form-control[disabled]::-webkit-input-placeholder {
+  color: #aaa !important; /* Mismo color que los campos normales */
+}
+
+.form-control[disabled]::-moz-placeholder {
+  color: #aaa !important;
+}
+
+.form-control[disabled]:-ms-input-placeholder {
+  color: #aaa !important;
+}
+
+.form-control[disabled]::placeholder {
+  color: #aaa !important;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Estilo mejorado para el texto pequeño debajo del campo de email */
+.formGroup small {
+  display: block;
+  color: #bbb !important; /* Color más claro para mejor visibilidad */
+  margin-top: 5px;
+  font-size: 0.85rem; /* Ligeramente más grande */
+  padding-left: 30px;
+  font-style: italic; /* Añadir cursiva para diferenciarlo */
+}
+
+.error {
+  border-color: var(--error-color) !important;
+}
+
+/* Mensaje de error para validación del formulario */
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}
+
+.saveButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+.saveButton:hover {
+  background-color: #e03e00;
+}
+
+.saveButton:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.successMessage {
+  background-color: rgba(40, 167, 69, 0.2);
+  color: #28a745;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.successAlert {
+  border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.errorMessage {
+  background-color: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.errorAlert {
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.alertIcon {
+  font-size: 1.2rem;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--accent-color);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 992px) {
+  .profileContent {
+    grid-template-columns: 1fr;
+  }
+
+  .profileSidebar {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profileContainer {
+    padding: 30px 20px;
+  }
+
+  .profileForm {
+    padding: 20px;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

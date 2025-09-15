@@ -1,0 +1,63 @@
+.termsPage {
+    padding: 120px 0 80px;
+    background-color: #000;
+    min-height: 100vh;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  .content {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 40px;
+    margin-bottom: 40px;
+  }
+  
+  .section {
+    margin-bottom: 30px;
+  }
+  
+  .section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+  }
+  
+  .section p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+  }
+  
+  .section ul {
+    margin-bottom: 15px;
+    padding-left: 20px;
+  }
+  
+  .section ul li {
+    margin-bottom: 8px;
+  }
+  
+  .backToHome {
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .termsPage {
+      padding: 100px 0 60px;
+    }
+  
+    .title {
+      font-size: 2rem;
+    }
+  
+    .content {
+      padding: 20px;
+    }
+  }
+  

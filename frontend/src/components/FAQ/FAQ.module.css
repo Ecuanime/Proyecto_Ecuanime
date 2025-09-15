@@ -1,0 +1,142 @@
+.faq {
+  background-color: #111;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+@media (min-width: 768px) {
+  .subtitle {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+  }
+}
+
+.faqContainer {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.faqItem {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .faqItem {
+    margin-bottom: 12px;
+  }
+}
+
+.faqItem.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.faqQuestion {
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .faqQuestion {
+    padding: 15px;
+  }
+}
+
+.faqQuestion:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.faqQuestion h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .faqQuestion h3 {
+    font-size: 1rem;
+  }
+}
+
+.faqIcon {
+  color: var(--accent-color);
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .faqIcon {
+    font-size: 0.9rem;
+  }
+}
+
+.faqItem.active .faqIcon {
+  transform: rotate(180deg);
+}
+
+.faqAnswer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faqItem.active .faqAnswer {
+  max-height: 500px;
+  padding: 0 12px 12px;
+}
+
+@media (min-width: 768px) {
+  .faqItem.active .faqAnswer {
+    padding: 0 15px 15px;
+  }
+}
+
+.faqAnswer p {
+  margin: 0;
+  color: #ccc;
+  line-height: 1.4;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .faqAnswer p {
+    line-height: 1.5;
+    font-size: 1rem;
+  }
+}
+
+.moreQuestions {
+  text-align: center;
+  margin-top: 15px;
+}
+
+@media (min-width: 768px) {
+  .moreQuestions {
+    margin-top: 20px;
+  }
+}
+
+.moreQuestions p {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .moreQuestions p {
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
+}

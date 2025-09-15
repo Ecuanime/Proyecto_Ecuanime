@@ -1,0 +1,234 @@
+.catalogDownload {
+  background-color: #111;
+  position: relative;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+@media (min-width: 768px) {
+  .subtitle {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+  }
+}
+
+.formContainer {
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 576px) {
+  .formContainer {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 768px) {
+  .formContainer {
+    max-width: 700px;
+    padding: 30px;
+  }
+}
+
+.form {
+  width: 100%;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+  .formGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+}
+
+.formGroup {
+  margin-bottom: 0;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .formGroup label {
+    margin-bottom: 6px;
+    font-size: 1rem;
+  }
+}
+
+.error {
+  border-color: var(--error-color) !important;
+}
+
+.catalogsSection {
+  margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+  .catalogsSection {
+    margin-bottom: 20px;
+  }
+}
+
+.catalogsSection h3 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .catalogsSection h3 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+}
+
+.catalogsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+@media (min-width: 576px) {
+  .catalogsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .catalogsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}
+
+.catalogCheckbox {
+  display: flex;
+  align-items: center;
+}
+
+.catalogCheckbox input[type="checkbox"] {
+  margin-right: 6px;
+  width: 14px;
+  height: 14px;
+  accent-color: var(--accent-color);
+}
+
+@media (min-width: 768px) {
+  .catalogCheckbox input[type="checkbox"] {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.submitContainer {
+  text-align: center;
+}
+
+.submitButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .submitButton {
+    gap: 8px;
+    padding: 10px 25px;
+    font-size: 1rem;
+  }
+}
+
+.successMessage {
+  margin-top: 12px;
+  padding: 10px;
+  background-color: rgba(40, 167, 69, 0.2);
+  border-radius: 4px;
+  color: #28a745;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .successMessage {
+    margin-top: 15px;
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
+
+.errorMessage {
+  margin-bottom: 12px;
+  padding: 10px;
+  background-color: rgba(220, 53, 69, 0.2);
+  border-radius: 4px;
+  color: #dc3545;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .errorMessage {
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+@media (min-width: 768px) {
+  .loading {
+    padding: 30px 0;
+  }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  margin-bottom: 6px;
+  font-size: 1.1rem;
+}
+
+@media (min-width: 768px) {
+  .spinner {
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

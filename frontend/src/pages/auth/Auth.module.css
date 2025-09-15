@@ -1,0 +1,273 @@
+.authPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  padding: 80px 20px;
+}
+
+.authContainer {
+  width: 100%;
+  max-width: 550px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.authHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+.authHeader h1 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.authHeader p {
+  color: #ccc;
+}
+
+.errorAlert {
+  background-color: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.successAlert {
+  background-color: rgba(40, 167, 69, 0.2);
+  color: #28a745;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.alertIcon {
+  font-size: 1.2rem;
+}
+
+.authForm {
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #f0f0f0;
+}
+
+.inputIcon {
+  margin-right: 8px;
+  color: #6c757d; /* Cambiado de #007bff a un gris más neutro */
+}
+
+/* Contenedor para inputs de contraseña con botón de ojo */
+.passwordInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #6c757d; /* Mismo color neutro */
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  transition: color 0.3s ease;
+}
+
+.passwordToggle:hover {
+  color: #f0f0f0;
+}
+
+.passwordToggle:focus {
+  outline: none;
+  color: #f0f0f0;
+}
+
+/* Estilos para los inputs */
+.form-control {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #f0f0f0;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+/* Para inputs de contraseña, agregar padding derecho para el botón */
+.passwordInputContainer .form-control {
+  padding-right: 45px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #6c757d; /* Cambiado de #007bff */
+  box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.25); /* Cambiado de azul */
+}
+
+.form-control::placeholder {
+  color: #aaa;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.error {
+  border-color: #dc3545 !important;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}
+
+.forgotPassword {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.forgotPassword a {
+  color: #6c757d; /* Cambiado de #007bff */
+  font-size: 0.9rem;
+}
+
+.forgotPassword a:hover {
+  text-decoration: underline;
+  color: #f0f0f0;
+}
+
+.authButton {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #6c757d; /* Cambiado de #007bff */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.authButton:hover {
+  background-color: #5a6268; /* Tono más oscuro del gris */
+  transform: translateY(-2px);
+}
+
+.authButton:disabled {
+  background-color: #495057;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.authFooter {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.authFooter p {
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.authFooter a {
+  color: #6c757d; /* Cambiado de #007bff */
+}
+
+.authFooter a:hover {
+  text-decoration: underline;
+  color: #f0f0f0;
+}
+
+.backLink {
+  color: #6c757d; /* Cambiado de #007bff */
+  font-size: 0.9rem;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+  color: #f0f0f0;
+}
+
+.successContainer {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.successIcon {
+  font-size: 3rem;
+  color: #28a745;
+  margin-bottom: 20px;
+}
+
+.successContainer h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #f0f0f0;
+}
+
+.successContainer p {
+  color: #ccc;
+  margin-bottom: 25px;
+}
+
+.successMessage {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.successMessage p {
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .authContainer {
+    padding: 30px 20px;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
